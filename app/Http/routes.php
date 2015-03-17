@@ -15,7 +15,19 @@ Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
-Route::controllers([
-	'auth' => 'Auth\AuthController',
-	'password' => 'Auth\PasswordController',
-]);
+
+
+Route::group(['prefix'=>'backend'],function(){
+
+//    Route::any('/','App\Controllers\Admin\IndexController@index');
+
+    Route::resource('home', 'backend\HomeController');
+    Route::resource('cate','backend\CateController');
+    Route::resource('content','backend\ContentController');
+
+    Route::controllers([
+        'auth' => 'backend\AuthController',
+        'password' => 'backend\PasswordController',
+    ]);
+
+});

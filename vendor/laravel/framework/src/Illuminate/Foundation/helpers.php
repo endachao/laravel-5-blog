@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Str;
+
 if ( ! function_exists('abort'))
 {
 	/**
@@ -564,6 +566,56 @@ if ( ! function_exists('view'))
 	}
 }
 
+if ( ! function_exists('backendView'))
+{
+    /**
+     * 展示后台view
+     * @author 袁超
+     * @param  string  $view
+     * @param  array   $data
+     * @param  array   $mergeData
+     * @return \Illuminate\View\View
+     */
+    function backendView($view = null, $data = array(), $mergeData = array())
+    {
+        $factory = app('Illuminate\Contracts\View\Factory');
+
+        if (func_num_args() === 0)
+        {
+            return $factory;
+        }
+
+        $BaseviewPath = Config::get('path.backendBaseViewPath');
+
+        $module = Config::get('path.class');
+        if(!empty($module)){
+            $BaseviewPath .= Config::get('path.modules.'.$module);
+        }
+
+        return $factory->make($BaseviewPath.$view, $data, $mergeData);
+    }
+}
+
+if ( ! function_exists('conversionClassPath'))
+{
+    /**
+     * 转换class 名
+     * @author 袁超
+     * @param  string  $className
+     * @return string
+     */
+    function conversionClassPath($className)
+    {
+        $className = str_replace('\\','-',$className);
+        if(preg_match("/.*-(.*)Controller/is",$className,$matches)){
+            Config::set('path.class',strtolower($matches[1]));
+        }else{
+            return response('conversionClassPathError', 500);
+        }
+    }
+}
+
+
 if ( ! function_exists('env'))
 {
 	/**
@@ -596,6 +648,11 @@ if ( ! function_exists('env'))
 			case 'empty':
 			case '(empty)':
 				return '';
+		}
+		
+		if (Str::startsWith($value, '"') && Str::endsWith($value, '"'))
+		{
+			return substr($value, 1, -1);
 		}
 
 		return $value;
