@@ -590,6 +590,7 @@ if ( ! function_exists('backendView'))
         $module = Config::get('path.class');
         if(!empty($module)){
             $BaseviewPath .= Config::get('path.modules.'.$module);
+            Config::set('path.class','');
         }
 
         return $factory->make($BaseviewPath.$view, $data, $mergeData);
