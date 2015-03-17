@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Model\Category;
-use Illuminate\Support\Facades\Config;
 
 class CateController extends Controller {
 
