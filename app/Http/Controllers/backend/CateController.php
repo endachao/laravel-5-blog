@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 
 use App\Model\Category;
 
+use App\Http\Requests\CateForm;
+
+use Input,Redirect,Notification;
+
 class CateController extends Controller {
 
     public function __construct(){
@@ -21,6 +25,7 @@ class CateController extends Controller {
 	public function index()
 	{
 		//
+
         $data = array(
             'cate'=>Category::getCategoryDataModel(),
         );
@@ -35,7 +40,12 @@ class CateController extends Controller {
 	public function create()
 	{
 		//
-        return backendView('create');
+        return backendView(
+            'create',
+            [
+                'catArr'=>Category::getCatFieldData()
+            ]
+        );
 	}
 
 	/**
@@ -43,9 +53,18 @@ class CateController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(CateForm $resuest)
 	{
-		//
+
+        if(Category::create(Category::setFieldData())){
+
+            Notification::success('添加成功');
+
+            return Redirect::route('backend.cate.index');
+        }
+
+
+
 	}
 
 	/**

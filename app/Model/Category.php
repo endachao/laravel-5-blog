@@ -1,7 +1,7 @@
 <?php namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Input;
 class Category extends Model {
 
 	//
@@ -17,6 +17,13 @@ class Category extends Model {
         'seo_desc',
     ];
 
+    static $catData = [
+        0=>'顶级分类',
+    ];
+
+
+
+
     /**
      * 获取分类列表
      * @todo 排序需要修改
@@ -28,4 +35,28 @@ class Category extends Model {
         return $category;
     }
 
+    public static function getCatFieldData(){
+        $category = Category::select('id','cate_name')->get();
+
+        foreach($category as $k=>$v){
+            self::$catData[$v->id] = $v->cate_name;
+        }
+
+        unset($category);
+
+        return self::$catData;
+
+    }
+
+    public static function setFieldData(){
+        $fieldData = array();
+        $category = new Category();
+        $arr = $category->getFillable();
+        foreach($arr as $v){
+            $fieldData[$v] = Input::get($v);
+        }
+        unset($arr);
+        unset($category);
+        return $fieldData;
+    }
 }

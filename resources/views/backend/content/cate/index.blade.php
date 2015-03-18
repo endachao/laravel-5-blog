@@ -3,10 +3,11 @@
 @section('content')
         <div class="col-md-10">
             <div class="panel panel-default">
+                {!! Notification::showAll() !!}
                 <div class="panel-heading">内容管理</div>
 
                 <div class="panel-body">
-                    <a class="btn btn-success" href="{{ URL::route('backend.cate.create')}}">创建管理员</a>
+                    <a class="btn btn-success" href="{{ URL::route('backend.cate.create')}}">创建分类</a>
 
                     <table class="table table-hover table-top">
                         <tr>
