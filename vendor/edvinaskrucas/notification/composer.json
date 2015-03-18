@@ -1,0 +1,26 @@
+{
+    "name": "edvinaskrucas/notification",
+    "keywords": ["laravel", "notifications", "messages", "flash", "instant"],
+    "description": "Package for Laravel for helping to manage flash / instant notifications / messages.",
+    "authors": [
+        {
+            "name": "Edvinas Kručas",
+            "email": "edv.krucas@gmail.com"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "illuminate/support": "5.*",
+        "illuminate/session": "5.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.7.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Krucas\\Notification": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
