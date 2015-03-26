@@ -20,7 +20,7 @@
                         @foreach($cate as $k=> $v)
                         <tr>
                             <th scope="row">{{ $v->id }}</th>
-                            <td>{{ $v->cate_name }}</td>
+                            <td>{{ $v->html}} {{ $v->cate_name }}</td>
                             <td>{{ $v->created_at }}</td>
                             <td class="text-right">
 
