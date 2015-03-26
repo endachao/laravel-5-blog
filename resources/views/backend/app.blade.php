@@ -21,6 +21,10 @@
         .table-top{
             margin-top: 20px;
         }
+        .btn_form{
+           float: right;
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>

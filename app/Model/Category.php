@@ -35,11 +35,15 @@ class Category extends Model {
         return $category;
     }
 
-    public static function getCatFieldData(){
+    public static function getCatFieldData($catId=false){
         $category = Category::select('id','cate_name')->get();
 
         foreach($category as $k=>$v){
             self::$catData[$v->id] = $v->cate_name;
+        }
+
+        if($catId){
+            unset(self::$catData[$catId]);
         }
 
         unset($category);

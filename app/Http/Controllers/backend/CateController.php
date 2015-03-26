@@ -56,14 +56,20 @@ class CateController extends Controller {
 	public function store(CateForm $resuest)
 	{
 
-        if(Category::create(Category::setFieldData())){
+        try{
 
-            Notification::success('添加成功');
+            if(Category::create(Category::setFieldData())){
 
-            return Redirect::route('backend.cate.index');
+                Notification::success('添加成功');
+
+                return Redirect::route('backend.cate.index');
+            }
+
+        }catch (\Exception $e){
+
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+
         }
-
-
 
 	}
 
@@ -87,6 +93,7 @@ class CateController extends Controller {
 	public function edit($id)
 	{
 		//
+        return backendView('edit')->withCate(Category::find($id));
 	}
 
 	/**
@@ -95,9 +102,22 @@ class CateController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,CateForm $result)
 	{
 		//
+        try{
+
+            if(Category::where('id',$id)->update(Category::setFieldData())){
+
+                Notification::success('更新成功');
+
+                return Redirect::route('backend.cate.index');
+            }
+
+        }catch (\Exception $e){
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
+
 	}
 
 	/**
@@ -109,6 +129,10 @@ class CateController extends Controller {
 	public function destroy($id)
 	{
 		//
+        if(Category::destroy($id)){
+            Notification::success('删除成功');
+            return Redirect::route('backend.cate.index');
+        }
 	}
 
 }
