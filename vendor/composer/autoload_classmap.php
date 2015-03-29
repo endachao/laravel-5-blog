@@ -6,9 +6,12 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'CreateArticleStatusTable' => $baseDir . '/database/migrations/2015_03_26_102914_create_article_status_table.php',
+    'CreateArticleTable' => $baseDir . '/database/migrations/2015_03_26_102905_create_article_table.php',
     'CreateCategoriesTable' => $baseDir . '/database/migrations/2015_03_16_083845_create_categories_table.php',
     'CreateCategoryTable' => $baseDir . '/database/migrations/2015_03_16_082647_create_category_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreateTagsTable' => $baseDir . '/database/migrations/2015_03_27_025700_create_tags_table.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/File/Iterator.php',
@@ -388,6 +391,7 @@ return array(
     'PHP_Token_WHITESPACE' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'RemoveArticleFieldTable' => $baseDir . '/database/migrations/2015_03_27_025551_remove_article_field_table.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',

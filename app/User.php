@@ -31,4 +31,27 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 */
 	protected $hidden = ['password', 'remember_token'];
 
+    static $users = [];
+
+    public static function getUserArr($userId){
+
+        if(!isset(self::$users[$userId])){
+            $user = self::select('name')->find($userId)->toArray();
+            if(empty($user)){
+                return false;
+            }
+            self::$users[$userId] = $user['name'];
+        }
+
+        return self::$users[$userId];
+    }
+
+    public static function getUserNameByUserId($userId){
+
+        $userName = self::getUserArr($userId);
+
+        return !empty($userName)?$userName:'用户不存在';
+
+    }
+
 }

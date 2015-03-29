@@ -21,13 +21,13 @@ class Category extends Model {
         0=>'顶级分类',
     ];
 
+    static $category = [];
 
 
     public $html;
 
     /**
      * 获取分类列表
-     * @todo 排序需要修改
      * @return mixed
      */
     public static function getCategoryDataModel(){
@@ -36,6 +36,30 @@ class Category extends Model {
         $data = self::getSortModel($category);
 
         return $data;
+    }
+
+    /**
+     * 此方法维护静态数组 $category
+     */
+    private  static function getCategoryArr($catId){
+
+        if(!isset(self::$category[$catId])){
+            $cate = self::select('cate_name')->find($catId)->toArray();
+            if(empty($cate)){
+                return false;
+            }
+            self::$category[$catId] = $cate['cate_name'];
+        }
+
+        return self::$category[$catId];
+
+    }
+
+    public static function getCategoryNameByCatId($catId){
+
+        $cate = self::getCategoryArr($catId);
+
+        return !empty($cate)?$cate:'分类不存在';
     }
 
     public static function getCatFieldData($catId=false){

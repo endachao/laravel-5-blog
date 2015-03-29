@@ -129,6 +129,11 @@ class CateController extends Controller {
 	public function destroy($id)
 	{
 		//
+        $son = Category::where('parent_id','=',$id)->get()->toArray();
+        if(!empty($son)){
+            Notification::error('请先删除下级分类');
+            return Redirect::route('backend.cate.index');
+        }
         if(Category::destroy($id)){
             Notification::success('删除成功');
             return Redirect::route('backend.cate.index');

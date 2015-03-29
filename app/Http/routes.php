@@ -24,6 +24,7 @@ Route::group(['prefix'=>'backend'],function(){
     Route::resource('home', 'backend\HomeController');
     Route::resource('cate','backend\CateController');
     Route::resource('content','backend\ContentController');
+    Route::resource('article','backend\ArticleController');
 
     Route::controllers([
         'auth' => 'backend\AuthController',

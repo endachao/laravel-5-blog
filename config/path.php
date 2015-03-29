@@ -8,6 +8,7 @@ return [
     'backendBaseViewPath'=>'backend.',
     'modules'=>[
         'cate'=>CONTENT.'cate.',
+        'article'=>CONTENT.'article.',
     ],
     'class'=>'',
 ];

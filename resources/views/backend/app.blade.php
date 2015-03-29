@@ -8,6 +8,8 @@
 
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 
+    <script type="text/javascript" src="{{ asset('/plugin/jquery-1.9.1.js ') }}"></script>
+
 	<!-- Fonts -->
 <!--	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>-->
 
