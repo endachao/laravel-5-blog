@@ -1,23 +1,68 @@
-## Laravel PHP Framework
+## laravel-5-blog
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+Blog system development based on laravel  5.0.*
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+###Usage
+---
+1. clone laravel-5-blog 到你的服务器环境
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+	```
+	cd www #你的服务器放网站的目录
+	git clone git@github.com:yccphp/laravel-blog.git
+	```
 
-## Official Documentation
+1. 切换到 laravel-5-blog 所在目录，使用composer 更新项目
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+	> 如果没有安装过composer请先安装：<br>
+ 	http://www.phpcomposer.com/
+	```
+	// 因为我提交的时候,为了避免大家重新下载各种包，我直接提交了 vendor ，所以执行 composer dump-autoload 就行
+	cd laravel-5-blog/
+	composer dump-autoload	
+	```
 
-## Contributing
+1. 修改数据库配置`.env`,在数据库中创建一个`库`,把配置信息填写到配置文件中
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+1. 修改`app/storage/` 目录权限为可写,*nix下 执行：
 
-### License
+    ```
+    sudo chmod -R 755 app/storage/
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+1. 使用了默认的Auth ，请自行初始化
+1. 安装数据库
+
+    ```
+    php artisan migrate #安装数据表结构
+    ```
+
+1. 开启重写模块:使用`apache`请开启`mod_rewrite`,使用`nginx`同学请参考这个配置示例：[https://gist.github.com/davzie/3938080](https://gist.github.com/davzie/3938080)
+
+
+1. 把你的域名绑定到 `laravel-5-blog/public` 下
+
+1. 那么现在访问`http://yourhost/backend` 应该会跳转到后台登录页。
+
+
+###开发进度
+---
+目前还在开发中，您可以点击 `watch` ，订阅最新推送，可以点击 `start` 来支持我
+
+博客项目建立时间：2015-03-11
+
+后台开发进度
+
+1. 后台登录：100%
+2. 分类：100%
+3. 标签：100%
+4. 文章：100%
+5. 用户组：20%
+6. 用户：20%
+7. 网站基本设置：0%
+8. 导航管理：0%
+9. 单页管理：0%
+10. 评论：0%
+
+喜欢这个项目，喜欢 laravel 欢迎加入 QQ 群与我们讨论：`365969825`
+
+####感谢支持！
