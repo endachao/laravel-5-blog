@@ -17,18 +17,18 @@ Route::get('home', 'HomeController@index');
 
 
 
-Route::group(['prefix'=>'backend'],function(){
 
-//    Route::any('/','App\Controllers\Admin\IndexController@index');
+Route::controllers([
+    'backend/auth' => 'backend\AuthController',
+    'backend/password' => 'backend\PasswordController',
+]);
 
+Route::group(['prefix'=>'backend','middleware'=>'auth'],function(){
+    Route::any('/','backend\HomeController@index');
     Route::resource('home', 'backend\HomeController');
     Route::resource('cate','backend\CateController');
     Route::resource('content','backend\ContentController');
     Route::resource('article','backend\ArticleController');
-
-    Route::controllers([
-        'auth' => 'backend\AuthController',
-        'password' => 'backend\PasswordController',
-    ]);
+    Route::resource('tags','backend\TagsController');
 
 });

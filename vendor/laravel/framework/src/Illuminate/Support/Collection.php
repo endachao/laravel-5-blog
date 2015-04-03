@@ -89,7 +89,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 			});
 		}
 
-		if (is_callable($key))
+		if ($this->useAsCallable($key))
 		{
 			return ! is_null($this->first($key));
 		}
@@ -627,7 +627,7 @@ class Collection implements ArrayAccess, Arrayable, Countable, IteratorAggregate
 		// and grab the corresponding values for the sorted keys from this array.
 		foreach ($this->items as $key => $value)
 		{
-			$results[$key] = $callback($value);
+			$results[$key] = $callback($value, $key);
 		}
 
 		$descending ? arsort($results, $options)

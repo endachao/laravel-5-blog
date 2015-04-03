@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Str;
+use Illuminate\Container\Container;
 
 if ( ! function_exists('abort'))
 {
@@ -45,14 +46,11 @@ if ( ! function_exists('app'))
 	 * @param  array   $parameters
 	 * @return mixed|\Illuminate\Foundation\Application
 	 */
-	function app($make = null, $parameters = array())
+	function app($make = null, $parameters = [])
 	{
-		if ( ! is_null($make))
-		{
-			return app()->make($make, $parameters);
-		}
+		if (is_null($make)) return Container::getInstance();
 
-		return Illuminate\Container\Container::getInstance();
+		return Container::getInstance()->make($make, $parameters);
 	}
 }
 
@@ -213,6 +211,20 @@ if ( ! function_exists('csrf_token'))
 		}
 
 		throw new RuntimeException("Application session store not set.");
+	}
+}
+
+if ( ! function_exists('database_path'))
+{
+	/**
+	 * Get the database path.
+	 *
+	 * @param  string  $path
+	 * @return string
+	 */
+	function database_path($path = '')
+	{
+		return app()->make('path.database').($path ? '/'.$path : $path);
 	}
 }
 
@@ -592,15 +604,15 @@ if ( ! function_exists('env'))
 			case '(false)':
 				return false;
 
-			case 'null':
-			case '(null)':
-				return null;
-
 			case 'empty':
 			case '(empty)':
 				return '';
+
+			case 'null':
+			case '(null)':
+				return;
 		}
-		
+
 		if (Str::startsWith($value, '"') && Str::endsWith($value, '"'))
 		{
 			return substr($value, 1, -1);

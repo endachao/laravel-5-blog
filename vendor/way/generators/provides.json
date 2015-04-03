@@ -1,5 +1,0 @@
-{
-	"providers": [
-		"Way\\Generators\\GeneratorsServiceProvider"
-	]
-}

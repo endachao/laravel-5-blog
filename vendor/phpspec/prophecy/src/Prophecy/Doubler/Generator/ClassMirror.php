@@ -137,6 +137,10 @@ class ClassMirror
             $node->setStatic();
         }
 
+        if (true === $method->returnsReference()) {
+            $node->setReturnsReference();
+        }
+
         if (is_array($params = $method->getParameters()) && count($params)) {
             foreach ($params as $param) {
                 $this->reflectArgumentToNode($param, $node);
@@ -151,11 +155,13 @@ class ClassMirror
         $name = $parameter->getName() == '...' ? '__dot_dot_dot__' : $parameter->getName();
         $node = new Node\ArgumentNode($name);
 
-        $node->setTypeHint($this->getTypeHint($parameter));
+        $typeHint = $this->getTypeHint($parameter);
+        $node->setTypeHint($typeHint);
 
         if (true === $parameter->isDefaultValueAvailable()) {
             $node->setDefault($parameter->getDefaultValue());
-        } elseif (true === $parameter->isOptional() || true === $parameter->allowsNull()) {
+        } elseif (true === $parameter->isOptional()
+              || (true === $parameter->allowsNull() && $typeHint)) {
             $node->setDefault(null);
         }
 

@@ -1,7 +1,7 @@
 <?php namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-
+use Input;
 class Tag extends Model {
 
 	//
@@ -84,6 +84,19 @@ class Tag extends Model {
 
         return implode(',',$tagIds);
 
+    }
+
+    public static function setFieldData(){
+        $fieldData = array();
+        $tag = new Tag();
+        $arr = $tag->getFillable();
+        foreach($arr as $v){
+            $fieldData[$v] = Input::get($v);
+        }
+        unset($arr);
+        unset($fieldData['number']);
+        unset($category);
+        return $fieldData;
     }
 
 }

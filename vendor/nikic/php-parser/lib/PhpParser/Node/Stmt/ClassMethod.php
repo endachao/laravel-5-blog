@@ -5,44 +5,41 @@ namespace PhpParser\Node\Stmt;
 use PhpParser\Node;
 use PhpParser\Error;
 
-/**
- * @property int          $type   Type
- * @property bool         $byRef  Whether to return by reference
- * @property string       $name   Name
- * @property Node\Param[] $params Parameters
- * @property Node[]       $stmts  Statements
- */
 class ClassMethod extends Node\Stmt
 {
+    /** @var int Type */
+    public $type;
+    /** @var bool Whether to return by reference */
+    public $byRef;
+    /** @var string Name */
+    public $name;
+    /** @var Node\Param[] Parameters */
+    public $params;
+    /** @var null|string|Node\Name[] Return type */
+    public $returnType;
+    /** @var Node[] Statements */
+    public $stmts;
 
     /**
      * Constructs a class method node.
      *
      * @param string      $name       Name
      * @param array       $subNodes   Array of the following optional subnodes:
-     *                                'type'   => MODIFIER_PUBLIC: Type
-     *                                'byRef'  => false          : Whether to return by reference
-     *                                'params' => array()        : Parameters
-     *                                'stmts'  => array()        : Statements
+     *                                'type'       => MODIFIER_PUBLIC: Type
+     *                                'byRef'      => false          : Whether to return by reference
+     *                                'params'     => array()        : Parameters
+     *                                'returnType' => null           : Return type
+     *                                'stmts'      => array()        : Statements
      * @param array       $attributes Additional attributes
      */
     public function __construct($name, array $subNodes = array(), array $attributes = array()) {
-        $type = isset($subNodes['type']) ? $subNodes['type'] : 0;
-        if (0 === ($type & Class_::VISIBILITY_MODIFER_MASK)) {
-            // If no visibility modifier given, PHP defaults to public
-            $type |= Class_::MODIFIER_PUBLIC;
-        }
-
-        parent::__construct(
-            array(
-                'type'   => $type,
-                'byRef'  => isset($subNodes['byRef'])  ? $subNodes['byRef']  : false,
-                'name'   => $name,
-                'params' => isset($subNodes['params']) ? $subNodes['params'] : array(),
-                'stmts'  => array_key_exists('stmts', $subNodes) ? $subNodes['stmts'] : array(),
-            ),
-            $attributes
-        );
+        parent::__construct(null, $attributes);
+        $this->type = isset($subNodes['type']) ? $subNodes['type'] : 0;
+        $this->byRef = isset($subNodes['byRef'])  ? $subNodes['byRef']  : false;
+        $this->name = $name;
+        $this->params = isset($subNodes['params']) ? $subNodes['params'] : array();
+        $this->returnType = isset($subNodes['returnType']) ? $subNodes['returnType'] : null;
+        $this->stmts = array_key_exists('stmts', $subNodes) ? $subNodes['stmts'] : array();
 
         if ($this->type & Class_::MODIFIER_STATIC) {
             switch (strtolower($this->name)) {
@@ -56,8 +53,12 @@ class ClassMethod extends Node\Stmt
         }
     }
 
+    public function getSubNodeNames() {
+        return array('type', 'byRef', 'name', 'params', 'returnType', 'stmts');
+    }
+
     public function isPublic() {
-        return (bool) ($this->type & Class_::MODIFIER_PUBLIC);
+        return ($this->type & Class_::MODIFIER_PUBLIC) !== 0 || $this->type === 0;
     }
 
     public function isProtected() {

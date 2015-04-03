@@ -9,6 +9,7 @@ return [
     'modules'=>[
         'cate'=>CONTENT.'cate.',
         'article'=>CONTENT.'article.',
+        'tags'=>CONTENT.'tags.',
     ],
     'class'=>'',
 ];

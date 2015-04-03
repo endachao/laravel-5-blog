@@ -47,6 +47,8 @@ abstract class HasOneOrMany extends Relation {
 		if (static::$constraints)
 		{
 			$this->query->where($this->foreignKey, '=', $this->getParentKey());
+
+			$this->query->whereNotNull($this->foreignKey);
 		}
 	}
 
@@ -211,7 +213,7 @@ abstract class HasOneOrMany extends Relation {
 	{
 		if (is_null($instance = $this->where($attributes)->first()))
 		{
-			$instance = $this->related->newInstance();
+			$instance = $this->related->newInstance($attributes);
 
 			$instance->setAttribute($this->getPlainForeignKey(), $this->getParentKey());
 		}

@@ -12,6 +12,10 @@
                 <a href="{{URL::route('backend.article.index')}}">文章管理</a>
             </li>
 
+            <li>
+                <a href="{{URL::route('backend.tags.index')}}">标签管理</a>
+            </li>
+
         </ul>
     </div>
 </div>

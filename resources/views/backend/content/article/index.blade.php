@@ -65,7 +65,7 @@
                     </table>
 
                 </div>
-                <?php echo $article->render(); ?>
+                {!! $article->render() !!}
             </div>
 
         </div>

@@ -355,7 +355,7 @@ class Route {
 	}
 
 	/**
-	 * Determine a given parameter exists from the route
+	 * Determine a given parameter exists from the route.
 	 *
 	 * @param  string $name
 	 * @return bool
@@ -370,7 +370,7 @@ class Route {
 	 *
 	 * @param  string  $name
 	 * @param  mixed   $default
-	 * @return string
+	 * @return string|object
 	 */
 	public function getParameter($name, $default = null)
 	{
@@ -382,7 +382,7 @@ class Route {
 	 *
 	 * @param  string  $name
 	 * @param  mixed   $default
-	 * @return string
+	 * @return string|object
 	 */
 	public function parameter($name, $default = null)
 	{

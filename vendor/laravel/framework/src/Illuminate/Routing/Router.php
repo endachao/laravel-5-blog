@@ -440,6 +440,7 @@ class Router implements RegistrarContract {
 		if ( ! empty($this->groupStack))
 		{
 			$last = end($this->groupStack);
+
 			return isset($last['prefix']) ? $last['prefix'] : '';
 		}
 
@@ -959,7 +960,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a global where pattern on all routes
+	 * Set a global where pattern on all routes.
 	 *
 	 * @param  string  $key
 	 * @param  string  $pattern
@@ -971,7 +972,7 @@ class Router implements RegistrarContract {
 	}
 
 	/**
-	 * Set a group of global where patterns on all routes
+	 * Set a group of global where patterns on all routes.
 	 *
 	 * @param  array  $patterns
 	 * @return void

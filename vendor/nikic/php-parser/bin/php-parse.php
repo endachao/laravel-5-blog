@@ -1,8 +1,9 @@
+#!/usr/bin/env php
 <?php
 
 require __DIR__ . '/../lib/bootstrap.php';
 
-ini_set('xdebug.max_nesting_level', 2000);
+ini_set('xdebug.max_nesting_level', 3000);
 
 // Disable XDebug var_dump() output truncation
 ini_set('xdebug.var_display_max_children', -1);
