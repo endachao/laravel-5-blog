@@ -15,11 +15,8 @@
 
                         <ul class="nav nav-list">
                             <li>
-                                <a href="/admin/repasswd.html">修改密码</a></li>
-                            <li>
-                                <a href="/admin/list.html">管理员列表</a></li>
-                            <li>
-                                <a href="/admin/grouplist.html">管理员组列表</a></li>
+                                <a href="{{ URL::route('backend.user.index')}}">管理员列表</a>
+                            </li>
                         </ul>
 
                     </div>

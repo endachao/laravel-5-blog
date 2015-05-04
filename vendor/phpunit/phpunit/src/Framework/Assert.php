@@ -987,8 +987,8 @@ abstract class PHPUnit_Framework_Assert
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'valid attribute name');
         }
 
-        if (!is_string($className) || !class_exists($className, false)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name');
+        if (!is_string($className) || !class_exists($className)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name', $className);
         }
 
         $constraint = new PHPUnit_Framework_Constraint_ClassHasAttribute(
@@ -1016,8 +1016,8 @@ abstract class PHPUnit_Framework_Assert
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'valid attribute name');
         }
 
-        if (!is_string($className) || !class_exists($className, false)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name');
+        if (!is_string($className) || !class_exists($className)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name', $className);
         }
 
         $constraint = new PHPUnit_Framework_Constraint_Not(
@@ -1045,8 +1045,8 @@ abstract class PHPUnit_Framework_Assert
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'valid attribute name');
         }
 
-        if (!is_string($className) || !class_exists($className, false)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name');
+        if (!is_string($className) || !class_exists($className)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name', $className);
         }
 
         $constraint = new PHPUnit_Framework_Constraint_ClassHasStaticAttribute(
@@ -1074,8 +1074,8 @@ abstract class PHPUnit_Framework_Assert
             throw PHPUnit_Util_InvalidArgumentHelper::factory(1, 'valid attribute name');
         }
 
-        if (!is_string($className) || !class_exists($className, false)) {
-            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name');
+        if (!is_string($className) || !class_exists($className)) {
+            throw PHPUnit_Util_InvalidArgumentHelper::factory(2, 'class name', $className);
         }
 
         $constraint = new PHPUnit_Framework_Constraint_Not(

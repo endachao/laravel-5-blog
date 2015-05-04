@@ -44,8 +44,9 @@
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
-					<li><a href="{{ url('/') }}">Home</a></li>
+					<li><a href="{{URL::route('backend.home.index')}}">后台主页</a></li>
 					<li><a href="{{URL::route('backend.content.index')}}">内容管理</a></li>
+					<li><a href="{{ url('/backend/system/index') }}">系统设置</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
@@ -65,19 +66,8 @@
 		</div>
 	</nav>
 
-    <div class="container-fluid">
+    @yield('modules')
 
-
-        <div class="row">
-
-            <div class="col-md-2">
-                @include('backend.content._menu')
-            </div>
-
-	    @yield('content')
-
-        </div>
-    </div>
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>

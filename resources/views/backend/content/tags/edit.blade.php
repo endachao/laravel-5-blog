@@ -1,4 +1,4 @@
-@extends('backend.app')
+@extends('backend.content.common')
 
 @section('content')
 <div class="col-md-10">

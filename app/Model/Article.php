@@ -33,7 +33,7 @@ class Article extends Model {
 
         unset($fieldData['new_tags']);
         unset($arr);
-        unset($category);
+        unset($article);
         return $fieldData;
     }
 }

@@ -19,7 +19,7 @@ use Symfony\Component\Config\Resource\FileResource;
  * @copyright Copyright (c) 2010, Union of RAD http://union-of-rad.org (http://lithify.me/)
  * @copyright Copyright (c) 2012, Clemens Tolboom
  */
-class PoFileLoader extends ArrayLoader implements LoaderInterface
+class PoFileLoader extends ArrayLoader
 {
     public function load($resource, $locale, $domain = 'messages')
     {
@@ -165,7 +165,7 @@ class PoFileLoader extends ArrayLoader implements LoaderInterface
                 end($plurals);
                 $count = key($plurals);
                 // Fill missing spots with '-'.
-                $empties = array_fill(0, $count+1, '-');
+                $empties = array_fill(0, $count + 1, '-');
                 $plurals += $empties;
                 ksort($plurals);
                 $messages[stripcslashes($item['ids']['plural'])] = stripcslashes(implode('|', $plurals));

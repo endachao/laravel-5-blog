@@ -36,6 +36,7 @@
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
 					<li><a href="{{URL::route('backend.content.index')}}">内容管理</a></li>
+                    <li><a href="{{ url('/backend/system/index') }}">系统设置</a></li>
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">

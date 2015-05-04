@@ -95,7 +95,7 @@ class Tag extends Model {
         }
         unset($arr);
         unset($fieldData['number']);
-        unset($category);
+        unset($tag);
         return $fieldData;
     }
 
