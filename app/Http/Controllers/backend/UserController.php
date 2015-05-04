@@ -4,8 +4,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
-
+use App\Services\Registrar;
 use App\User;
+use Notification;
 class UserController extends Controller {
 
     public function __construct(){
@@ -31,6 +32,7 @@ class UserController extends Controller {
 	public function create()
 	{
 		//
+        return backendView('create');
 	}
 
 	/**
@@ -38,9 +40,23 @@ class UserController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(Request $request)
 	{
-		//
+		$register = new Registrar();
+        $validator = $register->validator($request->all());
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+
+        if($register->create($request->all())){
+            Notification::success('创建用户成功');
+        }
+
+        return redirect(URL::route('backend.user.index'));
+
 	}
 
 	/**
