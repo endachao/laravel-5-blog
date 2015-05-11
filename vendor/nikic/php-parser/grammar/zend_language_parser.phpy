@@ -8,6 +8,7 @@
 %left T_LOGICAL_AND
 %right T_PRINT
 %right T_YIELD
+%right T_YIELD_FROM
 %left '=' T_PLUS_EQUAL T_MINUS_EQUAL T_MUL_EQUAL T_DIV_EQUAL T_CONCAT_EQUAL T_MOD_EQUAL T_AND_EQUAL T_OR_EQUAL T_XOR_EQUAL T_SL_EQUAL T_SR_EQUAL T_POW_EQUAL
 %left '?' ':'
 %right T_COALESCE
@@ -110,6 +111,13 @@
 %token T_NS_SEPARATOR
 %token T_ELLIPSIS
 
+%{
+use PhpParser\Node\Expr;
+use PhpParser\Node\Name;
+use PhpParser\Node\Scalar;
+use PhpParser\Node\Stmt;
+%}
+
 %%
 
 start:
@@ -163,7 +171,7 @@ constant_declaration_list:
 ;
 
 constant_declaration:
-    T_STRING '=' static_scalar                              { $$ = Const_[$1, $3]; }
+    T_STRING '=' static_scalar                              { $$ = Node\Const_[$1, $3]; }
 ;
 
 inner_statement_list:
@@ -175,7 +183,8 @@ inner_statement:
       statement                                             { $$ = $1; }
     | function_declaration_statement                        { $$ = $1; }
     | class_declaration_statement                           { $$ = $1; }
-    | T_HALT_COMPILER                                       { error('__HALT_COMPILER() can only be used from the outermost scope'); }
+    | T_HALT_COMPILER
+          { throw new Error('__HALT_COMPILER() can only be used from the outermost scope', attributes()); }
 ;
 
 statement:
@@ -213,6 +222,7 @@ statement:
     | T_THROW expr ';'                                      { $$ = Stmt\Throw_[$2]; }
     | T_GOTO T_STRING ';'                                   { $$ = Stmt\Goto_[$2]; }
     | T_STRING ':'                                          { $$ = Stmt\Label[$1]; }
+    | error                                                 { $$ = array(); /* means: no statement */ }
 ;
 
 catches:
@@ -382,9 +392,9 @@ non_empty_parameter_list:
 
 parameter:
       optional_param_type optional_ref optional_ellipsis T_VARIABLE
-          { $$ = Param[parseVar($4), null, $1, $2, $3]; }
+          { $$ = Node\Param[parseVar($4), null, $1, $2, $3]; }
     | optional_param_type optional_ref optional_ellipsis T_VARIABLE '=' static_scalar
-          { $$ = Param[parseVar($4), $6, $1, $2, $3]; }
+          { $$ = Node\Param[parseVar($4), $6, $1, $2, $3]; }
 ;
 
 type:
@@ -406,7 +416,7 @@ optional_return_type:
 argument_list:
       '(' ')'                                               { $$ = array(); }
     | '(' non_empty_argument_list ')'                       { $$ = $2; }
-    | '(' yield_expr ')'                                    { $$ = array(Arg[$2, false, false]); }
+    | '(' yield_expr ')'                                    { $$ = array(Node\Arg[$2, false, false]); }
 ;
 
 non_empty_argument_list:
@@ -415,9 +425,9 @@ non_empty_argument_list:
 ;
 
 argument:
-      expr                                                  { $$ = Arg[$1, false, false]; }
-    | '&' variable                                          { $$ = Arg[$2, true, false]; }
-    | T_ELLIPSIS expr                                       { $$ = Arg[$2, false, true]; }
+      expr                                                  { $$ = Node\Arg[$1, false, false]; }
+    | '&' variable                                          { $$ = Node\Arg[$2, true, false]; }
+    | T_ELLIPSIS expr                                       { $$ = Node\Arg[$2, false, true]; }
 ;
 
 global_var_list:
@@ -615,6 +625,7 @@ expr:
     | '`' backticks_expr '`'                                { $$ = Expr\ShellExec[$2]; }
     | T_PRINT expr                                          { $$ = Expr\Print_[$2]; }
     | T_YIELD                                               { $$ = Expr\Yield_[null, null]; }
+    | T_YIELD_FROM expr                                     { $$ = Expr\YieldFrom[$2]; }
     | T_FUNCTION optional_ref '(' parameter_list ')' lexical_vars optional_return_type
       '{' inner_statement_list '}'
           { $$ = Expr\Closure[[static: false, byRef: $2, params: $4, uses: $6, returnType: $7, stmts: $9]]; }
@@ -647,8 +658,14 @@ scalar_dereference:
     /* alternative array syntax missing intentionally */
 ;
 
+anonymous_class:
+      T_CLASS ctor_arguments extends_from implements_list '{' class_statement_list '}'
+          { $$ = array(Stmt\Class_[null, [type: 0, extends: $3, implements: $4, stmts: $6]], $2); }
+
 new_expr:
       T_NEW class_name_reference ctor_arguments             { $$ = Expr\New_[$2, $3]; }
+    | T_NEW anonymous_class
+          { list($class, $ctorArgs) = $2; $$ = Expr\New_[$class, $ctorArgs]; }
 ;
 
 lexical_vars:

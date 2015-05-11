@@ -20,7 +20,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	 *
 	 * @var string
 	 */
-	const VERSION = '5.0.26';
+	const VERSION = '5.0.28';
 
 	/**
 	 * The base path for the Laravel installation.
@@ -465,7 +465,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 		$manifestPath = $this->getCachedServicesPath();
 
 		(new ProviderRepository($this, new Filesystem, $manifestPath))
-		            ->load($this->config['app.providers']);
+					->load($this->config['app.providers']);
 	}
 
 	/**
@@ -479,7 +479,9 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	public function register($provider, $options = array(), $force = false)
 	{
 		if ($registered = $this->getProvider($provider) && ! $force)
-                                     return $registered;
+		{
+			return $registered;
+		}
 
 		// If the given "provider" is a string, we will resolve it, passing in the
 		// application instance automatically for the developer. This is simply
@@ -939,6 +941,16 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	}
 
 	/**
+	 * Get the application's deferred services.
+	 *
+	 * @return array
+	 */
+	public function getDeferredServices()
+	{
+		return $this->deferredServices;
+	}
+
+	/**
 	 * Set the application's deferred services.
 	 *
 	 * @param  array  $services
@@ -947,6 +959,17 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	public function setDeferredServices(array $services)
 	{
 		$this->deferredServices = $services;
+	}
+
+	/**
+	 * Add an array of services to the application's deferred services.
+	 *
+	 * @param  array  $services
+	 * @return void
+	 */
+	public function addDeferredServices(array $services)
+	{
+		$this->deferredServices = array_merge($this->deferredServices, $services);
 	}
 
 	/**

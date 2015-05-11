@@ -1,4 +1,4 @@
-@extends('backend.content.common')
+@extends('backend.user.common')
 
 @section('content')
 <div class="col-md-10">

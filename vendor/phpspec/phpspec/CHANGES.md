@@ -1,3 +1,34 @@
+2.2.0 / 2015-04-18
+==================
+
+* No changes from rc1
+
+2.2.0-rc1 / 2015-04-13
+======================
+
+* No changes from beta2
+
+2.2.0-beta2 / 2015-04-03
+========================
+
+ * Better diffs when presenting unexpected method arguments
+ * Better handling of methods delclared inside Traits when faking
+
+2.2.0-beta / 2015-03-28
+=======================
+
+ * Offer to generate interfaces for missing typehinted collaborators
+ * Support for TAP format output
+ * Remove deprecated usage of Symfony DialogHelper
+ * New array `shouldHaveKeyWithValue` matcher
+ * Clearer error message when specs have incorrect namespace prefix
+ * Fix suite rerunning for HHVM
+
+Backward Compatibility
+----------------------
+
+ * The unused `ask` and `askAndValidate` methods on `Console\IO` have been removed
+
 2.1.1 / 2015-01-09
 ==================
 

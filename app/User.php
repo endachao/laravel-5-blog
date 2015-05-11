@@ -54,4 +54,25 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     }
 
+    /**
+     * 更新用户
+     * @param $id
+     * @param $data
+     * @return bool
+     */
+    public static function updateUserInfo($id,$data){
+
+        if(!empty($id) && !empty($data)){
+
+            $user = self::find($id);
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            if(!empty($data['password'])){
+                $user->password = bcrypt($data['password']);
+            }
+            return $user->save();
+        }
+        return false;
+    }
+
 }

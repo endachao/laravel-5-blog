@@ -22,14 +22,16 @@
 class PHP_CodeCoverage_Report_Factory
 {
     /**
-     * @param PHP_CodeCoverage $coverage
+     * @param  PHP_CodeCoverage $coverage
+     * @return PHP_CodeCoverage_Report_Node_Directory
      */
     public function create(PHP_CodeCoverage $coverage)
     {
         $files      = $coverage->getData();
         $commonPath = $this->reducePaths($files);
         $root       = new PHP_CodeCoverage_Report_Node_Directory(
-            $commonPath, null
+            $commonPath,
+            null
         );
 
         $this->addItems(

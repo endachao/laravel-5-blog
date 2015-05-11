@@ -141,7 +141,7 @@ EOF
         $pretty = $this->printer->prettyPrint($stmts);
 
         // Remove the open PHP tag
-        if (substr($pretty, 5) === "<?php") {
+        if (substr($pretty, 5) === '<?php') {
             $pretty = substr($pretty, 7);
         }
 
@@ -278,7 +278,7 @@ EOF
         fclose($handle);
 
         $output->writeln("> Compiled loader written to {$outputFile}");
-        $output->writeln('- Files: ' . ($count - $countSkipped) . '/' . $count.' (skipped: '.$countSkipped.')');
+        $output->writeln('- Files: ' . ($count - $countSkipped) . '/' . $count . ' (skipped: ' . $countSkipped . ')');
         $output->writeln('- Filesize: ' . (round(filesize($outputFile) / 1024)) . ' kb');
     }
 }

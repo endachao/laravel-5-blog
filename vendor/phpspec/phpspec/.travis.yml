@@ -1,28 +1,41 @@
 language: php
 
-php: [5.3, 5.4, 5.5, 5.6, hhvm, hhvm-nightly]
-
-env:
-  - COMPOSER_OPTIONS='install'
-
 matrix:
   include:
+    - php: 5.3
     - php: 5.3.3
-      env: COMPOSER_OPTIONS='update --prefer-lowest'
-
-sudo: false
-
-cache:
-  directories:
-    - $HOME/.composer/cache
+      env: DEPENDENCIES='low'
+           SMOKE='true'
+    - php: 5.4
+    - php: 5.5
+    - php: 5.6
+      env: DEPENDENCIES='dev'
+    - php: 5.6
+      env: SMOKE='true'
+    - php: hhvm
+      env: SMOKE='true'
+    - php: hhvm-nightly
+    - php: 7.0
+  allow_failures:
+    - php: hhvm-nightly
+    - php: 7.0
+    - env: DEPENDENCIES='dev'
+  fast_finish: true
 
 before_install:
-  - echo 'hhvm.libxml.ext_entity_whitelist = file' > travis.hhvm.ini
+  - if [ "$SMOKE" == "true" ]; then sudo apt-get install expect; fi;
   - composer selfupdate
 
 install:
-  - COMPOSER_ROOT_VERSION=dev-master composer $COMPOSER_OPTIONS
+  - export COMPOSER_ROOT_VERSION=dev-master
+  - if [ "$DEPENDENCIES" == "dev" ]; then perl -pi -e 's/^}$/,"minimum-stability":"dev"}/' composer.json; fi;
+  - if [ "$DEPENDENCIES" != "low" ]; then composer update; fi;
+  - if [ "$DEPENDENCIES" == "low" ]; then composer update --prefer-lowest; fi;
+
+before_script:
+  - echo "<?php if (PHP_VERSION_ID >= 50400) echo ',@php5.4';" > php_version_tags.php
 
 script:
-   - sh -c 'if [ "$TRAVIS_PHP_VERSION" = "hhvm" -o "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]; then hhvm -c travis.hhvm.ini bin/phpspec run; else bin/phpspec run; fi;'
-   - sh -c 'if [ "$TRAVIS_PHP_VERSION" = "hhvm" -o "$TRAVIS_PHP_VERSION" = "hhvm-nightly" ]; then hhvm -c travis.hhvm.ini ./vendor/behat/behat/bin/behat --format=pretty; else ./vendor/bin/behat --format=pretty; fi;'
+   - bin/phpspec run --format=pretty
+   - ./vendor/bin/phpunit --testdox
+   - ./vendor/bin/behat --format=pretty `if [ "$SMOKE" == "true" ]; then echo '--profile=smoke'; fi;` --tags '~@php-version'`php php_version_tags.php`

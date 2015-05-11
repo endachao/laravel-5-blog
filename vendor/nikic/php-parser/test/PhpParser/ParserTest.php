@@ -11,39 +11,59 @@ class ParserTest extends CodeTestAbstract
     /**
      * @dataProvider provideTestParse
      */
-    public function testParse($name, $code, $dump) {
-        $parser = new Parser(new Lexer\Emulative);
-        $dumper = new NodeDumper;
+    public function testParse($name, $code, $expected) {
+        $lexer = new Lexer\Emulative(array('usedAttributes' => array(
+            'startLine', 'endLine', 'startFilePos', 'endFilePos'
+        )));
+        $parser = new Parser($lexer, array(
+            'throwOnError' => false,
+        ));
 
         $stmts = $parser->parse($code);
-        $this->assertSame(
-            $this->canonicalize($dump),
-            $this->canonicalize($dumper->dump($stmts)),
-            $name
-        );
+        $errors = $parser->getErrors();
+
+        $output = '';
+        foreach ($errors as $error) {
+            $output .= $this->formatErrorMessage($error, $code) . "\n";
+        }
+
+        if (null !== $stmts) {
+            $dumper = new NodeDumper;
+            $output .= $dumper->dump($stmts);
+        }
+
+        $this->assertSame($this->canonicalize($expected), $this->canonicalize($output), $name);
     }
 
     public function provideTestParse() {
         return $this->getTests(__DIR__ . '/../code/parser', 'test');
     }
 
-    /**
-     * @dataProvider provideTestParseFail
-     */
-    public function testParseFail($name, $code, $msg) {
-        $parser = new Parser(new Lexer\Emulative);
-
-        try {
-            $parser->parse($code);
-
-            $this->fail(sprintf('"%s": Expected Error', $name));
-        } catch (Error $e) {
-            $this->assertSame($msg, $e->getMessage(), $name);
+    private function formatErrorMessage(Error $e, $code) {
+        if ($e->hasColumnInfo()) {
+            return $e->getRawMessage() . ' from ' . $e->getStartLine() . ':' . $e->getStartColumn($code)
+                . ' to ' . $e->getEndLine() . ':' . $e->getEndColumn($code);
+        } else {
+            return $e->getMessage();
         }
     }
 
-    public function provideTestParseFail() {
-        return $this->getTests(__DIR__ . '/../code/parser', 'test-fail');
+    /**
+     * @expectedException \PhpParser\Error
+     * @expectedExceptionMessage Syntax error, unexpected EOF on line 1
+     */
+    public function testParserThrowsSyntaxError() {
+        $parser = new Parser(new Lexer());
+        $parser->parse('<?php foo');
+    }
+
+    /**
+     * @expectedException \PhpParser\Error
+     * @expectedExceptionMessage Cannot use foo as self because 'self' is a special class name on line 1
+     */
+    public function testParserThrowsSpecialError() {
+        $parser = new Parser(new Lexer());
+        $parser->parse('<?php use foo as self;');
     }
 
     public function testAttributeAssignment() {

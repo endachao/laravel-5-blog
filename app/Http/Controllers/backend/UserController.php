@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use App\Services\Registrar;
 use App\User;
 use Notification;
+use Validator;
+use URL;
+use Redirect;
 class UserController extends Controller {
 
     public function __construct(){
@@ -79,6 +82,7 @@ class UserController extends Controller {
 	public function edit($id)
 	{
 		//
+        return backendView('edit',array('user'=>User::find($id)));
 	}
 
 	/**
@@ -87,9 +91,29 @@ class UserController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,Request $request)
 	{
-		//
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+        if ($validator->fails())
+        {
+            $this->throwValidationException(
+                $request, $validator
+            );
+        }
+        try{
+
+            if(User::updateUserInfo($id,$request->all())){
+                Notification::success('修改成功');
+            }
+
+        }catch (\Exception $e){
+            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
+
+        return redirect(URL::route('backend.user.index'));
 	}
 
 	/**
@@ -101,6 +125,10 @@ class UserController extends Controller {
 	public function destroy($id)
 	{
 		//
+        if(User::destroy($id)){
+            Notification::success('删除成功');
+        }
+        return redirect(URL::route('backend.user.index'));
 	}
 
 }

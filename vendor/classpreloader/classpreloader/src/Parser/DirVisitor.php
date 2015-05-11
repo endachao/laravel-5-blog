@@ -4,8 +4,8 @@ namespace ClassPreloader\Parser;
 
 use ClassPreloader\Exception\SkipFileException;
 use PhpParser\Node;
-use PhpParser\Node\Scalar\MagicConst\Dir;
-use PhpParser\Node\Scalar\String;
+use PhpParser\Node\Scalar\MagicConst\Dir as DirNode;
+use PhpParser\Node\Scalar\String_ as StringNode;
 
 /**
  * This is the directory node visitor class.
@@ -42,12 +42,12 @@ class DirVisitor extends AbstractNodeVisitor
      */
     public function enterNode(Node $node)
     {
-        if ($node instanceof Dir) {
+        if ($node instanceof DirNode) {
             if ($this->skip) {
                 throw new SkipFileException('__DIR__ constant found, skipping...');
             }
 
-            return new String($this->getDir());
+            return new StringNode($this->getDir());
         }
     }
 }

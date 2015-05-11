@@ -401,6 +401,17 @@ class PostgresGrammar extends Grammar {
 	}
 
 	/**
+	 * Create the column definition for a jsonb type.
+	 *
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string
+	 */
+	protected function typeJsonb(Fluent $column)
+	{
+		return "jsonb";
+	}
+
+	/**
 	 * Create the column definition for a date type.
 	 *
 	 * @param  \Illuminate\Support\Fluent  $column
@@ -423,6 +434,17 @@ class PostgresGrammar extends Grammar {
 	}
 
 	/**
+	 * Create the column definition for a date-time type.
+	 *
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string
+	 */
+	protected function typeDateTimeTz(Fluent $column)
+	{
+		return 'timestamp(0) with time zone';
+	}
+
+	/**
 	 * Create the column definition for a time type.
 	 *
 	 * @param  \Illuminate\Support\Fluent  $column
@@ -434,6 +456,17 @@ class PostgresGrammar extends Grammar {
 	}
 
 	/**
+	 * Create the column definition for a time type.
+	 *
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string
+	 */
+	protected function typeTimeTz(Fluent $column)
+	{
+		return 'time(0) with time zone';
+	}
+
+	/**
 	 * Create the column definition for a timestamp type.
 	 *
 	 * @param  \Illuminate\Support\Fluent  $column
@@ -442,6 +475,17 @@ class PostgresGrammar extends Grammar {
 	protected function typeTimestamp(Fluent $column)
 	{
 		return 'timestamp(0) without time zone';
+	}
+
+	/**
+	 * Create the column definition for a timestamp type.
+	 *
+	 * @param  \Illuminate\Support\Fluent  $column
+	 * @return string
+	 */
+	protected function typeTimestampTz(Fluent $column)
+	{
+		return 'timestamp(0) with time zone';
 	}
 
 	/**

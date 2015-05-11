@@ -32,7 +32,7 @@ class Class_ extends ClassLike
     /**
      * Constructs a class node.
      *
-     * @param string      $name       Name
+     * @param string|null $name       Name
      * @param array       $subNodes   Array of the following optional subnodes:
      *                                'type'       => 0      : Type
      *                                'extends'    => null   : Name of extended class
@@ -48,17 +48,23 @@ class Class_ extends ClassLike
         $this->implements = isset($subNodes['implements']) ? $subNodes['implements'] : array();
         $this->stmts = isset($subNodes['stmts']) ? $subNodes['stmts'] : array();
 
-        if (isset(self::$specialNames[(string) $this->name])) {
+        if (null !== $this->name && isset(self::$specialNames[strtolower($this->name)])) {
             throw new Error(sprintf('Cannot use \'%s\' as class name as it is reserved', $this->name));
         }
 
-        if (isset(self::$specialNames[(string) $this->extends])) {
-            throw new Error(sprintf('Cannot use \'%s\' as class name as it is reserved', $this->extends));
+        if (isset(self::$specialNames[strtolower($this->extends)])) {
+            throw new Error(
+                sprintf('Cannot use \'%s\' as class name as it is reserved', $this->extends),
+                $this->extends->getAttributes()
+            );
         }
 
         foreach ($this->implements as $interface) {
-            if (isset(self::$specialNames[(string) $interface])) {
-                throw new Error(sprintf('Cannot use \'%s\' as interface name as it is reserved', $interface));
+            if (isset(self::$specialNames[strtolower($interface)])) {
+                throw new Error(
+                    sprintf('Cannot use \'%s\' as interface name as it is reserved', $interface),
+                    $interface->getAttributes()
+                );
             }
         }
     }
@@ -73,6 +79,10 @@ class Class_ extends ClassLike
 
     public function isFinal() {
         return (bool) ($this->type & self::MODIFIER_FINAL);
+    }
+
+    public function isAnonymous() {
+        return null === $this->name;
     }
 
     /**

@@ -56,7 +56,6 @@ class PHP_CodeCoverage_Report_HTML
 
         $this->templatePath = sprintf(
             '%s%sHTML%sRenderer%sTemplate%s',
-
             dirname(__FILE__),
             DIRECTORY_SEPARATOR,
             DIRECTORY_SEPARATOR,
@@ -147,6 +146,7 @@ class PHP_CodeCoverage_Report_HTML
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.svg', $dir . 'glyphicons-halflings-regular.svg');
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.ttf', $dir . 'glyphicons-halflings-regular.ttf');
         copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff', $dir . 'glyphicons-halflings-regular.woff');
+        copy($this->templatePath . 'fonts/glyphicons-halflings-regular.woff2', $dir . 'glyphicons-halflings-regular.woff2');
 
         $dir = $this->getDirectory($target . 'js');
         copy($this->templatePath . 'js/bootstrap.min.js', $dir . 'bootstrap.min.js');

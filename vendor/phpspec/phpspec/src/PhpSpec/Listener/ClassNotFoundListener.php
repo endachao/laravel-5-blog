@@ -29,6 +29,11 @@ class ClassNotFoundListener implements EventSubscriberInterface
     private $generator;
     private $classes = array();
 
+    /**
+     * @param IO $io
+     * @param ResourceManagerInterface $resources
+     * @param GeneratorManager $generator
+     */
     public function __construct(IO $io, ResourceManagerInterface $resources, GeneratorManager $generator)
     {
         $this->io        = $io;
@@ -36,6 +41,9 @@ class ClassNotFoundListener implements EventSubscriberInterface
         $this->generator = $generator;
     }
 
+    /**
+     * @return array
+     */
     public static function getSubscribedEvents()
     {
         return array(
@@ -44,6 +52,9 @@ class ClassNotFoundListener implements EventSubscriberInterface
         );
     }
 
+    /**
+     * @param ExampleEvent $event
+     */
     public function afterExample(ExampleEvent $event)
     {
         if (null === $exception = $event->getException()) {
@@ -58,6 +69,9 @@ class ClassNotFoundListener implements EventSubscriberInterface
         $this->classes[$exception->getClassname()] = true;
     }
 
+    /**
+     * @param SuiteEvent $event
+     */
     public function afterSuite(SuiteEvent $event)
     {
         if (!$this->io->isCodeGenerationEnabled()) {

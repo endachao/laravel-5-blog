@@ -585,6 +585,17 @@ class Blueprint {
 	}
 
 	/**
+	 * Create a new jsonb column on the table.
+	 *
+	 * @param  string  $column
+	 * @return \Illuminate\Support\Fluent
+	 */
+	public function jsonb($column)
+	{
+		return $this->addColumn('jsonb', $column);
+	}
+
+	/**
 	 * Create a new date column on the table.
 	 *
 	 * @param  string  $column
@@ -607,6 +618,17 @@ class Blueprint {
 	}
 
 	/**
+	 * Create a new date-time column (with time zone) on the table.
+	 *
+	 * @param  string  $column
+	 * @return \Illuminate\Support\Fluent
+	 */
+	public function dateTimeTz($column)
+	{
+		return $this->addColumn('dateTimeTz', $column);
+	}
+
+	/**
 	 * Create a new time column on the table.
 	 *
 	 * @param  string  $column
@@ -618,6 +640,17 @@ class Blueprint {
 	}
 
 	/**
+	 * Create a new time column (with time zone) on the table.
+	 *
+	 * @param  string  $column
+	 * @return \Illuminate\Support\Fluent
+	 */
+	public function timeTz($column)
+	{
+		return $this->addColumn('timeTz', $column);
+	}
+
+	/**
 	 * Create a new timestamp column on the table.
 	 *
 	 * @param  string  $column
@@ -626,6 +659,17 @@ class Blueprint {
 	public function timestamp($column)
 	{
 		return $this->addColumn('timestamp', $column);
+	}
+
+	/**
+	 * Create a new timestamp (with time zone) column on the table.
+	 *
+	 * @param  string  $column
+	 * @return \Illuminate\Support\Fluent
+	 */
+	public function timestampTz($column)
+	{
+		return $this->addColumn('timestampTz', $column);
 	}
 
 	/**

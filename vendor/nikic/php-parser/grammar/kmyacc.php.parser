@@ -2,11 +2,11 @@
 $meta #
 #semval($) $this->semValue
 #semval($,%t) $this->semValue
-#semval(%n) $this->semStack[$this->stackPos-(%l-%n)]
-#semval(%n,%t) $this->semStack[$this->stackPos-(%l-%n)]
-#include;
+#semval(%n) $this->stackPos-(%l-%n)
+#semval(%n,%t) $this->stackPos-(%l-%n)
 
 namespace PhpParser;
+#include;
 
 /* This is an automatically GENERATED file, which should not be manually edited.
  * Instead edit one of the following:
@@ -20,7 +20,8 @@ class Parser extends ParserAbstract
     protected $actionTableSize = #(YYLAST);
     protected $gotoTableSize = #(YYGLAST);
 
-    protected $invalidToken = #(YYBADCH);
+    protected $invalidSymbol = #(YYBADCH);
+    protected $errorSymbol = #(YYINTERRTOK);
     protected $defaultAction = #(YYDEFAULT);
     protected $unexpectedTokenRule = #(YYUNEXPECTED);
 
@@ -86,7 +87,7 @@ class Parser extends ParserAbstract
 #endif
 #reduce
 
-    protected function reduceRule%n($attributes) {
+    protected function reduceRule%n() {
         %b
     }
 #noact
