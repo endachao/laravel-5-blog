@@ -121,6 +121,14 @@ class ArticleController extends Controller {
 	public function destroy($id)
 	{
 		//
+        $article = Article::find($id);
+        if(!empty($article->pic)){
+            $fileName = public_path().'/uploads/'.$article->pic;
+            if(file_exists($fileName)){
+                unlink($fileName);
+            }
+        }
+
         if(ArticleStatus::deleteArticleStatus($id)){
 
             if(Article::destroy($id)){

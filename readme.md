@@ -61,6 +61,9 @@ Blog system development based on laravel  5.0.*
 8. 单页管理：0%
 9. 评论：0%
 
+前台开发进度
+1. 首页：100%
+
 喜欢这个项目，喜欢 laravel 欢迎加入 QQ 群与我们讨论：`365969825`
 
 ####感谢支持！

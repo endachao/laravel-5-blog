@@ -3,6 +3,7 @@
  * User: 袁超<yccphp@163.com>
  * Time: 2015.03.17 下午1:56
  */
+define('THEMES_NAME','themes');
 define('CONTENT','content.');
 define('SYSTEM','setting.');
 define('USER','user.');

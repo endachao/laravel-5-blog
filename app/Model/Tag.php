@@ -15,40 +15,28 @@ class Tag extends Model {
     public $timestamps = false;
 
     public static function getAllTagsArr(){
-
         return self::all();
-
     }
 
     public static function getAllTagsString(){
         $tags = self::getAllTagsArr();
-
         return self::getTagString($tags);
-
     }
 
     public static function getTagsNameByTagsIds($tagIds){
         $tags = explode(',',$tagIds);
-
         $tags = self::find($tags);
-
         return self::getTagString($tags);
     }
 
     public static function getTagString($result){
-
         $tag = "[";
-
         foreach($result as $k=>$v){
             $tag .= "'$v->name',";
         }
-
         $tag = trim($tag,',');
-
         $tag .= ']';
-
         return $tag;
-
     }
 
     public static function SetArticleTags($tags,$new_tags){
@@ -56,14 +44,11 @@ class Tag extends Model {
         if(!empty($tags)){
             $tagsArr = explode(',',$tags);
         }
-
         $new_tagsArr = array();
         if(!empty($new_tags)){
             $new_tagsArr = explode(',',$new_tags);
         }
-
         $tag = array_merge($tagsArr,$new_tagsArr);
-
         $tagIds = array();
         if(!empty($tag)){
             foreach($tag as $K=>$v){
@@ -77,13 +62,9 @@ class Tag extends Model {
                     $tagIds[] = self::insertGetId(['name'=>$v,'number'=>1]);
                 }
             }
-
             unset($tag_temp);
-
         }
-
         return implode(',',$tagIds);
-
     }
 
     public static function setFieldData(){
@@ -97,6 +78,15 @@ class Tag extends Model {
         unset($fieldData['number']);
         unset($tag);
         return $fieldData;
+    }
+
+    /**
+     * 获取热门标签
+     * @param $limit
+     * @return mixed
+     */
+    public static function getHotTags($limit){
+        return self::orderBy('number','DESC')->limit($limit)->get();
     }
 
 }

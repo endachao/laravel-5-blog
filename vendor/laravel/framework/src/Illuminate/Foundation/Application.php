@@ -20,7 +20,7 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	 *
 	 * @var string
 	 */
-	const VERSION = '5.0.28';
+	const VERSION = '5.0.31';
 
 	/**
 	 * The base path for the Laravel installation.
@@ -174,6 +174,8 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 	 */
 	public function bootstrapWith(array $bootstrappers)
 	{
+		$this->hasBeenBootstrapped = true;
+
 		foreach ($bootstrappers as $bootstrapper)
 		{
 			$this['events']->fire('bootstrapping: '.$bootstrapper, [$this]);
@@ -182,8 +184,6 @@ class Application extends Container implements ApplicationContract, HttpKernelIn
 
 			$this['events']->fire('bootstrapped: '.$bootstrapper, [$this]);
 		}
-
-		$this->hasBeenBootstrapped = true;
 	}
 
 	/**

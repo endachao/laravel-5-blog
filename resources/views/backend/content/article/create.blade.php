@@ -35,7 +35,7 @@
                 @endif
 
                 <div class="panel-body">
-                    {!! Form::open(['route' => 'backend.article.store', 'method' => 'post','class'=>'form-horizontal']) !!}
+                    {!! Form::open(['route' => 'backend.article.store', 'method' => 'post','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
 
 
                         <div class="form-group">
@@ -69,6 +69,14 @@
                                 {!! Form::text('new_tags', '', ['class' => 'form-control','placeholder'=>'tags']) !!}
                                 <font color="#deb887">用半角逗号分割</font>
                                 <font color="red">{{ $errors->first('new_tags') }}</font>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputPassword3" class="col-sm-2 control-label">封面图</label>
+                            <div class="col-sm-3">
+                                {!! Form::file('pic', ['class' => 'form-control']) !!}
+                                <font color="red">{{ $errors->first('pic') }}</font>
                             </div>
                         </div>
 

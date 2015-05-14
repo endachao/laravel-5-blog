@@ -1,33 +1,24 @@
 <?php namespace App\Http\Controllers;
 
+use App\Model\ArticleStatus;
+use Illuminate\Support\Facades\View;
+use App\Model\Article;
 class HomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders your application's "dashboard" for users that
-	| are authenticated. Of course, you are free to change or remove the
-	| controller as you wish. It is just here to get your app started!
-	|
-	*/
 
 	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-
-
-	/**
-	 * Show the application dashboard to the user.
-	 *
+	 * 首页
 	 * @return Response
 	 */
 	public function index()
 	{
-		return view('home');
+        $article = Article::getNewsArticle();
+        $hotArticle = ArticleStatus::getHotArticle(3,false);
+        viewInit();
+        return homeView('index',array(
+            'article'=>$article,
+            'hotArticle'=>$hotArticle
+        ));
 	}
 
 }

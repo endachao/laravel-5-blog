@@ -15,6 +15,10 @@ class ArticleStatus extends Model {
         'comment_number'
     ];
 
+    public function article(){
+        return $this->hasOne('App\Model\Article','id','art_id');
+    }
+
     public static function initArticleStatus($articleId){
         if(self::insert(array('art_id'=>$articleId))){
             return true;
@@ -24,8 +28,23 @@ class ArticleStatus extends Model {
     }
 
     public static function deleteArticleStatus($art_id){
-
         return self::where('art_id','=',$art_id)->first()->delete();
+    }
+
+    /**
+     * 获取热门文章
+     * @param int $limit
+     * @param bool $page
+     * @return mixed
+     */
+    public static function getHotArticle($limit=3,$page=true){
+        $model = self::orderBy('view_number','DESC');
+        if($page){
+            $article = $model->simplePaginate($limit);
+        }else{
+            $article = $model->limit($limit)->get();
+        }
+        return $article;
     }
 
 }
