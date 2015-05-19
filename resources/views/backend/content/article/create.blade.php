@@ -3,18 +3,6 @@
 @section('content')
 
 
-<style type="text/css">
-
-    .editor-wrapper {
-        max-width: 680px;
-        padding: 10px;
-        margin: 60px auto;
-    }
-</style>
-<script type="text/javascript" src="{{ asset('/plugin/markdown/marked.js') }}"></script>
-<script type="text/javascript" src="{{ asset('/plugin/markdown/editor.js') }}"></script>
-<link rel="stylesheet" href="{{ asset('/plugin/markdown/editor.css') }}">
-
 <!-- Tokenfield CSS -->
 <link href="{{ asset('/plugin/tags/css/bootstrap-tokenfield.css') }}" type="text/css" rel="stylesheet">
 <link href="{{ asset('/plugin/tags/css/jquery-ui.css ') }}" type="text/css" rel="stylesheet">
@@ -82,8 +70,9 @@
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">内容</label>
-                            <div class="col-sm-7">
-                                {!! Form::textarea('content', '', ['class' => 'form-control','id'=>'editor']) !!}
+                            <div class="col-sm-7 editor">
+                                @include('editor::head')
+                                {!! Form::textarea('content', '', ['class' => 'form-control','id'=>'myEditor']) !!}
                                 <font color="red">{{ $errors->first('content') }}</font>
                             </div>
                         </div>
@@ -98,14 +87,7 @@
             </div>
         </div>
 
-<script type="text/javascript" src="{{ asset('/plugin/markdown/zepto.min.js') }}"></script>
-<script type="text/javascript">
-    (function($) {
 
-        var editor = new Editor();
-        editor.render();
-    })(Zepto);
-</script>
 
 <script type="text/javascript" src="{{ asset('/plugin/tags/jquery-ui.js ') }}"></script>
 <script type="text/javascript" src="{{ asset('/plugin/tags/bootstrap-tokenfield.js ') }}" charset="UTF-8"></script>

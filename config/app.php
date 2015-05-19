@@ -146,7 +146,8 @@ return [
         'App\Providers\EventServiceProvider',
         'App\Providers\RouteServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
-        'Krucas\Notification\NotificationServiceProvider'
+        'Krucas\Notification\NotificationServiceProvider',
+        'YuanChao\Editor\EndaEditorServiceProvider'
 
     ],
 
@@ -197,7 +198,8 @@ return [
         'View' => 'Illuminate\Support\Facades\View',
         'Form' => 'Illuminate\Html\FormFacade',
         'HTML' => 'Illuminate\Html\HtmlFacade',
-        'Notification' => 'Krucas\Notification\Facades\Notification'
+        'Notification' => 'Krucas\Notification\Facades\Notification',
+        'EndaEditor' => 'YuanChao\Editor\Facade\EndaEditorFacade'
 
     ],
 

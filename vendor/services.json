@@ -28,7 +28,8 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Illuminate\\Html\\HtmlServiceProvider",
-        "Krucas\\Notification\\NotificationServiceProvider"
+        "Krucas\\Notification\\NotificationServiceProvider",
+        "YuanChao\\Editor\\EndaEditorServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -47,7 +48,8 @@
         "App\\Providers\\ConfigServiceProvider",
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
-        "Krucas\\Notification\\NotificationServiceProvider"
+        "Krucas\\Notification\\NotificationServiceProvider",
+        "YuanChao\\Editor\\EndaEditorServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

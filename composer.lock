@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c52598551aca6520760d99e35493d050",
+    "hash": "4f22f042508fd379879b34f194be7294",
     "packages": [
         {
             "name": "caouecs/laravel4-lang",
@@ -378,77 +378,6 @@
                 "notifications"
             ],
             "time": "2015-02-23 22:32:35"
-        },
-        {
-            "name": "graham-campbell/markdown",
-            "version": "v3.0.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/GrahamCampbell/Laravel-Markdown.git",
-                "reference": "32ba7796fe6a3ee78b40b8083e290bc166b612bd",
-                "mirrors": [
-                    {
-                        "url": "/%package%/%normalizedUrl%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/GrahamCampbell/Laravel-Markdown/zipball/32ba7796fe6a3ee78b40b8083e290bc166b612bd",
-                "reference": "32ba7796fe6a3ee78b40b8083e290bc166b612bd",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://toran.reimu.io/repo/packagist/dists/%package%/%version%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "illuminate/contracts": "5.0.*",
-                "illuminate/support": "5.0.*",
-                "illuminate/view": "5.0.*",
-                "league/commonmark": "0.8.*",
-                "php": ">=5.4.7"
-            },
-            "require-dev": {
-                "graham-campbell/testbench": "~2.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "GrahamCampbell\\Markdown\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Graham Campbell",
-                    "email": "graham@mineuk.com"
-                }
-            ],
-            "description": "Markdown Is A CommonMark Wrapper For Laravel 5",
-            "keywords": [
-                "Graham Campbell",
-                "GrahamCampbell",
-                "Laravel Markdown",
-                "Laravel-Markdown",
-                "common mark",
-                "commonmark",
-                "framework",
-                "laravel",
-                "markdown"
-            ],
-            "time": "2015-05-07 13:59:12"
         },
         {
             "name": "illuminate/html",
@@ -879,79 +808,6 @@
                 "laravel"
             ],
             "time": "2015-05-11 22:15:00"
-        },
-        {
-            "name": "league/commonmark",
-            "version": "0.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/thephpleague/commonmark.git",
-                "reference": "91696c88df298f75fdd2075e4bb19c6dbd7338ca",
-                "mirrors": [
-                    {
-                        "url": "/%package%/%normalizedUrl%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/commonmark/zipball/91696c88df298f75fdd2075e4bb19c6dbd7338ca",
-                "reference": "91696c88df298f75fdd2075e4bb19c6dbd7338ca",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://toran.reimu.io/repo/packagist/dists/%package%/%version%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=5.4.8"
-            },
-            "replace": {
-                "colinodell/commonmark-php": "*"
-            },
-            "require-dev": {
-                "erusev/parsedown": "~1.0",
-                "jgm/commonmark": "0.19",
-                "michelf/php-markdown": "~1.4",
-                "phpunit/phpunit": "~4.3",
-                "phpunit/phpunit-mock-objects": "2.3.0",
-                "symfony/finder": "~2.3"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "0.8-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "League\\CommonMark\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Colin O'Dell",
-                    "email": "colinodell@gmail.com",
-                    "homepage": "http://www.colinodell.com",
-                    "role": "Lead Developer"
-                }
-            ],
-            "description": "Markdown parser for PHP based on the CommonMark spec",
-            "homepage": "https://github.com/thephpleague/commonmark",
-            "keywords": [
-                "commonmark",
-                "markdown",
-                "parser"
-            ],
-            "time": "2015-04-29 18:01:46"
         },
         {
             "name": "league/flysystem",
@@ -2473,6 +2329,39 @@
                 "environment"
             ],
             "time": "2014-12-05 15:19:21"
+        },
+        {
+            "name": "yuanchao/laravel-5-markdown-editor",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yccphp/laravel-5-markdown-editor.git",
+                "reference": "4fb11752518ef19a392f8b810671893cf0a20ff7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yccphp/laravel-5-markdown-editor/zipball/4fb11752518ef19a392f8b810671893cf0a20ff7",
+                "reference": "4fb11752518ef19a392f8b810671893cf0a20ff7",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "YuanChao\\Editor\\": "src/"
+                }
+            },
+            "notification-url": "http://packagist.cn/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "yuanchao",
+                    "email": "653069653@qq.com"
+                }
+            ],
+            "description": "Based on the markdown editor laravel 5",
+            "time": "2015-05-19 09:55:11"
         }
     ],
     "packages-dev": [
@@ -3847,6 +3736,7 @@
     "stability-flags": {
         "edvinaskrucas/notification": 20,
         "overtrue/laravel-lang": 20,
+        "yuanchao/laravel-5-markdown-editor": 20,
         "laracasts/generators": 20
     },
     "prefer-stable": false,

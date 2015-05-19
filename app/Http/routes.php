@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
-
-Route::get('home', 'HomeController@index');
+Route::get('/', 'HomeController@index');
 
 
 
@@ -32,7 +30,8 @@ Route::group(['prefix'=>'backend','middleware'=>'auth'],function(){
     Route::resource('tags','backend\TagsController');
     Route::resource('user','backend\UserController');
     Route::controllers([
-        'system'=>'backend\SystemController'
+        'system'=>'backend\SystemController',
+        'upload'=>'backend\UploadFileController'
     ]);
 
 });
