@@ -26,6 +26,20 @@ class Article extends Model {
         return $this->hasOne('App\User','id','user_id');
     }
 
+    public function category(){
+        return $this->hasOne('App\Model\Category','id','cate_id');
+    }
+
+    /**
+     * 范围查询
+     * @param $query
+     * @param $userId
+     * @return mixed
+     */
+    public function scopeUserId($query,$userId){
+        return $query->where('user_id','=',$userId);
+    }
+
     public static function setFieldData(){
         $fieldData = array();
         $article = new Article();
@@ -56,6 +70,9 @@ class Article extends Model {
         return $fieldData;
     }
 
+    public static function getArticleModelByArticleId($articleId){
+        return !empty($articleId)?self::find($articleId):null;
+    }
 
     /**
      * 获取最新的文章
@@ -69,6 +86,26 @@ class Article extends Model {
             $article = $model->simplePaginate($limit);
         }else{
             $article = $model->limit($limit)->get();
+        }
+        return $article;
+    }
+
+    /**
+     * 根据作者获取文章
+     * @param $userid
+     * @param int $limit
+     * @param bool $page
+     * @return null
+     */
+    public static function getArticleModelByUserId($userid,$limit=3,$page=false){
+        $article = null;
+        if(!empty($userid)){
+            $model = self::userId($userid)->orderBy('id','DESC');
+            if($page){
+                $article = $model->simplePaginate($limit);
+            }else{
+                $article = $model->limit($limit)->get();
+            }
         }
         return $article;
     }

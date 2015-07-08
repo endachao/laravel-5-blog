@@ -11,13 +11,7 @@
 /**
  * XML helpers.
  *
- * @package    PHPUnit
- * @subpackage Util
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
- * @since      Class available since Release 3.2.0
+ * @since Class available since Release 3.2.0
  */
 class PHPUnit_Util_XML
 {
@@ -29,7 +23,6 @@ class PHPUnit_Util_XML
      *
      * @param  string $string
      * @return string
-     * @author Kore Nordmann <mail@kore-nordmann.de>
      * @since  Method available since Release 3.4.6
      */
     public static function prepareString($string)
@@ -49,9 +42,9 @@ class PHPUnit_Util_XML
      * Loads an XML (or HTML) file into a DOMDocument object.
      *
      * @param  string      $filename
-     * @param  boolean     $isHtml
-     * @param  boolean     $xinclude
-     * @param  boolean     $strict
+     * @param  bool        $isHtml
+     * @param  bool        $xinclude
+     * @param  bool        $strict
      * @return DOMDocument
      * @since  Method available since Release 3.3.0
      */
@@ -88,15 +81,12 @@ class PHPUnit_Util_XML
      * DOMDocument, use loadFile() instead.
      *
      * @param  string|DOMDocument $actual
-     * @param  boolean            $isHtml
+     * @param  bool               $isHtml
      * @param  string             $filename
-     * @param  boolean            $xinclude
-     * @param  boolean            $strict
+     * @param  bool               $xinclude
+     * @param  bool               $strict
      * @return DOMDocument
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
-     * @author Tobias Schlitt <toby@php.net>
      */
     public static function load($actual, $isHtml = false, $filename = '', $xinclude = false, $strict = false)
     {
@@ -107,7 +97,7 @@ class PHPUnit_Util_XML
         // Required for XInclude on Windows.
         if ($xinclude) {
             $cwd = getcwd();
-            chdir(dirname($filename));
+            @chdir(dirname($filename));
         }
 
         $document  = new DOMDocument;
@@ -139,7 +129,7 @@ class PHPUnit_Util_XML
         error_reporting($reporting);
 
         if ($xinclude) {
-            chdir($cwd);
+            @chdir($cwd);
         }
 
         if ($loaded === false || ($strict && $message !== '')) {
@@ -160,8 +150,6 @@ class PHPUnit_Util_XML
     }
 
     /**
-     *
-     *
      * @param  DOMNode $node
      * @return string
      * @since  Method available since Release 3.4.0
@@ -182,11 +170,8 @@ class PHPUnit_Util_XML
     }
 
     /**
-     *
-     *
      * @param DOMNode $node
      * @since  Method available since Release 3.3.0
-     * @author Mattis Stordalen Flister <mattis@xait.no>
      */
     public static function removeCharacterDataNodes(DOMNode $node)
     {
@@ -211,7 +196,7 @@ class PHPUnit_Util_XML
         $variable = null;
 
         switch ($element->tagName) {
-            case 'array': {
+            case 'array':
                 $variable = array();
 
                 foreach ($element->getElementsByTagName('element') as $element) {
@@ -223,10 +208,9 @@ class PHPUnit_Util_XML
                         $variable[] = $value;
                     }
                 }
-            }
-            break;
+                break;
 
-            case 'object': {
+            case 'object':
                 $className = $element->getAttribute('class');
 
                 if ($element->hasChildNodes()) {
@@ -244,22 +228,19 @@ class PHPUnit_Util_XML
                 } else {
                     $variable = new $className;
                 }
-            }
-            break;
+                break;
 
-            case 'boolean': {
+            case 'boolean':
                 $variable = $element->nodeValue == 'true' ? true : false;
-            }
-            break;
+                break;
 
             case 'integer':
             case 'double':
-            case 'string': {
+            case 'string':
                 $variable = $element->nodeValue;
 
                 settype($variable, $element->tagName);
-            }
-            break;
+                break;
         }
 
         return $variable;
@@ -273,8 +254,6 @@ class PHPUnit_Util_XML
      * @return array
      * @throws PHPUnit_Framework_Exception
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
      */
     public static function assertValidKeys(array $hash, array $validKeys)
     {
@@ -319,18 +298,16 @@ class PHPUnit_Util_XML
      * @param  mixed  $content
      * @return array
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
      */
     public static function convertSelectToTag($selector, $content = true)
     {
-        $selector = trim(preg_replace("/\s+/", " ", $selector));
+        $selector = trim(preg_replace("/\s+/", ' ', $selector));
 
         // substitute spaces within attribute value
         while (preg_match('/\[[^\]]+"[^"]+\s[^"]+"\]/', $selector)) {
             $selector = preg_replace(
                 '/(\[[^\]]+"[^"]+)\s([^"]+"\])/',
-                "$1__SPACE__$2",
+                '$1__SPACE__$2',
                 $selector
             );
         }
@@ -451,15 +428,12 @@ class PHPUnit_Util_XML
      * The $actual document may be a DOMDocument or a string
      * containing XML or HTML, identified by $isHtml.
      *
-     * @param  array         $selector
-     * @param  string        $content
-     * @param  mixed         $actual
-     * @param  boolean       $isHtml
-     * @return boolean|array
+     * @param  array      $selector
+     * @param  string     $content
+     * @param  mixed      $actual
+     * @param  bool       $isHtml
+     * @return bool|array
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
-     * @author Tobias Schlitt <toby@php.net>
      */
     public static function cssSelect($selector, $content, $actual, $isHtml = true)
     {
@@ -475,12 +449,9 @@ class PHPUnit_Util_XML
      *
      * @param  DOMDocument $dom
      * @param  array       $options
-     * @param  boolean     $isHtml
+     * @param  bool        $isHtml
      * @return array
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
-     * @author Tobias Schlitt <toby@php.net>
      */
     public static function findNodes(DOMDocument $dom, array $options, $isHtml = true)
     {
@@ -577,12 +548,12 @@ class PHPUnit_Util_XML
                         // split to individual classes
                         $findClasses = explode(
                             ' ',
-                            preg_replace("/\s+/", " ", $value)
+                            preg_replace("/\s+/", ' ', $value)
                         );
 
                         $allClasses = explode(
                             ' ',
-                            preg_replace("/\s+/", " ", $node->getAttribute($name))
+                            preg_replace("/\s+/", ' ', $node->getAttribute($name))
                         );
 
                         // make sure each class given is in the actual node
@@ -859,8 +830,6 @@ class PHPUnit_Util_XML
      * @param  DOMNode $node
      * @return array
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
      */
     protected static function getDescendants(DOMNode $node)
     {
@@ -905,8 +874,6 @@ class PHPUnit_Util_XML
      * @param  DOMNode $node
      * @return string
      * @since  Method available since Release 3.3.0
-     * @author Mike Naberezny <mike@maintainable.com>
-     * @author Derek DeVries <derek@maintainable.com>
      */
     protected static function getNodeText(DOMNode $node)
     {

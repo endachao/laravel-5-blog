@@ -9,7 +9,6 @@
 	});
 
 $(document).ready(function() {
-	
 	/* off canvas menu ======================================= */
 	$('.menu-link, .close-menu').on('click', function(){
 		$('#wrap').toggleClass('menu-open');
@@ -52,20 +51,9 @@ $(document).ready(function() {
 				$('#mycomment button').removeClass('btn-error').html(buttonCopy);
 				
 			},2000);
+            return false;
 		}
-		else {
-			$('#mycomment button').html('<i class="icon-spinner icon-spin"></i>'+sendingMessage);
-			
-			var formInput = $(this).serialize();
-			$.post($(this).attr('action'),formInput, function(data){
-				$('#mycomment button').html(okMessage);
-				setTimeout(function(){
-					$('#mycomment button').html(buttonCopy);
-				},2000);
-				
-			});
-		}
-		return false;	
+        return true;
 	});
 
 	/* wow ======================================= */

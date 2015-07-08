@@ -95,7 +95,7 @@
 <script type="text/javascript">
     $('#tags').tokenfield({
         autocomplete: {
-            source: <?php echo  \App\Model\Tag::getAllTagsString()?>,
+            source: <?php echo  \App\Model\Tag::getTagStringAll()?>,
             delay: 100
         },
         showAutocompleteOnFocus: !0,

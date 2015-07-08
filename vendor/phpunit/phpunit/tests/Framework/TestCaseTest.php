@@ -22,13 +22,6 @@ $_REQUEST['h'] = 'h';
 $GLOBALS['i']  = 'i';
 
 /**
- *
- *
- * @package    PHPUnit
- * @author     Sebastian Bergmann <sebastian@phpunit.de>
- * @copyright  Sebastian Bergmann <sebastian@phpunit.de>
- * @license    http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License
- * @link       http://www.phpunit.de/
  * @since      Class available since Release 2.0.0
  * @covers     PHPUnit_Framework_TestCase
  */
@@ -71,7 +64,7 @@ class Framework_TestCaseTest extends PHPUnit_Framework_TestCase
 
     public function testError()
     {
-        $test   = new Error;
+        $test   = new TestError;
         $result = $test->run();
 
         $this->assertEquals(1, $result->errorCount());
@@ -332,7 +325,7 @@ class Framework_TestCaseTest extends PHPUnit_Framework_TestCase
     public function testStaticAttributesBackupPre()
     {
         $GLOBALS['singleton'] = Singleton::getInstance();
-        self::$_testStatic = 123;
+        self::$_testStatic    = 123;
     }
 
     /**

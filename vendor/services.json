@@ -29,7 +29,8 @@
         "App\\Providers\\RouteServiceProvider",
         "Illuminate\\Html\\HtmlServiceProvider",
         "Krucas\\Notification\\NotificationServiceProvider",
-        "YuanChao\\Editor\\EndaEditorServiceProvider"
+        "YuanChao\\Editor\\EndaEditorServiceProvider",
+        "Mews\\Captcha\\CaptchaServiceProvider"
     ],
     "eager": [
         "Illuminate\\Auth\\AuthServiceProvider",
@@ -49,7 +50,8 @@
         "App\\Providers\\EventServiceProvider",
         "App\\Providers\\RouteServiceProvider",
         "Krucas\\Notification\\NotificationServiceProvider",
-        "YuanChao\\Editor\\EndaEditorServiceProvider"
+        "YuanChao\\Editor\\EndaEditorServiceProvider",
+        "Mews\\Captcha\\CaptchaServiceProvider"
     ],
     "deferred": {
         "command.app.name": "Illuminate\\Foundation\\Providers\\ArtisanServiceProvider",

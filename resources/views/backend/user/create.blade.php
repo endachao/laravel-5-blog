@@ -17,7 +17,7 @@
         @endif
 
         <div class="panel-body">
-            {!! Form::open(['route' => 'backend.user.store', 'method' => 'post','class'=>'form-horizontal']) !!}
+            {!! Form::open(['route' => 'backend.user.store', 'method' => 'post','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
 
 
             <div class="form-group">
@@ -41,6 +41,22 @@
                 <div class="col-sm-3">
                     {!! Form::text('password', '', ['class' => 'form-control','placeholder'=>'Password']) !!}
                     <font color="red">{{ $errors->first('password') }}</font>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-3">
+                    {!! Form::file('photo') !!}
+                    <font color="red">{{ $errors->first('photo') }}</font>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
+                <div class="col-sm-3">
+                    {!! Form::textarea('desc', '', ['class' => 'form-control']) !!}
+                    <font color="red">{{ $errors->first('desc') }}</font>
                 </div>
             </div>
 

@@ -14,31 +14,69 @@ class Tag extends Model {
 
     public $timestamps = false;
 
-    public static function getAllTagsArr(){
+    /**
+     * 获取所有标签
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function getTagModelAll(){
         return self::all();
     }
 
-    public static function getAllTagsString(){
-        $tags = self::getAllTagsArr();
-        return self::getTagString($tags);
+    /**
+     * 获取标签插件所需得列表数据
+     * @return null|string
+     */
+    public static function getTagStringAll(){
+        $tags = self::getTagModelAll();
+        return !empty($tags)?self::TagModelConversionTagString($tags):null;
     }
 
-    public static function getTagsNameByTagsIds($tagIds){
+
+    /**
+     * 根据标签id串获取标签数据
+     * @param string $tagIds
+     * @return \Illuminate\Support\Collection|null|static
+     */
+    public static function getTagModelByTagIds($tagIds){
         $tags = explode(',',$tagIds);
-        $tags = self::find($tags);
-        return self::getTagString($tags);
+        return !empty($tags)?self::find($tags):null;
+
     }
 
-    public static function getTagString($result){
-        $tag = "[";
-        foreach($result as $k=>$v){
-            $tag .= "'$v->name',";
+    /**
+     * 根据标签id串获取标签插件所需得数据
+     * @param $tagIds
+     * @return null|string
+     */
+    public static function getTagStringByTagIds($tagIds){
+        $tags = self::getTagModelByTagIds($tagIds);
+        return !empty($tags)?self::TagModelConversionTagString($tags):null;
+    }
+
+    /**
+     * 根据标签model，把标签转换成标签插件所需得数据
+     * @param Object $result
+     * @return string
+     */
+    public static function TagModelConversionTagString($result){
+        $tag = '';
+        if(!empty($result)){
+            $tag = "[";
+            foreach($result as $k=>$v){
+                $tag .= "'$v->name',";
+            }
+            $tag = trim($tag,',');
+            $tag .= ']';
         }
-        $tag = trim($tag,',');
-        $tag .= ']';
         return $tag;
     }
 
+    /**
+     * 自动插入标签
+     * @param $tags
+     * @param $new_tags
+     * @return string
+     */
     public static function SetArticleTags($tags,$new_tags){
         $tagsArr = array();
         if(!empty($tags)){

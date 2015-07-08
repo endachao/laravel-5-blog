@@ -22,7 +22,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['name', 'email', 'password'];
+	protected $fillable = ['name', 'email', 'password','photo','desc'];
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -64,12 +64,20 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
         if(!empty($id) && !empty($data)){
 
+
             $user = self::find($id);
             $user->name = $data['name'];
             $user->email = $data['email'];
             if(!empty($data['password'])){
                 $user->password = bcrypt($data['password']);
             }
+            $photo = uploadFile('img','photo','uploads');
+            if(!empty($photo)){
+                $user->photo = $photo;
+            }
+
+            $user->desc = $data['desc'];
+
             return $user->save();
         }
         return false;

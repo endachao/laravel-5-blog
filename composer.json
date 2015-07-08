@@ -9,7 +9,8 @@
         "illuminate/html": "~5.0",
         "edvinaskrucas/notification": "dev-features/laravel-5",
         "overtrue/laravel-lang": "dev-master",
-        "yuanchao/laravel-5-markdown-editor": "dev-master"
+        "yuanchao/laravel-5-markdown-editor": "dev-master",
+        "mews/captcha": "~2.0"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

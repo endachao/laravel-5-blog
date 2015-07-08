@@ -24,6 +24,15 @@
 <body id="home">
 
 @include('themes.keylime.menu')
+<div id="wrap">
+    <div id="main-nav" class="">
+        <div class="container">
+            <div class="nav-header">
+                <a class="nav-brand" href="index-2.html"><i class="icon-lime"></i>Enda Blog</a>
+                <a class="menu-link nav-icon" href="#"><i class="icon-menu2"></i></a>
+            </div>
+        </div>
+    </div>
 @yield('content')
 
 <footer>
@@ -85,7 +94,7 @@
                                                 <h4 class="media-heading">
                                                     <a href="post-video.html">{{ $article->title }}</a>
                                                 </h4>
-                                                <p class="post-date">{{ date('Y-m-d',strtotime($art->created_at)) }}</p>
+                                                <p class="post-date">{{ date('Y-m-d',strtotime($article->created_at)) }}</p>
                                             </div>
                                         </div>
                                     @endforeach

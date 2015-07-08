@@ -11,14 +11,17 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'ArticleController@index');
 
 
+Route::resource('article', 'ArticleController');
+Route::resource('comment', 'CommentController');
 
 
 Route::controllers([
     'backend/auth' => 'backend\AuthController',
     'backend/password' => 'backend\PasswordController',
+    'public'=>'PublicController'
 ]);
 
 Route::group(['prefix'=>'backend','middleware'=>'auth'],function(){

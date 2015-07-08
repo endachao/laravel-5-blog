@@ -1,9 +1,9 @@
-@extends('backend.content.common')
+@extends('backend.user.common')
 
 @section('content')
 <div class="col-md-10">
     <div class="panel panel-default">
-        <div class="panel-heading">修改分类</div>
+        <div class="panel-heading">修改用户</div>
 
         @if ($errors->has('error'))
         <div class="alert alert-danger alert-dismissible" role="alert">
@@ -17,7 +17,7 @@
         @endif
 
         <div class="panel-body">
-            {!! Form::model($user, ['route' => ['backend.user.update', $user->id], 'method' => 'put','class'=>'form-horizontal']) !!}
+            {!! Form::model($user, ['route' => ['backend.user.update', $user->id], 'method' => 'put','class'=>'form-horizontal','enctype'=>'multipart/form-data']) !!}
 
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">用户名</label>
@@ -41,6 +41,28 @@
                     {!! Form::text('password', '', ['class' => 'form-control','placeholder'=>'Password']) !!}
                     <font color="red">{{ $errors->first('password') }}</font>
                     <font color="#8a2be2">为空则不修改</font>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">头像</label>
+                <div class="col-sm-3">
+                    {!! Form::file('photo') !!}
+                    <font color="red">{{ $errors->first('photo') }}</font>
+                    <br />
+                    <div class="row-sm-2">
+                        @if(!empty($user->photo))
+                            <img src="{{ asset('uploads'.'/'.$user->photo) }}" />
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label  class="col-sm-2 control-label">描述</label>
+                <div class="col-sm-3">
+                    {!! Form::textarea('desc', $user->desc, ['class' => 'form-control']) !!}
+                    <font color="red">{{ $errors->first('desc') }}</font>
                 </div>
             </div>
 

@@ -1,5 +1,26 @@
 # Changes in PHPUnit 4.6
 
+## PHPUnit 4.6.10
+
+* Merged [#1693](https://github.com/sebastianbergmann/phpunit/pull/1693): Improved API documentation
+* Merged [#1706](https://github.com/sebastianbergmann/phpunit/pull/1706): Avoid hard-coded URI to `phpunit.xsd`
+* Merged [#1725](https://github.com/sebastianbergmann/phpunit/pull/1725): Update phpDox XSD URI
+* Merged [#1735](https://github.com/sebastianbergmann/phpunit/pull/1735): Mute `chdir()` failures in XInclude handling of XML configuration file
+* Merged [#1736](https://github.com/sebastianbergmann/phpunit/pull/1736): Verify that phar file can be overwritten before attempting self update
+* Fixed [#1737](https://github.com/sebastianbergmann/phpunit/issues/1737): Confusing output from `--testdox` for empty test class
+
+## PHPUnit 4.6.9
+
+* Fixed [#1731](https://github.com/sebastianbergmann/phpunit/issues/1731): `.` after failure count has no background color when `--colors` is used
+
+## PHPUnit 4.6.8
+
+* New PHAR release due to updated dependencies
+
+## PHPUnit 4.6.7
+
+* New PHAR release due to updated dependencies
+
 ## PHPUnit 4.6.6
 
 * Fixed [#1684](https://github.com/sebastianbergmann/phpunit/issues/1684): PHAR does not work on HHVM
