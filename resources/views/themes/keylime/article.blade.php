@@ -18,7 +18,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <ol class="breadcrumb">
-                            <li><a href="{{ route('article.index') }}">显示验证码</a></li>
+                            <li><a href="{{ route('article.index') }}">首页</a></li>
                             <li><a href="#">{{ $article->category->cate_name }}</a></li>
                             <li class="active">{{ $article->title }}</li>
                         </ol>
@@ -93,7 +93,7 @@
 
                     </div>
 
-                    <h3>11 Comments</h3>
+                    <h3>{{ $article->status->comment_number }} 评论</h3>
                     <div class="media" id="commentList">
                         <hr>
 

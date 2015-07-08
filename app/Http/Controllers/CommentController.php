@@ -9,6 +9,7 @@ use App\Model\Comment as CommentModel;
 use Response;
 use Session;
 use Notification;
+use App\Model\ArticleStatus;
 class CommentController extends Controller
 {
 
@@ -53,6 +54,8 @@ class CommentController extends Controller
         unset($attributes['_token']);
         try {
             CommentModel::create($attributes);
+            ArticleStatus::updateCommentNumber($attributes['el_id']);
+
             Notification::success('评论成功');
             return redirect()->route('article.show',['id'=>$attributes['el_id'],'#commentList']);
         } catch (\Exception $e) {

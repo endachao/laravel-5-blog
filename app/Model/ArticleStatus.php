@@ -47,4 +47,13 @@ class ArticleStatus extends Model {
         return $article;
     }
 
+    /**
+     * 更新到动态表
+     * @param $artId
+     * @return mixed
+     */
+    public static function updateCommentNumber($artId){
+        return self::where('art_id','=',$artId)->increment('comment_number');
+    }
+
 }
