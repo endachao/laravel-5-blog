@@ -32,6 +32,7 @@ Route::group(['prefix'=>'backend','middleware'=>'auth'],function(){
     Route::resource('article','backend\ArticleController');
     Route::resource('tags','backend\TagsController');
     Route::resource('user','backend\UserController');
+    Route::resource('comment','backend\CommentController');
     Route::controllers([
         'system'=>'backend\SystemController',
         'upload'=>'backend\UploadFileController'

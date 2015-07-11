@@ -16,6 +16,10 @@
                 <a href="{{URL::route('backend.tags.index')}}">标签管理</a>
             </li>
 
+            <li>
+                <a href="{{URL::route('backend.comment.index')}}">评论管理</a>
+            </li>
+
         </ul>
     </div>
 </div>

@@ -31,6 +31,10 @@ class Comment extends Model {
         'content',
     ];
 
+    public function article(){
+        return $this->hasOne('App\Model\Article','id','el_id');
+    }
+
     public static function getCommentModelByCommentId($commentId){
         return self::find($commentId);
     }

@@ -15,6 +15,7 @@ return [
         'tags'=>CONTENT.'tags.',
         'system'=>SYSTEM.'system.',
         'user'=>USER,
+        'comment'=>CONTENT.'comment.'
     ],
     'class'=>'',
 ];
