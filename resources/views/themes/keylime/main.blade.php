@@ -16,6 +16,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ homeAsset('/img/ico/72.png') }}" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="{{ homeAsset('/img/ico/120.png') }}" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="{{ homeAsset('/img/ico/152.png') }}" type="image/png"/>
+    <script type="text/javascript" src="{{ homeAsset('/js/jquery-1.9.1.min.js') }}"></script>
     <!--[if lt IE 9]>
     <script src="{{ homeAsset('/js/html5shiv.js') }}"></script>
     <script src="{{ homeAsset('/js/respond.min.js') }}"></script>
@@ -134,7 +135,7 @@
 </footer>
 </div>
 
-<script type="text/javascript" src="{{ homeAsset('/js/jquery-1.9.1.min.js') }}"></script>
+
 <script type="text/javascript" src="{{ homeAsset('/js/bootstrap.min.js') }}"></script>
 <script type="text/javascript" src="{{ homeAsset('/js/placeholders.min.js') }}"></script>
 <script type="text/javascript" src="{{ homeAsset('/js/wow.min.js') }}"></script>

@@ -54,6 +54,7 @@
 						<li><a href="{{ url('/backend/auth/login') }}">Login</a></li>
 						<li><a href="{{ url('/backend/auth/register') }}">Register</a></li>
 					@else
+                        <li><a href="/">网站主页</a></li>
 						<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
 							<ul class="dropdown-menu" role="menu">

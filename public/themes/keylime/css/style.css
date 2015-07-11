@@ -1352,4 +1352,8 @@ footer .copyright {
 	}
  } 
 
+/* 文章 css*/
 
+#contentHtml img{
+    width: 800px;
+}

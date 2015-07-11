@@ -1,6 +1,6 @@
-@extends('app')
+@extends('backend.app')
 
-@section('content')
+@section('modules')
 <div class="container-fluid">
 
 
