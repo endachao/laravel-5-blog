@@ -124,7 +124,7 @@
                                                     {{ '@'.App\Model\Comment::getCommentReplyUserNameByCommentId($commentModel->parent_id) }}
                                                 </a>
                                             @endif
-                                            {{ $commentModel->content }}
+                                            {!! conversionMarkdown($commentModel->content) !!}
                                         </p>
                                     </div>
                                 </div>
@@ -150,7 +150,7 @@
                                                 'content',
                                                 '',
                                                 [
-                                                    'placeholder'=>'吐槽？提问',
+                                                    'placeholder'=>'支持markdown语法',
                                                     'class'=>'form-control input-lg requiredField',
                                                     'rows'=>'3',
                                                     'data-error-empty'=>'请输入评论内容',
