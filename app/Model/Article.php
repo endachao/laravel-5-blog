@@ -80,8 +80,11 @@ class Article extends Model {
      * @param bool $page 是否分页
      * @return mixed
      */
-    public static function getNewsArticle($limit=4,$page=true){
+    public static function getNewsArticle($catId=0,$limit=4,$page=true){
         $model = self::orderBy('id','DESC');
+        if($catId > 0){
+            $model = $model->where('cate_id','=',$catId);
+        }
         if($page){
             $article = $model->simplePaginate($limit);
         }else{

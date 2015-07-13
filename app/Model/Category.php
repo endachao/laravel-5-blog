@@ -32,9 +32,7 @@ class Category extends Model {
      */
     public static function getCategoryDataModel(){
         $category = self::all();
-
         $data = self::getSortModel($category);
-
         return $data;
     }
 
@@ -42,7 +40,6 @@ class Category extends Model {
      * 此方法维护静态数组 $category
      */
     private  static function getCategoryArr($catId){
-
         if(!isset(self::$category[$catId])){
             $cate = self::select('cate_name')->find($catId)->toArray();
             if(empty($cate)){
@@ -50,38 +47,33 @@ class Category extends Model {
             }
             self::$category[$catId] = $cate['cate_name'];
         }
-
         return self::$category[$catId];
-
     }
 
     public static function getCategoryNameByCatId($catId){
-
         $cate = self::getCategoryArr($catId);
-
         return !empty($cate)?$cate:'分类不存在';
     }
 
     public static function getCatFieldData($catId=false){
-
         $data = self::getSortModel(Category::select('id','cate_name','parent_id')->get());
-
         foreach($data as $k=>$v){
             self::$catData[$v->id] = $v->html.$v->cate_name;
         }
-
         if($catId){
             unset(self::$catData[$catId]);
         }
-
         unset($category);
-
         return self::$catData;
-
     }
 
-    public static function getTreeCatArr($model){
-
+    /**
+     * 根据别名取分类信息
+     * @param $asName
+     * @return mixed
+     */
+    public static function getCatInfoModelByAsName($asName){
+        return self::where('as_name','=',$asName)->first();
     }
 
     public static function setFieldData(){
@@ -98,28 +90,18 @@ class Category extends Model {
 
 
     public static function getSortModel($model,$parentId=0,$level=0,$html='-'){
-
         $data = array();
         foreach($model as $k=>$v){
-
             if($v->parent_id == $parentId){
-
                 if($level != 0){
                     $v->html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$level);
                     $v->html .= '|';
-
                 }
-
                 $v->html .= str_repeat($html,$level);
-
                 $data[] = $v;
-
                 $data = array_merge($data,self::getSortModel($model,$v->id,$level+1));
             }
-
         }
-
         return $data;
-
     }
 }

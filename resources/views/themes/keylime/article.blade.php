@@ -18,7 +18,7 @@
                     <div class="col-md-10 col-md-offset-1">
                         <ol class="breadcrumb">
                             <li><a href="{{ route('article.index') }}">首页</a></li>
-                            <li><a href="#">{{ $article->category->cate_name }}</a></li>
+                            <li><a href="{{ url(route('category.show',['id'=>$article->category->as_name])) }}">{{ $article->category->cate_name }}</a></li>
                             <li class="active">{{ $article->title }}</li>
                         </ol>
                     </div>

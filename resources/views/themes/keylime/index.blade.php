@@ -24,7 +24,7 @@
                             <div class="post-date">
                                {{ date('Y-m-d',strtotime($art->created_at)) }} |
                                 <a href="#">{{ $art->user->name }}</a>
-                                <span><a href="#">{{ $art->status->comment_number }} Comments</a></span>
+                                <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}">{{ $art->status->comment_number }} Comments</a></span>
                             </div>
 
                             <h2>

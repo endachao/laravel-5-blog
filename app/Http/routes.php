@@ -16,6 +16,7 @@ Route::get('/', 'ArticleController@index');
 
 Route::resource('article', 'ArticleController');
 Route::resource('comment', 'CommentController');
+Route::resource('category', 'CategoryController');
 
 
 Route::controllers([

@@ -142,7 +142,7 @@ if ( ! function_exists('viewInit'))
             'visit'=>$articleStatus->sum('view_number'),
         );
 
-        $view->share('recentArticle', $article::getNewsArticle(3,false));
+        $view->share('recentArticle', $article::getNewsArticle(0,3,false));
         $view->share('hotTags', $tags::getHotTags(12));
         $view->share('dataCount', $count);
     }
