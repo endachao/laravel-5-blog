@@ -33,6 +33,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 
     static $users = [];
 
+    public static function getUserInfoModelByUserId($userId){
+        return self::select('id','name','email','photo','desc')->find($userId);
+    }
+
     public static function getUserArr($userId){
 
         if(!isset(self::$users[$userId])){

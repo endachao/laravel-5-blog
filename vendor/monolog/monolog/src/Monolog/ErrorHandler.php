@@ -119,7 +119,7 @@ class ErrorHandler
     /**
      * @private
      */
-    public function handleException(\Exception $e)
+    public function handleException($e)
     {
         $this->logger->log(
             $this->uncaughtExceptionLevel === null ? LogLevel::ERROR : $this->uncaughtExceptionLevel,
@@ -130,6 +130,8 @@ class ErrorHandler
         if ($this->previousExceptionHandler) {
             call_user_func($this->previousExceptionHandler, $e);
         }
+
+        exit(255);
     }
 
     /**

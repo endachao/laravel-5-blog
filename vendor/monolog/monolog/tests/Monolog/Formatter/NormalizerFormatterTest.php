@@ -174,6 +174,22 @@ class NormalizerFormatterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(@json_encode(array($resource)), $res);
     }
 
+    /**
+     * @expectedException RuntimeException
+     */
+    public function testThrowsOnInvalidEncoding()
+    {
+        $formatter = new NormalizerFormatter();
+        $reflMethod = new \ReflectionMethod($formatter, 'toJson');
+        $reflMethod->setAccessible(true);
+
+        // send an invalid unicode sequence
+        $res = $reflMethod->invoke($formatter, array('message' => "\xB1\x31"));
+        if (PHP_VERSION_ID < 50500 && $res === '{"message":null}') {
+            throw new \RuntimeException('PHP 5.3/5.4 throw a warning and null the value instead of returning false entirely');
+        }
+    }
+
     public function testExceptionTraceWithArgs()
     {
         if (defined('HHVM_VERSION')) {

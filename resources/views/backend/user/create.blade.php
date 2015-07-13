@@ -54,8 +54,9 @@
 
             <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">密码</label>
-                <div class="col-sm-3">
-                    {!! Form::textarea('desc', '', ['class' => 'form-control']) !!}
+                <div class="col-sm-3 editor">
+                    @include('editor::head')
+                    {!! Form::textarea('desc', '', ['class' => 'form-control','id'=>'myEditor']) !!}
                     <font color="red">{{ $errors->first('desc') }}</font>
                 </div>
             </div>

@@ -10,7 +10,8 @@
         "edvinaskrucas/notification": "dev-features/laravel-5",
         "overtrue/laravel-lang": "dev-master",
         "yuanchao/laravel-5-markdown-editor": "dev-master",
-        "mews/captcha": "~2.0"
+        "mews/captcha": "~2.0",
+        "doctrine/dbal" : "2.4.*"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "~4.0",

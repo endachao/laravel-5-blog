@@ -147,7 +147,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function write($path, $contents, Config $config)
     {
@@ -170,7 +170,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function writeStream($path, $resource, Config $config)
     {
@@ -188,7 +188,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function update($path, $contents, Config $config)
     {
@@ -196,7 +196,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function updateStream($path, $resource, Config $config)
     {
@@ -204,7 +204,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function rename($path, $newpath)
     {
@@ -212,7 +212,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function delete($path)
     {
@@ -220,7 +220,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function deleteDir($dirname)
     {
@@ -241,7 +241,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function createDir($dirname, Config $config)
     {
@@ -295,7 +295,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getMetadata($path)
     {
@@ -317,13 +317,11 @@ class Ftp extends AbstractFtpAdapter
             return false;
         }
 
-        $metadata = $this->normalizeObject($listing[0], '');
-
-        return $metadata;
+        return  $this->normalizeObject($listing[0], '');
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function getMimetype($path)
     {
@@ -337,7 +335,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function read($path)
     {
@@ -353,7 +351,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function readStream($path)
     {
@@ -371,7 +369,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
     public function setVisibility($path, $visibility)
     {
@@ -385,7 +383,7 @@ class Ftp extends AbstractFtpAdapter
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      *
      * @param string $directory
      */

@@ -32,7 +32,7 @@
 
                     <div class="post-date">
                         {{ date('Y-m-d',strtotime($article->created_at)) }} |
-                        <a href="#">{{ $article->user->name }} </a>
+                        <a href="{{ url(route('about.show',['id'=>$article->user->id])) }}">{{ $article->user->name }} </a>
                         <span>
                             <a href="#">{{ $article->status->comment_number }} Comments</a>
                         </span>

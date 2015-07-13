@@ -52,7 +52,7 @@
                     <br />
                     <div class="row-sm-2">
                         @if(!empty($user->photo))
-                            <img src="{{ asset('uploads'.'/'.$user->photo) }}" />
+                            <img src="{{ asset('uploads'.'/'.$user->photo) }}" width="300px"/>
                         @endif
                     </div>
                 </div>
@@ -60,8 +60,9 @@
 
             <div class="form-group">
                 <label  class="col-sm-2 control-label">描述</label>
-                <div class="col-sm-3">
-                    {!! Form::textarea('desc', $user->desc, ['class' => 'form-control']) !!}
+                <div class="col-sm-5 editor">
+                    @include('editor::head')
+                    {!! Form::textarea('desc', $user->desc, ['class' => 'form-control','id'=>'myEditor']) !!}
                     <font color="red">{{ $errors->first('desc') }}</font>
                 </div>
             </div>

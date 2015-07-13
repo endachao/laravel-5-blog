@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ homeAsset('/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ homeAsset('/css/style.css') }}">
     <link rel="stylesheet" href="{{ homeAsset('/css/icons.css') }}">
+    <link rel="stylesheet" href="{{ homeAsset('/css/font.css') }}">
     <link rel="stylesheet" href="{{ homeAsset('/css/animate.min.css') }}">
     <link rel="shortcut icon" href="{{ homeAsset('/img/ico/32.png') }}" sizes="32x32" type="image/png"/>
     <link rel="apple-touch-icon-precomposed" href="{{ homeAsset('/img/ico/60.png" type="image/png') }}"/>
