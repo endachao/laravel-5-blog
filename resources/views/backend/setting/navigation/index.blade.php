@@ -27,10 +27,11 @@
                             <td class="text-right">
 
 
-                                <a href="{{ url(route('backend.nav.create',['parentId'=>$v->id])) }} " style="margin-right: 10px;" class="btn btn-info"  >
-                                    添加导航
-                                </a>
-
+                                @if($v->parent_id == 0)
+                                    <a href="{{ url(route('backend.nav.create',['parentId'=>$v->id])) }} " style="margin-right: 10px;" class="btn btn-info"  >
+                                        添加导航
+                                    </a>
+                                @endif
 
                                 {!! Form::open([
                                     'route' => array('backend.nav.destroy', $v->id),

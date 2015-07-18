@@ -25,7 +25,7 @@ class NavigationController extends Controller
     {
         //
         return backendView('index', [
-            'list' => Navigation::getNavigationAll(),
+            'list' => Navigation::getTreeNavigationAll(),
         ]);
     }
 

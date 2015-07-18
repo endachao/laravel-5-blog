@@ -8,6 +8,8 @@ class Navigation extends Model
     //
     protected $table = 'navigation';
 
+    public $child;
+
     protected $fillable = [
         'parent_id',
         'sequence',
@@ -19,13 +21,18 @@ class Navigation extends Model
         0 => '顶级导航'
     ];
 
+    public static function getNavigationAll()
+    {
+        return self::orderBy('sequence', 'asc')->get();
+    }
+
     /**
      * 方便以后扩展
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getNavigationAll()
+    public static function getTreeNavigationAll()
     {
-        return tree(self::orderBy('sequence', 'asc')->get());
+        return tree(self::getNavigationAll());
     }
 
     /**
@@ -35,7 +42,7 @@ class Navigation extends Model
     public static function getNavigationArray()
     {
         if (empty(self::$navigation)) {
-            $model = self::getNavigationAll();
+            $model = self::getTreeNavigationAll();
 
             if (!empty($model)) {
                 foreach ($model as $nav) {
@@ -84,4 +91,22 @@ class Navigation extends Model
         return !empty($child) ? true : false;
     }
 
+    public static function getNavList()
+    {
+        $model = self::getNavigationAll();
+        $data = [];
+        if (!empty($model)) {
+            foreach ($model as $key => $nav) {
+                if($nav->parent_id == 0){
+                    $data[$key] = $nav;
+                    foreach ($model as $navigation) {
+                        if ($navigation->parent_id == $nav->id) {
+                            $data[$key]->child[] = $navigation;
+                        }
+                    }
+                }
+            }
+        }
+        return $data;
+    }
 }
