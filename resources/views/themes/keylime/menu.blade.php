@@ -1,9 +1,9 @@
 <div id="menu" class="menu-right">
     <ul>
-        <form class="menu-search" >
+        <form class="menu-search" method="get" action="{{url('search/keyword')}}">
             <div class="form-group header">
                 <i class="icon-search searchico"></i>
-                <input type="text" placeholder="搜索">
+                <input type="text" name="keyword" placeholder="搜索">
                 <a href="#" class="close-menu"><i class="icon-close"></i></a>
             </div>
         </form>

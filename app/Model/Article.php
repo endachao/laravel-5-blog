@@ -112,4 +112,27 @@ class Article extends Model {
         }
         return $article;
     }
+
+    /**
+     * 关键字搜索
+     * @todo 后期做成 Coreseek 分词搜索
+     * @param $keyword
+     * @return mixed
+     */
+    public static function getArticleListByKeyword($keyword){
+        if(empty($keyword)){
+            return null;
+        }
+        return self::where('title','like',"%$keyword%")->orderBy('id','desc')->simplePaginate(10);
+    }
+
+    public static function getArticleListByTagId($tagId){
+        if(empty($tagId)){
+            return null;
+        }
+        return self::whereRaw(
+            'find_in_set(?, tags)',
+            [$tagId] // bindings array
+        )->orderBy('id','desc')->simplePaginate(10);
+    }
 }

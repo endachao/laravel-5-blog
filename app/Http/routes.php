@@ -23,7 +23,8 @@ Route::resource('about', 'AboutController');
 Route::controllers([
     'backend/auth' => 'backend\AuthController',
     'backend/password' => 'backend\PasswordController',
-    'public'=>'PublicController'
+    'public'=>'PublicController',
+    'search'=>'SearchController',
 ]);
 
 Route::group(['prefix'=>'backend','middleware'=>'auth'],function(){

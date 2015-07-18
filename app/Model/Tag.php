@@ -2,9 +2,11 @@
 
 use Illuminate\Database\Eloquent\Model;
 use Input;
-class Tag extends Model {
 
-	//
+class Tag extends Model
+{
+
+    //
     protected $table = 'tags';
 
     protected $fillable = [
@@ -14,11 +16,44 @@ class Tag extends Model {
 
     public $timestamps = false;
 
+    static $tags;
+
+    /**
+     * 获取所有tag
+     * @return mixed
+     */
+    public static function getTagArray()
+    {
+        $tagList = self::getTagModelAll();
+        if (!empty($tag)) {
+            foreach ($tagList as $tag) {
+                self::$tags[$tag->id] = $tag->name;
+            }
+        }
+        return self::$tags;
+    }
+
+    /**
+     * 根据tagId 获取 tagName
+     * @param $tagId
+     * @return string
+     */
+    public static function getTagNameByTagId($tagId){
+        if(!isset(self::$tags[$tagId])){
+            $tag = self::find($tagId);
+            if(!empty($tag)){
+                self::$tags[$tag->id] = $tag->name;
+            }
+        }
+        return isset(self::$tags[$tagId])?self::$tags[$tagId]:'';
+    }
+
     /**
      * 获取所有标签
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getTagModelAll(){
+    public static function getTagModelAll()
+    {
         return self::all();
     }
 
@@ -26,9 +61,10 @@ class Tag extends Model {
      * 获取标签插件所需得列表数据
      * @return null|string
      */
-    public static function getTagStringAll(){
+    public static function getTagStringAll()
+    {
         $tags = self::getTagModelAll();
-        return !empty($tags)?self::TagModelConversionTagString($tags):null;
+        return !empty($tags) ? self::TagModelConversionTagString($tags) : null;
     }
 
 
@@ -37,9 +73,10 @@ class Tag extends Model {
      * @param string $tagIds
      * @return \Illuminate\Support\Collection|null|static
      */
-    public static function getTagModelByTagIds($tagIds){
-        $tags = explode(',',$tagIds);
-        return !empty($tags)?self::find($tags):null;
+    public static function getTagModelByTagIds($tagIds)
+    {
+        $tags = explode(',', $tagIds);
+        return !empty($tags) ? self::find($tags) : null;
 
     }
 
@@ -48,9 +85,10 @@ class Tag extends Model {
      * @param $tagIds
      * @return null|string
      */
-    public static function getTagStringByTagIds($tagIds){
+    public static function getTagStringByTagIds($tagIds)
+    {
         $tags = self::getTagModelByTagIds($tagIds);
-        return !empty($tags)?self::TagModelConversionTagString($tags):null;
+        return !empty($tags) ? self::TagModelConversionTagString($tags) : null;
     }
 
     /**
@@ -58,14 +96,15 @@ class Tag extends Model {
      * @param Object $result
      * @return string
      */
-    public static function TagModelConversionTagString($result){
+    public static function TagModelConversionTagString($result)
+    {
         $tag = '';
-        if(!empty($result)){
+        if (!empty($result)) {
             $tag = "[";
-            foreach($result as $k=>$v){
+            foreach ($result as $k => $v) {
                 $tag .= "'$v->name',";
             }
-            $tag = trim($tag,',');
+            $tag = trim($tag, ',');
             $tag .= ']';
         }
         return $tag;
@@ -77,39 +116,41 @@ class Tag extends Model {
      * @param $new_tags
      * @return string
      */
-    public static function SetArticleTags($tags,$new_tags){
+    public static function SetArticleTags($tags, $new_tags)
+    {
         $tagsArr = array();
-        if(!empty($tags)){
-            $tagsArr = explode(',',$tags);
+        if (!empty($tags)) {
+            $tagsArr = explode(',', $tags);
         }
         $new_tagsArr = array();
-        if(!empty($new_tags)){
-            $new_tagsArr = explode(',',$new_tags);
+        if (!empty($new_tags)) {
+            $new_tagsArr = explode(',', $new_tags);
         }
-        $tag = array_merge($tagsArr,$new_tagsArr);
+        $tag = array_merge($tagsArr, $new_tagsArr);
         $tagIds = array();
-        if(!empty($tag)){
-            foreach($tag as $K=>$v){
-                $tag_temp = self::where('name','=',trim($v))->first();
-                if($tag_temp){
+        if (!empty($tag)) {
+            foreach ($tag as $K => $v) {
+                $tag_temp = self::where('name', '=', trim($v))->first();
+                if ($tag_temp) {
                     $tag_temp->number += 1;
                     $tag_temp->save();
                     $tagIds[] = $tag_temp->id;
-                }else{
+                } else {
                     // insert
-                    $tagIds[] = self::insertGetId(['name'=>$v,'number'=>1]);
+                    $tagIds[] = self::insertGetId(['name' => $v, 'number' => 1]);
                 }
             }
             unset($tag_temp);
         }
-        return implode(',',$tagIds);
+        return implode(',', $tagIds);
     }
 
-    public static function setFieldData(){
+    public static function setFieldData()
+    {
         $fieldData = array();
         $tag = new Tag();
         $arr = $tag->getFillable();
-        foreach($arr as $v){
+        foreach ($arr as $v) {
             $fieldData[$v] = Input::get($v);
         }
         unset($arr);
@@ -123,8 +164,9 @@ class Tag extends Model {
      * @param $limit
      * @return mixed
      */
-    public static function getHotTags($limit){
-        return self::orderBy('number','DESC')->limit($limit)->get();
+    public static function getHotTags($limit)
+    {
+        return self::orderBy('number', 'DESC')->limit($limit)->get();
     }
 
 }

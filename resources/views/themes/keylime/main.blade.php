@@ -113,7 +113,7 @@
                         @if(!empty($hotTags))
                             @foreach($hotTags as $tag)
                                 <li>
-                                    <a href="#" target="_blank" title="{{ $tag->name }}">{{ $tag->name }}</a>
+                                    <a href="{{ url('search/tag',['id'=>$tag->id]) }}" target="_blank" title="{{ $tag->name }}">{{ $tag->name }}</a>
                                 </li>
                             @endforeach
                         @endif

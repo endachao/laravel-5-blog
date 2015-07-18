@@ -54,7 +54,7 @@
                         tags |
                         @if(!empty($tags))
                             @foreach($tags as $key=>$tag)
-                                <a href="#" title="{{ $tag->name }}" target="_blank">{{ $tag->name }}</a>@if(count($tags) != $key+1) , @endif
+                                <a href="{{ url('search/tag',['id'=>$tag->id]) }}" title="{{ $tag->name }}" target="_blank">{{ $tag->name }}</a>@if(count($tags) != $key+1) , @endif
                             @endforeach
                         @endif
                     </div>
