@@ -1,9 +1,8 @@
 <!doctype html>
 <html>
 <head>
-    <title>Key Lime</title>
+    @yield('header')
     <meta charset="utf-8">
-    <meta name="description" content="Key Lime Responsive HTML5/CSS3 Template from angelostudio.net">
     <meta name="author" content="袁超">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="{{ homeAsset('/css/googleCss.css') }}" rel="stylesheet" type="text/css">
@@ -90,11 +89,11 @@
                                 @if(!empty($recentArticle))
                                     @foreach($recentArticle as $article)
                                         <div class="media">
-                                            <a class="pull-left" href="post-video.html">
-                                                <img class="media-object" src="{{ asset('uploads').'/'.$article->pic }}" width="80" alt="{{ $article->title }}"></a>
+                                            <a class="pull-left" href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
+                                                <img class="media-object" src="{{ asset('uploads').'/'.$article->pic }}" width="80" alt="{{ $article->title }}" title="{{ $article->title }}"></a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">
-                                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}">{{ $article->title }}</a>
+                                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>
                                                 </h4>
                                                 <p class="post-date">{{ date('Y-m-d',strtotime($article->created_at)) }}</p>
                                             </div>
@@ -114,7 +113,7 @@
                         @if(!empty($hotTags))
                             @foreach($hotTags as $tag)
                                 <li>
-                                    <a href="#">{{ $tag->name }}</a>
+                                    <a href="#" target="_blank" title="{{ $tag->name }}">{{ $tag->name }}</a>
                                 </li>
                             @endforeach
                         @endif

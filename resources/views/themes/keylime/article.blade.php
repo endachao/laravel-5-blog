@@ -1,5 +1,11 @@
 @extends('themes.keylime.main')
 
+@section('header')
+    <title>{{ $article->title }}_{{ systemConfig('title','Enda Blog') }} -Powered By  {{ systemConfig('subheading','Enda Blog') }}</title>
+    <meta name="keywords" content="{{ $article->title }},{{ systemConfig('seo_key') }}" />
+    <meta name="description" content="{!! str_limit(preg_replace('/\s/', '',strip_tags(conversionMarkdown($article->content))),100) !!}">
+@endsection
+
 @section('content')
 
         <section id="hero" class="light-typo">
@@ -17,8 +23,8 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <ol class="breadcrumb">
-                            <li><a href="{{ route('article.index') }}">首页</a></li>
-                            <li><a href="{{ url(route('category.show',['id'=>$article->category->as_name])) }}">{{ $article->category->cate_name }}</a></li>
+                            <li><a href="{{ route('article.index') }}" title="{{ systemConfig('title','Enda Blog') }}">首页</a></li>
+                            <li><a href="{{ url(route('category.show',['id'=>$article->category->as_name])) }}" title="{{ $article->category->cate_name }}" target="_blank">{{ $article->category->cate_name }}</a></li>
                             <li class="active">{{ $article->title }}</li>
                         </ol>
                     </div>
@@ -32,9 +38,9 @@
 
                     <div class="post-date">
                         {{ date('Y-m-d',strtotime($article->created_at)) }} |
-                        <a href="{{ url(route('about.show',['id'=>$article->user->id])) }}">{{ $article->user->name }} </a>
+                        <a href="{{ url(route('about.show',['id'=>$article->user->id])) }}" title="{{ $article->user->name }}" target="_blank">{{ $article->user->name }} </a>
                         <span>
-                            <a href="#">{{ $article->status->comment_number }} Comments</a>
+                            <a href="#commentList" title="{{ $article->title }}">{{ $article->status->comment_number }} Comments</a>
                         </span>
                     </div>
 
@@ -48,7 +54,7 @@
                         tags |
                         @if(!empty($tags))
                             @foreach($tags as $key=>$tag)
-                                <a href="#">{{ $tag->name }}</a>@if(count($tags) != $key+1) , @endif
+                                <a href="#" title="{{ $tag->name }}" target="_blank">{{ $tag->name }}</a>@if(count($tags) != $key+1) , @endif
                             @endforeach
                         @endif
                     </div>
@@ -66,7 +72,7 @@
                     </ul>
 
                     <div id="author" class="clearfix">
-                        <img class="img-circle" alt="" src="{{ asset('uploads'.'/'.$article->user->photo) }}" height="96" width="96">
+                        <img class="img-circle" src="{{ asset('uploads'.'/'.$article->user->photo) }}" height="96" width="96" alt="{{ $article->user->name }}" title="{{ $article->user->name }}">
                         <div class="author-info">
                             <h3>{{ $article->user->name }}</h3>
                             <p>
@@ -83,10 +89,10 @@
                                 @foreach($authorArticle as $articleModel)
 
                             <div class="col-sm-4 col-md-4">
-                                <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}">
-                                    <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" alt="{{ $articleModel->title }}" style="height: 200px;"></a>
+                                <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
+                                    <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" alt="{{ $articleModel->title }}" title="{{ $articleModel->title }}" style="height: 200px;"></a>
                                 <h4 class="text-center">
-                                    <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}">
+                                    <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
                                         {{ $articleModel->title }}
                                     </a>
                                 </h4>
@@ -108,7 +114,7 @@
                         @if(!empty($commentList))
                             @foreach($commentList as $commentModel)
                                 <div class="media">
-                                    <a class="pull-left avatar" href="#">
+                                    <a class="pull-left avatar" href="javascript:void(0)" title="{{$commentModel->username}}">
                                         <img class="media-object img-circle" src="{{ App\Model\Comment::getHeaderImg() }}" width="40" height="40" alt="">
                                     </a>
                                     <div class="media-body">

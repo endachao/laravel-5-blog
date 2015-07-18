@@ -1,5 +1,11 @@
 @extends('themes.keylime.main')
 
+@section('header')
+    <title>{{ $userInfo->name }}介绍_{{ systemConfig('title','Enda Blog') }}-Powered By{{ systemConfig('subheading','Enda Blog') }}</title>
+    <meta name="keywords" content="{{ $userInfo->name }},{{ systemConfig('seo_key') }}" />
+    <meta name="description" content="{!! str_limit(preg_replace('/\s/', '',strip_tags(conversionMarkdown($userInfo->desc))),100) !!}">
+@endsection
+
 @section('content')
     <section id="hero" class="light-typo">
         <div id="cover-image" class="image-bg3 animated fadeIn"></div>
@@ -15,7 +21,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <ol class="breadcrumb">
-                        <li><a href="/">首页</a></li>
+                        <li><a href="{{ route('article.index') }}" title="{{ systemConfig('title','Enda Blog') }}">首页</a></li>
                         <li class="active">关于 {{ $userInfo->name }}</li>
                     </ol>
                 </div>
@@ -31,7 +37,7 @@
                         {!! conversionMarkdown($userInfo->desc) !!}
                     </div>
                     <div class="col-sm-3 col-md-4">
-                        <img src="{{ asset('uploads'.'/'.$userInfo->photo) }}" class="img-responsive img-circle about-portrait" alt="Leela, Bender, we're going grave robbing." width="300" height="300">
+                        <img src="{{ asset('uploads'.'/'.$userInfo->photo) }}" class="img-responsive img-circle about-portrait" alt="{{ $userInfo->name }}" title="{{ $userInfo->name }}" width="300" height="300">
                         <ul class="social-links outline text-center">
                             <li><a href="http://weibo.com/28ex" target="_blank"><i class="icon-weibo"></i></a></li>
                             <li><a href="http://t.qq.com/YING7598459999" target="_blank"><i class="icon-tencent-weibo"></i></a></li>
@@ -45,10 +51,10 @@
                         @if(!empty($userArticle))
                             @foreach($userArticle as $articleModel)
                                 <div class="col-sm-4 col-md-4">
-                                    <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}">
-                                        <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" alt="{{ $articleModel->title }}" style="height: 200px;"></a>
+                                    <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
+                                        <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" title="{{ $articleModel->title }}" alt="{{ $articleModel->title }}" style="height: 200px;"></a>
                                     <h4 class="text-center">
-                                        <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}">
+                                        <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
                                             {{ $articleModel->title }}
                                         </a>
                                     </h4>

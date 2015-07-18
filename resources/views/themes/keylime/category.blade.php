@@ -1,5 +1,11 @@
 @extends('themes.keylime.main')
 
+@section('header')
+    <title>{{ $category->cate_name }}_{{ systemConfig('title','Enda Blog') }} -Powered By  {{ systemConfig('subheading','Enda Blog') }}</title>
+    <meta name="keywords" content="{{ $category->cate_name }},{{ $category->seo_key }},{{ systemConfig('seo_key') }}" />
+    <meta name="description" content="{{ $category->seo_desc }}">
+@endsection
+
 @section('content')
     <section id="hero" class="light-typo">
         <div id="cover-image" class="image-bg4 animated fadeIn"></div>
@@ -16,7 +22,7 @@
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <ol class="breadcrumb">
-                        <li><a href="/">首页</a></li>
+                        <li><a href="{{ route('article.index') }}" title="{{ systemConfig('title','Enda Blog') }}">首页</a></li>
                         <li class="active">{{ $category->cate_name }}</li>
                     </ol>
                 </div>
@@ -33,19 +39,18 @@
                             <article class="clearfix @if(count($article) == $artKey+1) last @endif">
                                 <div class="post-date">
                                     {{ date('Y-m-d',strtotime($art->created_at)) }} |
-                                    <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}">{{ $art->user->name }}</a>
-                                    <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}">{{ $art->status->comment_number }} Comments</a></span>
+                                    <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}" title="{{ $art->user->name }}" target="_blank"> {{ $art->user->name }}</a>
+                                    <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}" title="{{ $art->title }}" target="_blank" >{{ $art->status->comment_number }} Comments</a></span>
                                 </div>
 
                                 <h2>
-                                    <a href="{{ route('article.show',array('id'=>$art->id)) }}">
+                                    <a href="{{ route('article.show',array('id'=>$art->id)) }}" title="{{ $art->title }}" target="_blank">
                                         {{ $art->title }}
                                     </a>
                                 </h2>
                                 <p>
-                                    {{--{{ strCut($art->content,80) }}--}}
                                     {{ strCut(conversionMarkdown($art->content),80) }}
-                                    <a class="" href="{{ route('article.show',array('id'=>$art->id)) }}">Read more</a>
+                                    <a class="" href="{{ route('article.show',array('id'=>$art->id)) }}" title="{{ $art->title }}" target="_blank" >Read more</a>
                                 </p>
                             </article>
                         @endforeach

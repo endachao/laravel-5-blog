@@ -1,8 +1,11 @@
 @extends('themes.keylime.main')
 
+@section('header')
+    <title>{{ systemConfig('title','Enda Blog') }} -Powered By  {{ systemConfig('subheading','Enda Blog') }}</title>
+    <meta name="keywords" content="{{ systemConfig('seo_key') }}" />
+    <meta name="description" content="{{ systemConfig('seo_desc') }}">
+@endsection
 @section('content')
-
-
         <section id="hero" class="light-typo">
             <div id="cover-image" class="image-bg animated fadeIn"></div>
             <div class="container welcome-content">
@@ -23,19 +26,18 @@
                         <article class="clearfix @if(count($article) == $artKey+1) last @endif">
                             <div class="post-date">
                                {{ date('Y-m-d',strtotime($art->created_at)) }} |
-                                <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}">{{ $art->user->name }}</a>
-                                <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}">{{ $art->status->comment_number }} Comments</a></span>
+                                <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}" title="{{ $art->user->name }}" target="_blank" >{{ $art->user->name }}</a>
+                                <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}" title="{{ $art->title }}" target="_blank">{{ $art->status->comment_number }} Comments</a></span>
                             </div>
 
                             <h2>
-                                <a href="{{ route('article.show',array('id'=>$art->id)) }}">
+                                <a href="{{ route('article.show',array('id'=>$art->id)) }}" title="{{ $art->title }}" target="_blank">
                                     {{ $art->title }}
                                 </a>
                             </h2>
                             <p>
-                                {{--{{ strCut($art->content,80) }}--}}
                                 {{ strCut(conversionMarkdown($art->content),80) }}
-                                <a class="" href="{{ route('article.show',array('id'=>$art->id)) }}">Read more</a>
+                                <a class="" href="{{ route('article.show',array('id'=>$art->id)) }}" title="{{ $art->title }}" target="_blank">Read more</a>
                             </p>
                         </article>
                         @endforeach
@@ -52,11 +54,11 @@
                             @if(!empty($hotArticle))
                             @foreach($hotArticle as $key=>$article)
                                 <div class="col-sm-4 col-md-4">
-                                    <a href="post-video.html">
-                                        <img src="{{ asset('uploads/'.$article->article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px">
+                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">
+                                        <img src="{{ asset('uploads/'.$article->article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->article->title }}" alt="{{ $article->article->title }}">
                                     </a>
                                     <h4 class="text-center">
-                                        <a href="post-video.html">{{ $article->article->title }}</a>
+                                        <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">{{ $article->article->title }}</a>
                                     </h4>
                                     <p class="post-date text-center">{{ date('Y-m-d',strtotime($article->article->created_at)) }}</p>
                                 </div>
