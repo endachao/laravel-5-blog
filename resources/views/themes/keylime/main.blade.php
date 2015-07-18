@@ -30,7 +30,7 @@
     <div id="main-nav" class="">
         <div class="container">
             <div class="nav-header">
-                <a class="nav-brand" href="index-2.html"><i class="icon-lime"></i>Enda Blog</a>
+                <a class="nav-brand" href="{{ url('/') }}"><i class="icon-lime"></i>Enda Blog</a>
                 <a class="menu-link nav-icon" href="#"><i class="icon-menu2"></i></a>
             </div>
         </div>
@@ -94,7 +94,7 @@
                                                 <img class="media-object" src="{{ asset('uploads').'/'.$article->pic }}" width="80" alt="{{ $article->title }}"></a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">
-                                                    <a href="post-video.html">{{ $article->title }}</a>
+                                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}">{{ $article->title }}</a>
                                                 </h4>
                                                 <p class="post-date">{{ date('Y-m-d',strtotime($article->created_at)) }}</p>
                                             </div>
@@ -125,11 +125,11 @@
     </div>
     <div class="copyright">
         <div class="container">
-            <p class="pull-left">Powered by <a href="#">Yuan Chao.</a></p>
+            <p class="pull-left">Powered by <a href="/">Yuan Chao.</a></p>
             <ul class="social-links pull-right">
-                <li><a href="#link"><i class="icon-twitter"></i></a></li>
-                <li><a href="#link"><i class="icon-facebook"></i></a></li>
-                <li><a href="#link"><i class="icon-googleplus"></i></a></li>
+                <li><a target="_blank"  href="https://github.com/yccphp"><i class="icon-twitter"></i></a></li>
+                <li><a target="_blank" href="http://weibo.com/28ex"><i class="icon-weibo"></i></a></li>
+                <li><a target="_blank" href="http://t.qq.com/YING7598459999"><i class="icon-tencent-weibo"></i></a></li>
             </ul>
         </div>
     </div>

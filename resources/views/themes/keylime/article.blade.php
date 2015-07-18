@@ -70,7 +70,7 @@
                         <div class="author-info">
                             <h3>{{ $article->user->name }}</h3>
                             <p>
-                                {{ $article->user->desc }}
+                                {!! strip_tags(conversionMarkdown($article->user->desc)) !!}
                             </p>
                         </div>
                     </div>

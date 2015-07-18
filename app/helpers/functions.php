@@ -4,89 +4,82 @@
  * Time: 2015.03.18 下午4:08
  */
 
-if ( ! function_exists('backendView'))
-{
+if (!function_exists('backendView')) {
     /**
      * 展示后台view
      * @author 袁超
-     * @param  string  $view
-     * @param  array   $data
-     * @param  array   $mergeData
+     * @param  string $view
+     * @param  array $data
+     * @param  array $mergeData
      * @return \Illuminate\View\View
      */
     function backendView($view = null, $data = array(), $mergeData = array())
     {
         $factory = app('Illuminate\Contracts\View\Factory');
-        if (func_num_args() === 0)
-        {
+        if (func_num_args() === 0) {
             return $factory;
         }
         $BaseviewPath = Config::get('path.backendBaseViewPath');
         $module = Config::get('path.class');
-        if(!empty($module)){
-            $BaseviewPath .= Config::get('path.modules.'.$module);
-            Config::set('path.class','');
+        if (!empty($module)) {
+            $BaseviewPath .= Config::get('path.modules.' . $module);
+            Config::set('path.class', '');
         }
-        return $factory->make($BaseviewPath.$view, $data, $mergeData);
+        return $factory->make($BaseviewPath . $view, $data, $mergeData);
     }
 }
-if ( ! function_exists('conversionClassPath'))
-{
+if (!function_exists('conversionClassPath')) {
     /**
      * 转换class 名
      * @author 袁超
-     * @param  string  $className
+     * @param  string $className
      * @return string
      */
     function conversionClassPath($className)
     {
-        $className = str_replace('\\','-',$className);
-        if(preg_match("/.*-(.*)Controller/is",$className,$matches)){
-            Config::set('path.class',strtolower($matches[1]));
-        }else{
+        $className = str_replace('\\', '-', $className);
+        if (preg_match("/.*-(.*)Controller/is", $className, $matches)) {
+            Config::set('path.class', strtolower($matches[1]));
+        } else {
             return response('conversionClassPathError', 500);
         }
     }
 }
-if ( ! function_exists('homeView'))
-{
+if (!function_exists('homeView')) {
     /**
      * 展示前台view
      * @author 袁超
-     * @param  string  $view
-     * @param  array   $data
-     * @param  array   $mergeData
+     * @param  string $view
+     * @param  array $data
+     * @param  array $mergeData
      * @return \Illuminate\View\View
      */
     function homeView($view = null, $data = array(), $mergeData = array())
     {
         $factory = app('Illuminate\Contracts\View\Factory');
-        if (func_num_args() === 0)
-        {
+        if (func_num_args() === 0) {
             return $factory;
         }
-        $themes = THEMES_NAME.'.'.Config::get('app.themes');
-        return $factory->make($themes.'.'.$view, $data, $mergeData);
+        $themes = THEMES_NAME . '.' . Config::get('app.themes');
+        return $factory->make($themes . '.' . $view, $data, $mergeData);
     }
 }
-if ( ! function_exists('homeAsset'))
-{
+if (!function_exists('homeAsset')) {
     /**
      * Generate an asset path for the application.
      *
-     * @param  string  $path
-     * @param  bool    $secure
+     * @param  string $path
+     * @param  bool $secure
      * @return string
      */
     function homeAsset($path, $secure = null)
     {
-        $themes = THEMES_NAME.DIRECTORY_SEPARATOR.Config::get('app.themes');
-        return app('url')->asset($themes.$path, $secure);
+        $themes = THEMES_NAME . DIRECTORY_SEPARATOR . Config::get('app.themes');
+        return app('url')->asset($themes . $path, $secure);
     }
 }
 
-if ( ! function_exists('strCut'))
-{
+if (!function_exists('strCut')) {
     /**
      * 字符串截取
      * @param string $string
@@ -120,8 +113,7 @@ if ( ! function_exists('strCut'))
     }
 }
 
-if ( ! function_exists('viewInit'))
-{
+if (!function_exists('viewInit')) {
     /**
      * 字符串截取
      * @param string $string
@@ -137,19 +129,18 @@ if ( ! function_exists('viewInit'))
         $view = app('view');
 
         $count = array(
-            'article'=>$article->count(),
-            'comment'=>$articleStatus->sum('comment_number'),
-            'visit'=>$articleStatus->sum('view_number'),
+            'article' => $article->count(),
+            'comment' => $articleStatus->sum('comment_number'),
+            'visit' => $articleStatus->sum('view_number'),
         );
 
-        $view->share('recentArticle', $article::getNewsArticle(0,3,false));
+        $view->share('recentArticle', $article::getNewsArticle(0, 3, false));
         $view->share('hotTags', $tags::getHotTags(12));
         $view->share('dataCount', $count);
     }
 }
 
-if ( ! function_exists('conversionMarkdown'))
-{
+if (!function_exists('conversionMarkdown')) {
     /**
      * @param $markdownContent
      * @return string
@@ -157,22 +148,21 @@ if ( ! function_exists('conversionMarkdown'))
     function conversionMarkdown($markdownContent)
     {
         $endaEditor = app('YuanChao\Editor\Facade\EndaEditorFacade');
-        return !empty($markdownContent)?$endaEditor::MarkDecode($markdownContent):'';
+        return !empty($markdownContent) ? $endaEditor::MarkDecode($markdownContent) : '';
     }
 }
 
-if ( ! function_exists('uploadFile'))
-{
+if (!function_exists('uploadFile')) {
     /**
      * @param $type
      * @param $field
      * @param $path
      * @return bool|string
      */
-    function uploadFile($type,$field,$path)
+    function uploadFile($type, $field, $path)
     {
         $allowType = array(
-            'img'=>array(
+            'img' => array(
                 'image/gif',
                 'image/ief',
                 'image/jpeg',
@@ -182,16 +172,16 @@ if ( ! function_exists('uploadFile'))
             )
         );
         $url = '';
-        if(!isset($allowType[$type])){
+        if (!isset($allowType[$type])) {
             return false;
         }
         $request = app('Request');
-        if ($request::hasFile($field)){
+        if ($request::hasFile($field)) {
             $pic = $request::file($field);
-            if(in_array($pic->getMimeType(),$allowType[$type])){
-                if($pic->isValid()){
-                    $newName = md5(rand(1,1000).$pic->getClientOriginalName()).".".$pic->getClientOriginalExtension();
-                    $pic->move($path,$newName);
+            if (in_array($pic->getMimeType(), $allowType[$type])) {
+                if ($pic->isValid()) {
+                    $newName = md5(rand(1, 1000) . $pic->getClientOriginalName()) . "." . $pic->getClientOriginalExtension();
+                    $pic->move($path, $newName);
                     $url = $newName;
                 }
             }
@@ -200,21 +190,33 @@ if ( ! function_exists('uploadFile'))
     }
 }
 
-if ( ! function_exists('tree'))
-{
-    function tree($model,$parentId=0,$level=0,$html='-'){
+if (!function_exists('tree')) {
+    function tree($model, $parentId = 0, $level = 0, $html = '-')
+    {
         $data = array();
-        foreach($model as $k=>$v){
-            if($v->parent_id == $parentId){
-                if($level != 0){
-                    $v->html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$level);
+        foreach ($model as $k => $v) {
+            if ($v->parent_id == $parentId) {
+                if ($level != 0) {
+                    $v->html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;', $level);
                     $v->html .= '|';
                 }
-                $v->html .= str_repeat($html,$level);
+                $v->html .= str_repeat($html, $level);
                 $data[] = $v;
-                $data = array_merge($data,tree($model,$v->id,$level+1));
+                $data = array_merge($data, tree($model, $v->id, $level + 1));
             }
         }
         return $data;
+    }
+}
+
+/**
+ * 获取系统设置
+ */
+if (!function_exists('systemConfig')) {
+    function systemConfig($field, $default = '')
+    {
+        $system = app('App\Model\System');
+        $val = $system->getSystem($field);
+        return !empty($val) ? $val : $default;
     }
 }

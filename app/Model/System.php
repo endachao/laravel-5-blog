@@ -35,4 +35,13 @@ class System extends Model {
         return $fieldData;
     }
 
+    /**
+     * 获取指定配置值
+     * @param $field
+     * @return mixed
+     */
+    public function getSystem($field){
+        return self::select('system_value')->where('system_name',$field)->pluck('system_value');
+    }
+
 }

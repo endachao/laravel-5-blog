@@ -31,6 +31,7 @@ class PasswordController extends Controller {
 	{
 		$this->auth = $auth;
 		$this->passwords = $passwords;
+		$this->redirectTo = url(route('backend.home.index'));
 
 		$this->middleware('guest');
 	}

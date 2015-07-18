@@ -3,8 +3,7 @@
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
-use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
-
+use App\Components\EndaAuth;
 class AuthController extends Controller {
 
 	/*
@@ -18,7 +17,7 @@ class AuthController extends Controller {
 	|
 	*/
 
-	use AuthenticatesAndRegistersUsers;
+	use EndaAuth;
 
 	/**
 	 * Create a new authentication controller instance.
@@ -27,10 +26,12 @@ class AuthController extends Controller {
 	 * @param  \Illuminate\Contracts\Auth\Registrar  $registrar
 	 * @return void
 	 */
-	public function __construct(Guard $auth, Registrar $registrar)
+	public function __construct(Guard $auth)
 	{
 		$this->auth = $auth;
-		$this->registrar = $registrar;
+		$this->loginPath = 'backend/auth/login';
+		$this->redirectPath = url(route('backend.home.index'));
+		$this->redirectAfterLogout = url('backend/auth/login');
 
 		$this->middleware('guest', ['except' => 'getLogout']);
 	}
