@@ -47,33 +47,7 @@ class SystemSeeder extends Seeder{
                 'cate'=>1,
                 'system_name'=>'copyright',
                 'system_value'=>'版权申明'
-            ],
-            // smtp system
-            [
-                'cate'=>2,
-                'system_name'=>'smtp_url',
-                'system_value'=>'smtp.qq.com'
-            ],
-            [
-                'cate'=>2,
-                'system_name'=>'smtp_port',
-                'system_value'=>25
-            ],
-            [
-                'cate'=>2,
-                'system_name'=>'smtp_user',
-                'system_value'=>'teste@qq.com'
-            ],
-            [
-                'cate'=>2,
-                'system_name'=>'smtp_pass',
-                'system_value'=>'password'
-            ],
-            [
-                'cate'=>2,
-                'system_name'=>'smtp_name',
-                'system_value'=>'显示的昵称'
-            ],
+            ]
         ];
         DB::table('systems')->insert($config);
     }

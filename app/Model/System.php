@@ -5,7 +5,6 @@ use Auth,Input;
 class System extends Model {
 
     const SYSTEM_INFO_TYPE = 1;
-    const SYSTEM_SMTP_TYPE = 2;
 	//
     protected $table = 'systems';
 
@@ -19,7 +18,6 @@ class System extends Model {
 
     static $cate = [
         self::SYSTEM_INFO_TYPE=>'基本设置',
-        self::SYSTEM_SMTP_TYPE=>'邮箱设置',
     ];
 
     public static function setFieldData(){

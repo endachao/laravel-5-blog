@@ -14,7 +14,6 @@ return array(
     'CreateCategoryTable' => $baseDir . '/database/migrations/2015_03_16_082647_create_category_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2015_06_11_080023_create_comments_table.php',
     'CreateNavigationTable' => $baseDir . '/database/migrations/2015_07_18_082904_create_navigation_table.php',
-    'CreateNavigationsTable' => $baseDir . '/database/migrations/2015_07_18_083449_create_navigations_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateSystemsTable' => $baseDir . '/database/migrations/2015_04_03_150623_create_systems_table.php',
     'CreateTagsTable' => $baseDir . '/database/migrations/2015_03_27_025700_create_tags_table.php',
@@ -456,4 +455,5 @@ return array(
     'SystemSeeder' => $baseDir . '/database/seeds/SystemSeeder.php',
     'TestCase' => $baseDir . '/tests/TestCase.php',
     'Text_Template' => $vendorDir . '/phpunit/php-text-template/src/Template.php',
+    'UserSeeder' => $baseDir . '/database/seeds/UserSeeder.php',
 );
