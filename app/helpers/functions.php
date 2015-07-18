@@ -199,3 +199,22 @@ if ( ! function_exists('uploadFile'))
         return $url;
     }
 }
+
+if ( ! function_exists('tree'))
+{
+    function tree($model,$parentId=0,$level=0,$html='-'){
+        $data = array();
+        foreach($model as $k=>$v){
+            if($v->parent_id == $parentId){
+                if($level != 0){
+                    $v->html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$level);
+                    $v->html .= '|';
+                }
+                $v->html .= str_repeat($html,$level);
+                $data[] = $v;
+                $data = array_merge($data,tree($model,$v->id,$level+1));
+            }
+        }
+        return $data;
+    }
+}

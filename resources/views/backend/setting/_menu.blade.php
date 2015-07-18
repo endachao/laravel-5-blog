@@ -10,6 +10,9 @@
             <li>
                 <a href="{{ url('/backend/system/index',['type'=>2]) }}">邮箱设置</a>
             </li>
+            <li>
+                <a href="{{ url(route('backend.nav.index')) }}">导航设置</a>
+            </li>
 
         </ul>
     </div>

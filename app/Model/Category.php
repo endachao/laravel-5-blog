@@ -32,7 +32,7 @@ class Category extends Model {
      */
     public static function getCategoryDataModel(){
         $category = self::all();
-        $data = self::getSortModel($category);
+        $data = tree($category);
         return $data;
     }
 
@@ -56,7 +56,7 @@ class Category extends Model {
     }
 
     public static function getCatFieldData($catId=false){
-        $data = self::getSortModel(Category::select('id','cate_name','parent_id')->get());
+        $data = tree(Category::select('id','cate_name','parent_id')->get());
         foreach($data as $k=>$v){
             self::$catData[$v->id] = $v->html.$v->cate_name;
         }
@@ -86,22 +86,5 @@ class Category extends Model {
         unset($arr);
         unset($category);
         return $fieldData;
-    }
-
-
-    public static function getSortModel($model,$parentId=0,$level=0,$html='-'){
-        $data = array();
-        foreach($model as $k=>$v){
-            if($v->parent_id == $parentId){
-                if($level != 0){
-                    $v->html = str_repeat('&nbsp;&nbsp;&nbsp;&nbsp;',$level);
-                    $v->html .= '|';
-                }
-                $v->html .= str_repeat($html,$level);
-                $data[] = $v;
-                $data = array_merge($data,self::getSortModel($model,$v->id,$level+1));
-            }
-        }
-        return $data;
     }
 }

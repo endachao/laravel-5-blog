@@ -14,6 +14,7 @@ return [
         'article'=>CONTENT.'article.',
         'tags'=>CONTENT.'tags.',
         'system'=>SYSTEM.'system.',
+        'navigation'=>SYSTEM.'navigation.',
         'user'=>USER,
         'comment'=>CONTENT.'comment.'
     ],
