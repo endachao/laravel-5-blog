@@ -80,18 +80,18 @@
                     <p class="clearfix"></p>
                     <div class="post-popular">
                         <div class="row hidden-xs">
-                            <?php $hotArticle = App\Model\ArticleStatus::getHotArticle(3,false)?>
+                            <?php $hotArticle = App\Model\Article::getHotArticle(3)?>
                             @if(!empty($hotArticle))
                                 @foreach($hotArticle as $key=>$article)
-                                    <div class="col-sm-4 col-md-4">
-                                        <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">
-                                            <img src="{{ asset('uploads/'.$article->article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->article->title }}" alt="{{ $article->article->title }}">
-                                        </a>
-                                        <h4 class="text-center">
-                                            <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">{{ $article->article->title }}</a>
-                                        </h4>
-                                        <p class="post-date text-center">{{ date('Y-m-d',strtotime($article->article->created_at)) }}</p>
-                                    </div>
+                                        <div class="col-sm-4 col-md-4">
+                                            <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
+                                                <img src="{{ asset('uploads/'.$article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
+                                            </a>
+                                            <h4 class="text-center">
+                                                <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>
+                                            </h4>
+                                            <p class="post-date text-center">{{ date('Y-m-d',strtotime($article->created_at)) }}</p>
+                                        </div>
                                 @endforeach
                             @endif
                         </div>

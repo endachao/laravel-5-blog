@@ -53,7 +53,7 @@ class CategoryController extends Controller {
         if(empty($category)){
             return redirect(url(route('article.index')));
         }
-        $article = Article::getNewsArticle($category->id,10);
+        $article = Article::getArticleListByCatId($category->id,10);
 
         return homeView('category',[
             'category'=>$category,

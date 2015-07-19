@@ -11,7 +11,7 @@
             <div class="container welcome-content">
                 <div class="middle-text">
                     <h1>HELLO, I AM YuanChao</h1>
-                    <h2><b>Enda Blog</b> is a blog theme built with Bootstrap <br>by <b>Angelo Studio</b></h2>
+                    <h2><b>Enda Blog</b> 是一个基于laravel 5 开发的博客系统 <br> 由 <b>袁超开发</b></h2>
                     <a class="btn smooth-scroll" href="#start">Get Stated</a>
                 </div>
             </div>
@@ -54,13 +54,13 @@
                             @if(!empty($hotArticle))
                             @foreach($hotArticle as $key=>$article)
                                 <div class="col-sm-4 col-md-4">
-                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">
-                                        <img src="{{ asset('uploads/'.$article->article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->article->title }}" alt="{{ $article->article->title }}">
+                                    <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
+                                        <img src="{{ asset('uploads/'.$article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
                                     </a>
                                     <h4 class="text-center">
-                                        <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->article->title }}" target="_blank">{{ $article->article->title }}</a>
+                                        <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>
                                     </h4>
-                                    <p class="post-date text-center">{{ date('Y-m-d',strtotime($article->article->created_at)) }}</p>
+                                    <p class="post-date text-center">{{ date('Y-m-d',strtotime($article->created_at)) }}</p>
                                 </div>
                             @endforeach
                             @endif

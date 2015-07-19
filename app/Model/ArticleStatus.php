@@ -31,21 +31,7 @@ class ArticleStatus extends Model {
         return self::where('art_id','=',$art_id)->first()->delete();
     }
 
-    /**
-     * 获取热门文章
-     * @param int $limit
-     * @param bool $page
-     * @return mixed
-     */
-    public static function getHotArticle($limit=3,$page=true){
-        $model = self::orderBy('view_number','DESC');
-        if($page){
-            $article = $model->simplePaginate($limit);
-        }else{
-            $article = $model->limit($limit)->get();
-        }
-        return $article;
-    }
+
 
     /**
      * 更新到动态表

@@ -21,7 +21,7 @@ class ArticleController extends Controller {
 	{
 		//
         $article = Article::getNewsArticle();
-        $hotArticle = ArticleStatus::getHotArticle(3,false);
+        $hotArticle = Article::getHotArticle(3);
         viewInit();
         return homeView('index',array(
             'article'=>$article,

@@ -14,6 +14,7 @@ return array(
     'SuperClosure\\' => array($vendorDir . '/jeremeamia/SuperClosure/src'),
     'Stringy\\' => array($vendorDir . '/danielstjules/stringy/src'),
     'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src'),
+    'Predis\\' => array($vendorDir . '/predis/predis/src'),
     'Overtrue\\LaravelLang\\' => array($vendorDir . '/overtrue/laravel-lang/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Mews\\Captcha\\' => array($vendorDir . '/mews/captcha/src'),
