@@ -16,7 +16,7 @@ class AddInfoUsersTable extends Migration {
 		{
 			//
             $table->string('photo')->nullable()->default('');
-            $table->string('desc')->nullable()->default('');
+            $table->string('desc')->nullable();
 		});
 	}
 
