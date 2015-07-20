@@ -141,19 +141,6 @@ class Tag extends Model
         return implode(',', $tagIds);
     }
 
-    public static function setFieldData()
-    {
-        $fieldData = array();
-        $tag = new Tag();
-        $arr = $tag->getFillable();
-        foreach ($arr as $v) {
-            $fieldData[$v] = Input::get($v);
-        }
-        unset($arr);
-        unset($fieldData['number']);
-        unset($tag);
-        return $fieldData;
-    }
 
     /**
      * 获取热门标签

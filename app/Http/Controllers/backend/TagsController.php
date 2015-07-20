@@ -49,15 +49,13 @@ class TagsController extends Controller
         //
         try {
 
-            if (Tag::create(Tag::setFieldData())) {
-
+            if (Tag::create($result->all())) {
                 Notification::success('添加成功');
-
-                return Redirect::route('backend.tags.index');
+                return redirect()->route('backend.tags.index');
             }
 
         } catch (\Exception $e) {
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
 
     }
@@ -82,7 +80,7 @@ class TagsController extends Controller
     public function edit($id)
     {
         //
-        return backendView('edit',['tag'=>Tag::find($id)]);
+        return backendView('edit', ['tag' => Tag::find($id)]);
     }
 
     /**
@@ -91,20 +89,20 @@ class TagsController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(TagsForm $result,$id)
+    public function update(TagsForm $result, $id)
     {
         //
-        try{
+        try {
 
-            if(Tag::where('id',$id)->update(Tag::setFieldData())){
+            if (Tag::where('id', $id)->update(['name'=>$result->input('name')])) {
 
                 Notification::success('更新成功');
 
-                return Redirect::route('backend.tags.index');
+                return redirect()->route('backend.tags.index');
             }
 
-        }catch (\Exception $e){
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -117,10 +115,12 @@ class TagsController extends Controller
     public function destroy($id)
     {
         //
-        if(Tag::destroy($id)){
+        if (Tag::destroy($id)) {
             Notification::success('删除成功');
-            return Redirect::route('backend.tags.index');
+        } else {
+            Notification::error('删除失败');
         }
+        return redirect()->route('backend.tags.index');
     }
 
 }

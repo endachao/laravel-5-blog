@@ -1,14 +1,16 @@
 <?php namespace App\Model;
 
 use Illuminate\Database\Eloquent\Model;
-use Auth,Input;
-class System extends Model {
+use Auth, Input;
+
+class System extends Model
+{
 
     const SYSTEM_INFO_TYPE = 1;
-	//
+    //
     protected $table = 'systems';
 
-    public  $timestamps = false;
+    public $timestamps = false;
 
     protected $fillable = array(
         'cate',
@@ -17,7 +19,7 @@ class System extends Model {
     );
 
     static $cate = [
-        self::SYSTEM_INFO_TYPE=>'基本设置',
+        self::SYSTEM_INFO_TYPE => '基本设置',
     ];
 
     /**
@@ -25,8 +27,9 @@ class System extends Model {
      * @param $field
      * @return mixed
      */
-    public function getSystem($field){
-        return self::select('system_value')->where('system_name',$field)->pluck('system_value');
+    public function getSystem($field)
+    {
+        return self::select('system_value')->where('system_name', $field)->pluck('system_value');
     }
 
 }
