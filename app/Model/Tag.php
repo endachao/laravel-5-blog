@@ -116,20 +116,16 @@ class Tag extends Model
      * @param $new_tags
      * @return string
      */
-    public static function SetArticleTags($tags, $new_tags)
+    public static function SetArticleTags($tags)
     {
         $tagsArr = array();
         if (!empty($tags)) {
             $tagsArr = explode(',', $tags);
         }
-        $new_tagsArr = array();
-        if (!empty($new_tags)) {
-            $new_tagsArr = explode(',', $new_tags);
-        }
-        $tag = array_merge($tagsArr, $new_tagsArr);
+
         $tagIds = array();
-        if (!empty($tag)) {
-            foreach ($tag as $K => $v) {
+        if (!empty($tagsArr)) {
+            foreach ($tagsArr as $K => $v) {
                 $tag_temp = self::where('name', '=', trim($v))->first();
                 if ($tag_temp) {
                     $tag_temp->number += 1;

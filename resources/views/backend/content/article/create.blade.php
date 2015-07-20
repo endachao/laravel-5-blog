@@ -28,7 +28,7 @@
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">标题</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-7">
                                 {!! Form::text('title', '', ['class' => 'form-control','placeholder'=>'title']) !!}
                                 <font color="red">{{ $errors->first('title') }}</font>
                             </div>
@@ -36,34 +36,25 @@
 
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">所属分类</label>
-                            <div class="col-sm-3">
+                            <div class="col-sm-7">
                                 {!! Form::select('cate_id', $catArr , null , ['class' => 'form-control']) !!}
                             </div>
                         </div>
 
 
                         <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">选择已有标签</label>
-                            <div class="col-sm-3">
-                                {!! Form::text('tags', '', ['class' => 'form-control','placeholder'=>'tags','id'=>'tags']) !!}
-                                <font color="#deb887">点击选择标签库里面的标签</font>
+                            <label for="inputPassword3" class="col-sm-2 control-label">标签</label>
+                            <div class="col-sm-7">
+                                {!! Form::text('tags', '', ['class' => 'form-control','placeholder'=>'回车确定','id'=>'tags']) !!}
                                 <font color="red">{{ $errors->first('tags') }}</font>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="inputPassword3" class="col-sm-2 control-label">创建新的标签</label>
-                            <div class="col-sm-3">
-                                {!! Form::text('new_tags', '', ['class' => 'form-control','placeholder'=>'tags']) !!}
-                                <font color="#deb887">用半角逗号分割</font>
-                                <font color="red">{{ $errors->first('new_tags') }}</font>
-                            </div>
-                        </div>
 
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">封面图</label>
                             <div class="col-sm-3">
-                                {!! Form::file('pic', ['class' => 'form-control']) !!}
+                                {!! Form::file('pic') !!}
                                 <font color="red">{{ $errors->first('pic') }}</font>
                             </div>
                         </div>

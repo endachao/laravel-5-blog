@@ -3,146 +3,175 @@
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Http\Request;
 
-use Input,Redirect,Notification;
+use Input, Notification, Auth, Request, Cache;
 use App\Model\Article;
 use App\Model\Category;
 use App\Model\ArticleStatus;
 use App\Http\Requests\ArticleForm;
-class ArticleController extends Controller {
+use App\Model\Tag;
 
-    public function __construct(){
+class ArticleController extends Controller
+{
+
+    public function __construct()
+    {
         conversionClassPath(__CLASS__);
     }
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-        return backendView('index',['article'=>Article::orderBy('id','DESC')->paginate(10)]);
-	}
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        //
+        return backendView('index', ['article' => Article::orderBy('id', 'DESC')->paginate(10)]);
+    }
 
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        //
         $catArr = Category::getCatFieldData();
         unset($catArr[0]);
-        return backendView('create',['catArr'=>$catArr]);
-	}
+        return backendView('create', ['catArr' => $catArr]);
+    }
 
-	/**
-	 * Store a newly created resource in storage.
-	 *
-	 * @return Response
-	 */
-	public function store(ArticleForm $result)
-	{
-		//
-        try{
-            if($article = Article::create(Article::setFieldData())){
-                if(ArticleStatus::initArticleStatus($article->id)){
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @return Response
+     */
+    public function store(ArticleForm $result)
+    {
+        //
+        try {
+
+            $data = array(
+                'title' => $result->input('title'),
+                'user_id' => Auth::user()->id,
+                'cate_id' => $result->input('cate_id'),
+                'content' => $result->input('content'),
+                'tags' => Tag::SetArticleTags($result->input('tags')),
+                'pic' => Article::uploadImg('pic'),
+            );
+
+            if ($article = Article::create($data)) {
+                if (ArticleStatus::initArticleStatus($article->id)) {
+                    // 清除缓存
+                    Cache::tags(Article::REDIS_ARTICLE_PAGE_TAG)->flush();
                     Notification::success('恭喜又写一篇文章');
-                    return Redirect::route('backend.article.index');
-                }else{
+                    return redirect()->route('backend.article.index');
+                } else {
                     self::destroy($article->id);
                 }
-
             }
-        }catch (\Exception $e){
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
-	}
+    }
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
+        //
         return Article::select('content')->find($id)->content;
-	}
+    }
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function edit($id)
+    {
+        //
         $catArr = Category::getCatFieldData();
         unset($catArr[0]);
-        return backendView('edit',['article'=>Article::find($id),'catArr'=>$catArr]);
-	}
+        return backendView('edit', ['article' => Article::find($id), 'catArr' => $catArr]);
+    }
 
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function update(ArticleForm $result,$id)
-	{
-		//
-        try{
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function update(ArticleForm $result, $id)
+    {
+        //
+        try {
 
-            if(Article::where('id',$id)->update(Article::setFieldData())){
+            $data = array(
+                'title' => $result->input('title'),
+                'user_id' => Auth::user()->id,
+                'cate_id' => $result->input('cate_id'),
+                'content' => $result->input('content'),
+                'tags' => Tag::SetArticleTags($result->input('tags')),
+            );
 
-                Notification::success('更新成功');
-
-                return Redirect::route('backend.article.index');
+            if (Request::hasFile('pic')) {
+                $data['pic'] = Article::uploadImg('pic');
             }
 
-        }catch (\Exception $e){
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
-        }
-	}
+            if (Article::where('id', $id)->update($data)) {
+                Notification::success('更新成功');
+                // 清除缓存
+                Cache::tags(Article::REDIS_ARTICLE_PAGE_TAG)->flush();
+                Cache::forget(Article::REDIS_ARTICLE_CACHE.$id);
 
-	/**
-	 * Remove the specified resource from storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function destroy($id)
-	{
-		//
+                return redirect()->route('backend.article.index');
+            }
+
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function destroy($id)
+    {
+        //
         $article = Article::find($id);
-        if(!empty($article->pic)){
-            $fileName = public_path().'/uploads/'.$article->pic;
-            if(file_exists($fileName)){
+        if (!empty($article->pic)) {
+            $fileName = public_path() . '/uploads/' . $article->pic;
+            if (file_exists($fileName)) {
                 unlink($fileName);
             }
         }
 
-        if(ArticleStatus::deleteArticleStatus($id)){
+        if (ArticleStatus::deleteArticleStatus($id)) {
 
-            if(Article::destroy($id)){
+            if (Article::destroy($id)) {
                 Notification::success('删除成功');
-                return Redirect::route('backend.article.index');
-            }else{
+                Cache::tags(Article::REDIS_ARTICLE_PAGE_TAG)->flush();
+                Cache::forget(Article::REDIS_ARTICLE_CACHE.$id);
+            } else {
                 Notification::error('主数据删除失败');
             }
 
-        }else{
+        } else {
             Notification::error('动态删除失败');
         }
 
-        return Redirect::route('backend.article.index');
-	}
+        return redirect()->route('backend.article.index');
+    }
 
 }
