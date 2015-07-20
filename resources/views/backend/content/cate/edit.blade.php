@@ -22,7 +22,7 @@
             <div class="form-group">
                 <label for="inputEmail3" class="col-sm-2 control-label">上级分类</label>
                 <div class="col-sm-3">
-                    {!! Form::select('parent_id', App\Model\Category::getCatFieldData($cate->id) , $cate->parent_id , ['class' => 'form-control']) !!}
+                    {!! Form::select('parent_id', App\Model\Category::getCategoryTree() , $cate->parent_id , ['class' => 'form-control']) !!}
                 </div>
             </div>
             <div class="form-group">

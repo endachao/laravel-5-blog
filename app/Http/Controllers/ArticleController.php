@@ -43,6 +43,7 @@ class ArticleController extends Controller {
         $tags = Tag::getTagModelByTagIds($article->tags);
         $authorArticle = Article::getArticleModelByUserId($article->user_id);
 
+        ArticleStatus::updateViewNumber($id);
         $commentList = Comment::getCommentListModel($id);
         $data = array(
             'article'=>$article,

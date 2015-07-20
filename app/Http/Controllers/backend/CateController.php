@@ -43,7 +43,7 @@ class CateController extends Controller {
         return backendView(
             'create',
             [
-                'catArr'=>Category::getCatFieldData()
+                'catArr'=>Category::getCategoryTree()
             ]
         );
 	}
@@ -55,22 +55,14 @@ class CateController extends Controller {
 	 */
 	public function store(CateForm $resuest)
 	{
-
         try{
-
-            if(Category::create(Category::setFieldData())){
-
+            if(Category::create($resuest->all())){
                 Notification::success('添加成功');
-
-                return Redirect::route('backend.cate.index');
+                return redirect()->route('backend.cate.index');
             }
-
         }catch (\Exception $e){
-
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
-
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
-
 	}
 
 	/**
@@ -105,17 +97,19 @@ class CateController extends Controller {
 	public function update($id,CateForm $result)
 	{
 		//
+
         try{
 
-            if(Category::where('id',$id)->update(Category::setFieldData())){
-
+            $data = $result->all();
+            unset($data['_method']);
+            unset($data['_token']);
+            if(Category::where('id',$id)->update($data)){
                 Notification::success('更新成功');
-
-                return Redirect::route('backend.cate.index');
+                return redirect()->route('backend.cate.index');
             }
 
         }catch (\Exception $e){
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
 
 	}
@@ -132,11 +126,11 @@ class CateController extends Controller {
         $son = Category::where('parent_id','=',$id)->get()->toArray();
         if(!empty($son)){
             Notification::error('请先删除下级分类');
-            return Redirect::route('backend.cate.index');
+            return redirect()->route('backend.cate.index');
         }
         if(Category::destroy($id)){
             Notification::success('删除成功');
-            return Redirect::route('backend.cate.index');
+            return redirect()->route('backend.cate.index');
         }
 	}
 

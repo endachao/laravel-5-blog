@@ -38,7 +38,7 @@ class ArticleController extends Controller
     public function create()
     {
         //
-        $catArr = Category::getCatFieldData();
+        $catArr = Category::getCategoryTree();
         unset($catArr[0]);
         return backendView('create', ['catArr' => $catArr]);
     }
@@ -98,7 +98,7 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
-        $catArr = Category::getCatFieldData();
+        $catArr = Category::getCategoryTree();
         unset($catArr[0]);
         return backendView('edit', ['article' => Article::find($id), 'catArr' => $catArr]);
     }

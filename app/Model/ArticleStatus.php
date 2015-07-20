@@ -38,8 +38,17 @@ class ArticleStatus extends Model {
      * @param $artId
      * @return mixed
      */
-    public static function updateCommentNumber($artId){
-        return self::where('art_id','=',$artId)->increment('comment_number');
+    public static function updateCommentNumber($articleId){
+        return self::where('art_id',$articleId)->increment('comment_number');
+    }
+
+    /**
+     * 更新游览量
+     * @param $articleId
+     * @return mixed
+     */
+    public static function updateViewNumber($articleId){
+        return self::where('art_id',$articleId)->increment('view_number');
     }
 
 }
