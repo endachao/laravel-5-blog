@@ -126,8 +126,10 @@ class Tag extends Model
         $tagIds = array();
         if (!empty($tagsArr)) {
             foreach ($tagsArr as $K => $v) {
-                $tag_temp = self::where('name', '=', trim($v))->first();
-                if ($tag_temp) {
+                $v = trim($v);
+                $v = preg_replace('/\s/',"",$v);
+                $tag_temp = self::where('name',$v)->first();
+                if (isset($tag_temp->id)) {
                     $tag_temp->number += 1;
                     $tag_temp->save();
                     $tagIds[] = $tag_temp->id;

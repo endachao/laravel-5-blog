@@ -55,7 +55,7 @@
                             @foreach($hotArticle as $key=>$article)
                                 <div class="col-sm-4 col-md-4">
                                     <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
-                                        <img src="{{ asset('uploads/'.$article->pic) }}" class="img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
+                                        <img src="{{ asset('uploads/'.$article->pic) }}" class="header_img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
                                     </a>
                                     <h4 class="text-center">
                                         <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>

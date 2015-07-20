@@ -2,6 +2,10 @@
 
 Blog system development based on laravel  5.0.*
 
+# Demo
+
+演示地址：[http://www.phpyc.com/](http://www.phpyc.com/)
+
 ###Usage
 ---
 1. clone laravel-5-blog 到你的服务器环境
@@ -26,7 +30,14 @@ Blog system development based on laravel  5.0.*
 1. 修改`app/storage/` 目录权限为可写,*nix下 执行：
 
     ```
-    sudo chmod -R 755 app/storage/
+    sudo chmod -R 755 storage/
+    ```
+
+1. 修改`public/uploads` 目录权限为可写,*nix下 执行：
+
+    ```
+    sudo chmod -R 755 public/uploads/
+
     ```
 
 
