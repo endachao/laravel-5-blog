@@ -29,18 +29,12 @@ class SystemController extends Controller {
     public function postCreate(SystemForm $result){
 
         try{
-
-            if(System::create(System::setFieldData())){
-
+            if(System::create($result->all())){
                 Notification::success('添加成功,请修改语言包文件');
-
                 return redirect('backend/system/index');
             }
-
         }catch (\Exception $e){
-
-            return Redirect::back()->withErrors(array('error' => $e->getMessage()))->withInput();
-
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
 
     }
@@ -52,27 +46,20 @@ class SystemController extends Controller {
             Notification::success('删除失败');
         }
 
-        return Redirect::back();
+        return redirect()->back();
     }
 
     public function postStore(){
-
         $system = Request::get('system');
-
         if(!empty($system)){
-
             foreach($system as $K=>$v){
-                $affectedRows = System::where('system_name', '=', $K)->update(['system_value' => $v]);
-
+               System::where('system_name', '=', $K)->update(['system_value' => $v]);
             }
-
             Notification::success('保存成功');
-            return Redirect::back();
-
+            return redirect()->back();
         }
         Notification::success('保存失败');
-        return Redirect::back();
-
+        return redirect()->back();
     }
 
 

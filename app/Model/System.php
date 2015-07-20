@@ -20,19 +20,6 @@ class System extends Model {
         self::SYSTEM_INFO_TYPE=>'基本设置',
     ];
 
-    public static function setFieldData(){
-        $fieldData = array();
-        $system = new System();
-        $arr = $system->getFillable();
-        foreach($arr as $v){
-            $fieldData[$v] = Input::get($v);
-        }
-
-        unset($arr);
-        unset($system);
-        return $fieldData;
-    }
-
     /**
      * 获取指定配置值
      * @param $field
