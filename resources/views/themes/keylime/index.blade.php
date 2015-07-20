@@ -22,8 +22,8 @@
                 <div class="col-md-10 col-md-offset-1">
 
                     @if(!empty($article))
-                        @foreach($article as $artKey=>$art)
-                        <article class="clearfix @if(count($article) == $artKey+1) last @endif">
+                        @foreach($article['data'] as $artKey=>$art)
+                        <article class="clearfix @if(count($article['data']) == $artKey+1) last @endif">
                             <div class="post-date">
                                {{ date('Y-m-d',strtotime($art->created_at)) }} |
                                 <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}" title="{{ $art->user->name }}" target="_blank" >{{ $art->user->name }}</a>
@@ -44,7 +44,7 @@
                     @endif
 
                     <div class="paging clearfix">
-                        {!! $article->render() !!}
+                        {!! $article['page']->render() !!}
                     </div>
 
                     <div class="post-popular">

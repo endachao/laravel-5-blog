@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Article;
 use App\Model\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class SearchController extends Controller
 {
@@ -13,6 +14,9 @@ class SearchController extends Controller
     public function getKeyword(Request $request)
     {
         $keyword = $request->input('keyword');
+        if(empty($keyword)){
+            return redirect()->route('article.index');
+        }
         $article = Article::getArticleListByKeyword($keyword);
 
 
