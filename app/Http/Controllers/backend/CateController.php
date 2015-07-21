@@ -55,10 +55,10 @@ class CateController extends Controller
      *
      * @return Response
      */
-    public function store(CateForm $resuest)
+    public function store(CateForm $request)
     {
         try {
-            if (Category::create($resuest->all())) {
+            if (Category::create($request->all())) {
                 Notification::success('添加成功');
                 return redirect()->route('backend.cate.index');
             }
