@@ -53,6 +53,10 @@ class CommentController extends Controller
         }
         unset($attributes['_token']);
         try {
+
+
+            $attributes['content'] = htmlspecialchars($attributes['content']);
+
             CommentModel::create($attributes);
             ArticleStatus::updateCommentNumber($attributes['el_id']);
 
