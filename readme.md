@@ -6,6 +6,14 @@ Blog system development based on laravel  5.0.*
 
 演示地址：[http://www.phpyc.com/](http://www.phpyc.com/)
 
+# Warning
+
+必须安装 `redis`
+必须安装 `redis`
+必须安装 `redis`
+
+重要的事情说三遍
+
 ###Usage
 ---
 1. clone laravel-5-blog 到你的服务器环境
