@@ -27,7 +27,7 @@
                             <td>{{ $v->article->title }}</td>
                             <td>{{ $v->parent_id == 0?'评论':'回复 《'.\App\model\Comment::getCommentReplyUserNameByCommentId($v->parent_id).'》的评论' }}</td>
                             <td>{{ $v->created_at }}</td>
-                            <td class="text-right">
+                            <td class="text-right" width="20%">
 
                                 {!! Form::open([
                                 'route' => array('backend.comment.destroy', $v->id),

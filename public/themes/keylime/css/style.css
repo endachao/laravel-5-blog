@@ -544,7 +544,7 @@ pre {
 /* ------------------------ blog ------------------------ */
 
 .content {
-	font-family: "Merriweather", georgia, serif;
+	/*font-family: "Merriweather", georgia, serif;*/
 	font-size: 16px;
 	font-size: 1rem;
 	line-height: 1.4;

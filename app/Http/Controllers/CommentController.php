@@ -10,6 +10,7 @@ use Response;
 use Session;
 use Notification;
 use App\Model\ArticleStatus;
+use App\Events\CommentSendEmail;
 class CommentController extends Controller
 {
 
@@ -46,14 +47,11 @@ class CommentController extends Controller
             Notification::error('验证码错误');
             return redirect()->route('article.show',['id'=>$attributes['el_id'],'#commentList'])->withInput();
         }
-        unset($attributes['captcha']);
         if (Session::token() !== $attributes['_token']) {
             Notification::error('token错误');
             return redirect()->route('article.show',['id'=>$attributes['el_id'],'#commentList'])->withInput();
         }
-        unset($attributes['_token']);
         try {
-
 
             $attributes['content'] = htmlspecialchars($attributes['content']);
 
@@ -61,6 +59,7 @@ class CommentController extends Controller
             ArticleStatus::updateCommentNumber($attributes['el_id']);
 
             Notification::success('评论成功');
+            event(new CommentSendEmail($attributes['parent_id']));
             return redirect()->route('article.show',['id'=>$attributes['el_id'],'#commentList']);
         } catch (\Exception $e) {
             Notification::error($e->getMessage());

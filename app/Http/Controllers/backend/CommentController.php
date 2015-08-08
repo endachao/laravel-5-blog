@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Model\Comment;
 use Validation;
 use Notification;
-
+use App\Events\CommentSendEmail;
 class CommentController extends Controller
 {
 
@@ -72,6 +72,7 @@ class CommentController extends Controller
 
             Comment::create($data);
             Notification::success('回复成功');
+            event(new CommentSendEmail($id));
             return redirect()->route('backend.comment.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
