@@ -70,7 +70,7 @@ class PivotMigrationMakeCommand extends GeneratorCommand
      */
     protected function getPath($name = null)
     {
-        return './database/migrations/' . date('Y_m_d_His') .
+        return base_path() . '/database/migrations/' . date('Y_m_d_His') .
         '_create_' . $this->getPivotTableName() . '_pivot_table.php';
     }
 
@@ -119,6 +119,20 @@ class PivotMigrationMakeCommand extends GeneratorCommand
         );
 
         return $this;
+    }
+    
+    /**
+     * Replace the class name for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
+    {
+        $stub = str_replace('{{class}}', $name, $stub);
+
+        return $stub;
     }
 
     /**

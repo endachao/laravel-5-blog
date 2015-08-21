@@ -386,11 +386,11 @@ class PHPUnit_Util_XML
                     }
                 }
 
-                if ($classes) {
+                if (!empty($classes)) {
                     $tag['class'] = implode(' ', $classes);
                 }
 
-                if ($attrs) {
+                if (!empty($attrs)) {
                     $tag['attributes'] = $attrs;
                 }
             }
@@ -471,6 +471,8 @@ class PHPUnit_Util_XML
         if ($options['class']) {
             $options['attributes']['class'] = $options['class'];
         }
+
+        $nodes = array();
 
         // find the element by a tag type
         if ($options['tag']) {

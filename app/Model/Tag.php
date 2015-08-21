@@ -25,7 +25,7 @@ class Tag extends Model
     public static function getTagArray()
     {
         $tagList = self::getTagModelAll();
-        if (!empty($tag)) {
+        if (!empty($tagList)) {
             foreach ($tagList as $tag) {
                 self::$tags[$tag->id] = $tag->name;
             }
