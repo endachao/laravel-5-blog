@@ -212,15 +212,14 @@ class Article extends Model
         $articleList = array(
             'data' => [],
         );
-        foreach ($model as $key => $article) {
-            $articleList['data'][$key] = self::getArticleModelByArticleId($article->id);
+        if(!empty($model)){
+            foreach ($model as $key => $article) {
+                $articleList['data'][$key] = self::getArticleModelByArticleId($article->id);
+            }
         }
-
         $articleList['page'] = $model;
         return $articleList;
-
     }
-
     public static function getArticleListByTagId($tagId)
     {
         if (empty($model = Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->get(self::REDIS_TAG_ARTICLE_CACHE . $tagId))) {
@@ -235,8 +234,11 @@ class Article extends Model
         $articleList = array(
             'data' => [],
         );
-        foreach ($model as $key => $article) {
-            $articleList['data'][$key] = self::getArticleModelByArticleId($article->id);
+
+        if(!empty($model)){
+            foreach ($model as $key => $article) {
+                $articleList['data'][$key] = self::getArticleModelByArticleId($article->id);
+            }
         }
 
         $articleList['page'] = $model;

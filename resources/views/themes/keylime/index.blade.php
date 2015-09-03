@@ -27,7 +27,7 @@
                             <div class="post-date">
                                {{ date('Y-m-d',strtotime($art->created_at)) }} |
                                 <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}" title="{{ $art->user->name }}" target="_blank" >{{ $art->user->name }}</a>
-                                <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}" title="{{ $art->title }}" target="_blank">{{ $art->status->comment_number }} Comments</a></span>
+                                <span><a href="{{ route('article.show',array('id'=>$art->id)) }}#disqus_thread" title="{{ $art->title }}" target="_blank">0 Comments</a></span>
                             </div>
 
                             <h2>
@@ -55,7 +55,7 @@
                             @foreach($hotArticle as $key=>$article)
                                 <div class="col-sm-4 col-md-4">
                                     <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
-                                        <img src="{{ asset('uploads/'.$article->pic) }}" class="header_img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
+                                        <img src="{{ getArticleImg($article->pic) }}" class="header_img-responsive" alt="img2" width="300px" height="150px" title="{{ $article->title }}" alt="{{ $article->title }}">
                                     </a>
                                     <h4 class="text-center">
                                         <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>

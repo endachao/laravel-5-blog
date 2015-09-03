@@ -52,7 +52,7 @@
                             @foreach($userArticle as $articleModel)
                                 <div class="col-sm-4 col-md-4">
                                     <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
-                                        <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" title="{{ $articleModel->title }}" alt="{{ $articleModel->title }}" style="height: 200px;"></a>
+                                        <img src="{{ getArticleImg($articleModel->pic) }}" class="img-responsive" title="{{ $articleModel->title }}" alt="{{ $articleModel->title }}" style="height: 200px;"></a>
                                     <h4 class="text-center">
                                         <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
                                             {{ $articleModel->title }}

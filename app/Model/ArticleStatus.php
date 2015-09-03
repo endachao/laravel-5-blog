@@ -12,7 +12,6 @@ class ArticleStatus extends Model {
     protected $fillable = [
         'art_id',
         'view_number',
-        'comment_number'
     ];
 
     public function article(){
@@ -32,15 +31,6 @@ class ArticleStatus extends Model {
     }
 
 
-
-    /**
-     * 更新到动态表
-     * @param $artId
-     * @return mixed
-     */
-    public static function updateCommentNumber($articleId){
-        return self::where('art_id',$articleId)->increment('comment_number');
-    }
 
     /**
      * 更新游览量

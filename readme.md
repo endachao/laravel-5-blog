@@ -14,6 +14,15 @@ Blog system development based on laravel  5.0.*
 
 重要的事情说三遍
 
+
+### 更新日志
+
+1. 2015.8.8 修改文章字体［样式］
+2. 2015.8.8 修改后台评论列表按钮问题［样式］
+3. 2015.8.8 新增回复评论邮件通知功能［功能］
+4. 2015.9.4 修改评论为DISQUS
+
+
 ###Usage
 ---
 1. clone laravel-5-blog 到你的服务器环境
@@ -35,7 +44,7 @@ Blog system development based on laravel  5.0.*
 
 1. 修改数据库配置`.env`,在数据库中创建一个`库`,把配置信息填写到配置文件中
 
-1. 修改`app/storage/` 目录权限为可写,*nix下 执行：
+1. 修改`storage/` 目录权限为可写,*nix下 执行：
 
     ```
     sudo chmod -R 755 storage/
@@ -75,18 +84,21 @@ Blog system development based on laravel  5.0.*
 目前基本上开发完成，后期都是代码优化系列，您可以点击 `watch` ，订阅最新推送，可以点击 `start` 来支持我
 
 
-### 更新日志
+### 安装评论
 
-1. 2015.8.8 修改文章字体［样式］
-1. 2015.8.8 修改后台评论列表按钮问题［样式］
-1. 2015.8.8 新增回复评论邮件通知功能［功能］
+9.4 号，修改评论为国外第三方的DISQUS，这个评论还是挺好用的，使用方法如下
+
+1. 先注册账户 https://disqus.com/ 得到你的站点 id
+2. 修改配置文件 `config/disqus.php` 里面的 `disqus_shortname` 配置项为你刚得到的 id
+3. 安装完成
+4. 如果你是在 9.4 号之前下载安装的，需要执行一下 `php artisan migrate` 清理一下数据库，新安装的不用理会
+
+
 
 ###缓存
 ---
 
 本系统使用redis缓存，目前只缓存文章，其它的皆不缓存
-
-
 
 
 喜欢这个项目，喜欢 laravel 欢迎加入 QQ 群与我们讨论：`365969825`

@@ -40,7 +40,7 @@
                         {{ date('Y-m-d',strtotime($article->created_at)) }} |
                         <a href="{{ url(route('about.show',['id'=>$article->user->id])) }}" title="{{ $article->user->name }}" target="_blank">{{ $article->user->name }} </a>
                         <span>
-                            <a href="#commentList" title="{{ $article->title }}">{{ $article->status->comment_number }} Comments</a>
+                            <a href="#disqus_thread" title="{{ $article->title }}">0 Comments</a>
                         </span>
                     </div>
 
@@ -90,7 +90,7 @@
 
                             <div class="col-sm-4 col-md-4">
                                 <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
-                                    <img src="{{ asset('uploads'.'/'.$articleModel->pic) }}" class="img-responsive" alt="{{ $articleModel->title }}" title="{{ $articleModel->title }}" style="height: 200px;"></a>
+                                    <img src="{{ getArticleImg($articleModel->pic) }}" class="img-responsive" alt="{{ $articleModel->title }}" title="{{ $articleModel->title }}" style="height: 200px;"></a>
                                 <h4 class="text-center">
                                     <a href="{{ route('article.show',array('id'=>$articleModel->id)) }}" title="{{ $articleModel->title }}" target="_blank">
                                         {{ $articleModel->title }}
@@ -107,146 +107,24 @@
 
                     </div>
 
-                    <h3>{{ $article->status->comment_number }} 评论</h3>
-                    <div class="media" id="commentList">
-                        <hr>
 
-                        @if(!empty($commentList))
-                            @foreach($commentList as $commentModel)
-                                <div class="media">
-                                    <a class="pull-left avatar" href="javascript:void(0)" title="{{$commentModel->username}}">
-                                        <img class="media-object img-circle" src="{{ App\Model\Comment::getHeaderImg() }}" width="40" height="40" alt="">
-                                    </a>
-                                    <div class="media-body">
-                                        <h4 class="media-heading">
-                                            <a href="#addComment" onclick="updateParentId('{{$commentModel->id}}','{{$commentModel->username}}')">{{ $commentModel->username }}</a>
-                                            <span>
-                                                {{ date('Y-m-d',strtotime($commentModel->created_at)) }} | <a href="#addComment" onclick="updateParentId('{{$commentModel->id}}','{{$commentModel->username}}')">回复</a>
-                                            </span>
-                                        </h4>
-                                        <p>
-                                            @if($commentModel->parent_id != 0)
-                                                <a href="javascript:void(0)">
-                                                    {{ '@'.App\Model\Comment::getCommentReplyUserNameByCommentId($commentModel->parent_id) }}
-                                                </a>
-                                            @endif
-                                            {!! conversionMarkdown($commentModel->content) !!}
-                                        </p>
-                                    </div>
-                                </div>
-                            @endforeach
-                        @endif
+                    <div id="disqus_thread"></div>
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES: THIS CODE IS ONLY AN EXAMPLE * * */
+                        var disqus_shortname = "{{ config('disqus.disqus_shortname') }}";
 
-                    </div>
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
 
-                    <div id="comments_pagination">
-                        {!! $commentList->fragment('commentList')->render() !!}
-                    </div>
-
-                    <h3 id="addComment">Add a new comment</h3>
-                    {!! Notification::showAll() !!}
-                    {!!  Form::open(['route' => 'comment.store', 'method' => 'post','class'=>'myform','id'=>'mycomment']) !!}
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 wow fadeInUp" >
-                                <div class="form-group">
-                                    <label class="control-label" for="contact-message">吐槽？提问？</label>
-                                    <div class="controls">
-                                        {!!
-                                            Form::textarea(
-                                                'content',
-                                                '',
-                                                [
-                                                    'placeholder'=>'支持markdown语法',
-                                                    'class'=>'form-control input-lg requiredField',
-                                                    'rows'=>'3',
-                                                    'data-error-empty'=>'请输入评论内容',
-                                                    'id'=>'content'
-
-                                                ]
-                                            )
-                                        !!}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label">姓名</label>
-                                            <div class="controls">
-                                                {!!
-                                                    Form::text(
-                                                        'username',
-                                                        '',
-                                                        [
-                                                            'placeholder'=>'骚年，告诉我的你的名字',
-                                                            'class'=>'form-control input-lg requiredField',
-                                                            'data-error-empty'=>'无名氏？',
-                                                            'id'=>'username'
-                                                        ]
-                                                    )
-                                                !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            <label class="control-label" for="contact-mail">邮箱</label>
-                                            <div class=" controls">
-                                                {!!
-                                                    Form::email(
-                                                        'email',
-                                                        '',
-                                                        [
-                                                            'placeholder'=>'邮箱',
-                                                            'class'=>'form-control input-lg requiredField',
-                                                            'data-error-empty'=>'喂！不告诉我你的邮箱怎么给你回信？',
-                                                            'id'=>'email'
-                                                        ]
-                                                    )
-                                                !!}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <div class="form-group">
-                                            <label class="control-label">验证码</label>
-                                            <div class="controls">
-                                                {!!
-                                                    Form::text
-                                                    (
-                                                        'captcha',
-                                                        '',
-                                                        [
-                                                            'placeholder'=>'验证码',
-                                                            'class'=>'form-control input-lg requiredField',
-                                                            'data-error-empty'=>'你是机器人嘛?',
-                                                            'id'=>'captcha'
-                                                        ]
-                                                    )
-                                                !!}
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-12 col-sm-6 col-md-3">
-                                        <a onclick="javascript:re_captcha();" href="javascript:void(0)" >
-                                            <img src="{{ homeAsset('/img/show.jpg') }}"  alt="验证码" title="刷新图片" width="100" height="40" id="verifyCode"  border="0" display>
-                                        </a>
-                                    </div>
-
-                                    <div class="col-xs-12 col-sm-6 col-md-6">
-                                        <div class="form-group">
-                                            {!! Form::hidden('parent_id', 0,['id'=>'parent_id']) !!}
-                                            {!! Form::hidden('el_id', $article->id) !!}
-                                            <button name="submit" type="submit" class="btn btn-block" data-error-message="Error!" data-sending-message="Sending..." data-ok-message="Comment Sent">Send Comment</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {!! Form::close()  !!}
-
+                    <noscript>
+                        Please enable JavaScript to view the
+                        <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a>
+                    </noscript>
                 </div>
             </div>
         </div>

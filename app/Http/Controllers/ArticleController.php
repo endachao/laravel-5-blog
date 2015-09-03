@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 use App\Model\ArticleStatus;
 use App\Model\Article;
-use App\Model\Comment;
 
 class ArticleController extends Controller {
 
@@ -44,12 +43,10 @@ class ArticleController extends Controller {
         $authorArticle = Article::getArticleModelByUserId($article->user_id);
 
         ArticleStatus::updateViewNumber($id);
-        $commentList = Comment::getCommentListModel($id);
         $data = array(
             'article'=>$article,
             'tags'=>$tags,
             'authorArticle'=>$authorArticle,
-            'commentList'=>$commentList
         );
         viewInit();
         return homeView('article',$data);

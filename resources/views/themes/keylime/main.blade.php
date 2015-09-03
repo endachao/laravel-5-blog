@@ -46,6 +46,13 @@
                     <span>指点江山，激扬代码，粪土当年万户侯</span>
 
                     <div class="stats">
+
+                        <div class="line">
+                            <span class="counter">
+                                1
+                            </span>
+                            <span class="caption">个人</span>
+                        </div>
                         <div class="line">
                             <span class="counter">
                                 @if(!empty($dataCount['article']))
@@ -56,16 +63,6 @@
 
                             </span>
                             <span class="caption">文章</span>
-                        </div>
-                        <div class="line">
-                            <span class="counter">
-                                @if(!empty($dataCount['comment']))
-                                    {{ $dataCount['comment'] }}
-                                @else
-                                    0
-                                @endif
-                            </span>
-                            <span class="caption">评论</span>
                         </div>
                         <div class="line">
                             <span class="counter">
@@ -90,7 +87,7 @@
                                     @foreach($recentArticle as $article)
                                         <div class="media">
                                             <a class="pull-left" href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">
-                                                <img class="media-object" src="{{ asset('uploads').'/'.$article->pic }}" width="80" alt="{{ $article->title }}" title="{{ $article->title }}"></a>
+                                                <img class="media-object" src="{{ getArticleImg($article->pic) }}" width="80" alt="{{ $article->title }}" title="{{ $article->title }}"></a>
                                             <div class="media-body">
                                                 <h4 class="media-heading">
                                                     <a href="{{ url(route('article.show',['id'=>$article->id])) }}" title="{{ $article->title }}" target="_blank">{{ $article->title }}</a>
@@ -143,4 +140,16 @@
 <script type="text/javascript" src="{{ homeAsset('/js/ga.js') }}"></script>
 </body>
 
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = "{{ config('disqus.disqus_shortname') }}"; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </html>

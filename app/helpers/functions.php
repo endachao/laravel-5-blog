@@ -130,7 +130,6 @@ if (!function_exists('viewInit')) {
 
         $count = array(
             'article' => $article->count(),
-            'comment' => $articleStatus->sum('comment_number'),
             'visit' => $articleStatus->sum('view_number'),
         );
 
@@ -218,5 +217,16 @@ if (!function_exists('systemConfig')) {
         $system = app('App\Model\System');
         $val = $system->getSystem($field);
         return !empty($val) ? $val : $default;
+    }
+}
+
+if (!function_exists('getArticleImg')) {
+    function getArticleImg($image = '')
+    {
+        $imageUrl = 'images/01.jpg';
+        if(!empty($image)){
+            $imageUrl = 'uploads'.'/'.$image;
+        }
+        return asset($imageUrl);
     }
 }

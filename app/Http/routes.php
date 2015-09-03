@@ -23,7 +23,6 @@ Route::resource('about', 'AboutController');
 Route::controllers([
     'backend/auth' => 'backend\AuthController',
     'backend/password' => 'backend\PasswordController',
-    'public'=>'PublicController',
     'search'=>'SearchController',
 ]);
 

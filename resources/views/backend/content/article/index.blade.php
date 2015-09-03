@@ -16,7 +16,6 @@
                             <th>所属分类</th>
                             <th>作者</th>
                             <th>游览次数</th>
-                            <th>评论数</th>
                             <th>创建时间</th>
                             <th class="text-right">操作</th>
                         </tr>
@@ -28,7 +27,6 @@
                             <td>{{ App\Model\Category::getCategoryNameByCatId($v->cate_id) }}</td>
                             <td>{{ App\User::getUserNameByUserId($v->user_id) }}</td>
                             <td>{{ $v->status->view_number }}</td>
-                            <td>{{ $v->status->comment_number }}</td>
                             <td>{{ $v->created_at }}</td>
                             <td class="text-right">
 

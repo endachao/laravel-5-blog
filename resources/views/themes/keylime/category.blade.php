@@ -40,7 +40,7 @@
                                 <div class="post-date">
                                     {{ date('Y-m-d',strtotime($art->created_at)) }} |
                                     <a href="{{ url(route('about.show',['id'=>$art->user->id])) }}" title="{{ $art->user->name }}" target="_blank"> {{ $art->user->name }}</a>
-                                    <span><a href="{{ route('article.show',array('id'=>$art->id,'#commentList')) }}" title="{{ $art->title }}" target="_blank" >{{ $art->status->comment_number }} Comments</a></span>
+                                    <span><a href="{{ route('article.show',array('id'=>$art->id)) }}#disqus_thread" title="{{ $art->title }}" target="_blank" >0 Comments</a></span>
                                 </div>
 
                                 <h2>
