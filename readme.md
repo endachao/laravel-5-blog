@@ -14,6 +14,10 @@ Blog system development based on laravel  5.0.*
 
 重要的事情说三遍
 
+# 学习交流
+
+1. 可以加入 QQ 群 `365969825`
+2. 可以进论坛提问 [http://laravel.io](http://laravel.io)
 
 ### 更新日志
 
