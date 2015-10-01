@@ -33,7 +33,7 @@ Blog system development based on laravel  5.0.*
 
 	```
 	cd www #你的服务器放网站的目录
-	git clone git@github.com:yccphp/laravel-blog.git
+	git clone git@github.com:yccphp/laravel-5-blog.git
 	```
 
 1. 切换到 laravel-5-blog 所在目录，使用composer 更新项目
