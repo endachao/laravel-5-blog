@@ -5,31 +5,43 @@ namespace Doctrine\Tests\Common\Cache;
 use Doctrine\Common\Cache\MemcachedCache;
 use Memcached;
 
+/**
+ * @requires extension memcached
+ */
 class MemcachedCacheTest extends CacheTest
 {
     private $memcached;
 
-    public function setUp()
+    protected function setUp()
     {
-        if ( ! extension_loaded('memcached')) {
-            $this->markTestSkipped('The ' . __CLASS__ .' requires the use of memcached');
-        }
-
         $this->memcached = new Memcached();
         $this->memcached->setOption(Memcached::OPT_COMPRESSION, false);
         $this->memcached->addServer('127.0.0.1', 11211);
 
         if (@fsockopen('127.0.0.1', 11211) === false) {
             unset($this->memcached);
-            $this->markTestSkipped('The ' . __CLASS__ .' cannot connect to memcache');
+            $this->markTestSkipped('Cannot connect to Memcached.');
         }
     }
 
-    public function tearDown()
+    protected function tearDown()
     {
         if ($this->memcached instanceof Memcached) {
             $this->memcached->flush();
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * Memcached does not support " ", null byte and very long keys so we remove them from the tests.
+     */
+    public function provideCacheIds()
+    {
+        $ids = parent::provideCacheIds();
+        unset($ids[21], $ids[22], $ids[24]);
+
+        return $ids;
     }
 
     public function testNoExpire()
@@ -47,24 +59,18 @@ class MemcachedCacheTest extends CacheTest
         $this->assertTrue($cache->contains('key'), 'Memcache provider should support TTL > 30 days');
     }
 
+    public function testGetMemcachedReturnsInstanceOfMemcached()
+    {
+        $this->assertInstanceOf('Memcached', $this->_getCacheDriver()->getMemcached());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     protected function _getCacheDriver()
     {
         $driver = new MemcachedCache();
         $driver->setMemcached($this->memcached);
         return $driver;
-    }
-
-    /**
-     * {@inheritDoc}
-     *
-     * @dataProvider falseCastedValuesProvider
-     */
-    public function testFalseCastedValues($value)
-    {
-        if (false === $value) {
-            $this->markTestIncomplete('Memcached currently doesn\'t support saving `false` values. ');
-        }
-
-        parent::testFalseCastedValues($value);
     }
 }

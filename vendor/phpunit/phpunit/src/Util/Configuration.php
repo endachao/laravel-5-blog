@@ -169,8 +169,10 @@ class PHPUnit_Util_Configuration
     /**
      * Returns a PHPUnit configuration object.
      *
-     * @param  string                     $filename
+     * @param string $filename
+     *
      * @return PHPUnit_Util_Configuration
+     *
      * @since  Method available since Release 3.4.0
      */
     public static function getInstance($filename)
@@ -197,6 +199,7 @@ class PHPUnit_Util_Configuration
      * Returns the realpath to the configuration file.
      *
      * @return string
+     *
      * @since  Method available since Release 3.6.0
      */
     public function getFilename()
@@ -208,6 +211,7 @@ class PHPUnit_Util_Configuration
      * Returns the configuration for SUT filtering.
      *
      * @return array
+     *
      * @since  Method available since Release 3.2.1
      */
     public function getFilterConfiguration()
@@ -283,6 +287,7 @@ class PHPUnit_Util_Configuration
      * Returns the configuration for groups.
      *
      * @return array
+     *
      * @since  Method available since Release 3.2.1
      */
     public function getGroupConfiguration()
@@ -293,11 +298,11 @@ class PHPUnit_Util_Configuration
         );
 
         foreach ($this->xpath->query('groups/include/group') as $group) {
-            $groups['include'][] = (string) $group->nodeValue;
+            $groups['include'][] = (string) $group->textContent;
         }
 
         foreach ($this->xpath->query('groups/exclude/group') as $group) {
-            $groups['exclude'][] = (string) $group->nodeValue;
+            $groups['exclude'][] = (string) $group->textContent;
         }
 
         return $groups;
@@ -307,6 +312,7 @@ class PHPUnit_Util_Configuration
      * Returns the configuration for listeners.
      *
      * @return array
+     *
      * @since  Method available since Release 3.4.0
      */
     public function getListenerConfiguration()
@@ -331,7 +337,7 @@ class PHPUnit_Util_Configuration
                         if ($argument instanceof DOMElement) {
                             if ($argument->tagName == 'file' ||
                             $argument->tagName == 'directory') {
-                                $arguments[] = $this->toAbsolutePath((string) $argument->nodeValue);
+                                $arguments[] = $this->toAbsolutePath((string) $argument->textContent);
                             } else {
                                 $arguments[] = PHPUnit_Util_XML::xmlToVariable($argument);
                             }
@@ -422,6 +428,7 @@ class PHPUnit_Util_Configuration
      * Returns the PHP configuration.
      *
      * @return array
+     *
      * @since  Method available since Release 3.2.1
      */
     public function getPHPConfiguration()
@@ -441,7 +448,7 @@ class PHPUnit_Util_Configuration
         );
 
         foreach ($this->xpath->query('php/includePath') as $includePath) {
-            $path = (string) $includePath->nodeValue;
+            $path = (string) $includePath->textContent;
             if ($path) {
                 $result['include_path'][] = $this->toAbsolutePath($path);
             }
@@ -540,6 +547,7 @@ class PHPUnit_Util_Configuration
      * Returns the PHPUnit configuration.
      *
      * @return array
+     *
      * @since  Method available since Release 3.2.14
      */
     public function getPHPUnitConfiguration()
@@ -796,6 +804,7 @@ class PHPUnit_Util_Configuration
      * Returns the SeleniumTestCase browser configuration.
      *
      * @return array
+     *
      * @since  Method available since Release 3.2.9
      */
     public function getSeleniumBrowserConfiguration()
@@ -846,6 +855,7 @@ class PHPUnit_Util_Configuration
      * Returns the test suite configuration.
      *
      * @return PHPUnit_Framework_TestSuite
+     *
      * @since  Method available since Release 3.2.1
      */
     public function getTestSuiteConfiguration($testSuiteFilter = null)
@@ -874,8 +884,10 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  DOMElement                  $testSuiteNode
+     * @param DOMElement $testSuiteNode
+     *
      * @return PHPUnit_Framework_TestSuite
+     *
      * @since  Method available since Release 3.4.0
      */
     protected function getTestSuite(DOMElement $testSuiteNode, $testSuiteFilter = null)
@@ -891,7 +903,7 @@ class PHPUnit_Util_Configuration
         $exclude = array();
 
         foreach ($testSuiteNode->getElementsByTagName('exclude') as $excludeNode) {
-            $excludeFile = (string) $excludeNode->nodeValue;
+            $excludeFile = (string) $excludeNode->textContent;
             if ($excludeFile) {
                 $exclude[] = $this->toAbsolutePath($excludeFile);
             }
@@ -904,7 +916,7 @@ class PHPUnit_Util_Configuration
                 continue;
             }
 
-            $directory = (string) $directoryNode->nodeValue;
+            $directory = (string) $directoryNode->textContent;
 
             if (empty($directory)) {
                 continue;
@@ -952,7 +964,7 @@ class PHPUnit_Util_Configuration
                 continue;
             }
 
-            $file = (string) $fileNode->nodeValue;
+            $file = (string) $fileNode->textContent;
 
             if (empty($file)) {
                 continue;
@@ -992,9 +1004,11 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  string $value
-     * @param  bool   $default
+     * @param string $value
+     * @param bool   $default
+     *
      * @return bool
+     *
      * @since  Method available since Release 3.2.3
      */
     protected function getBoolean($value, $default)
@@ -1009,9 +1023,11 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  string $value
-     * @param  bool   $default
+     * @param string $value
+     * @param bool   $default
+     *
      * @return bool
+     *
      * @since  Method available since Release 3.6.0
      */
     protected function getInteger($value, $default)
@@ -1024,8 +1040,10 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  string $query
+     * @param string $query
+     *
      * @return array
+     *
      * @since  Method available since Release 3.2.3
      */
     protected function readFilterDirectories($query)
@@ -1033,7 +1051,7 @@ class PHPUnit_Util_Configuration
         $directories = array();
 
         foreach ($this->xpath->query($query) as $directory) {
-            $directoryPath = (string) $directory->nodeValue;
+            $directoryPath = (string) $directory->textContent;
 
             if (!$directoryPath) {
                 continue;
@@ -1069,8 +1087,10 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  string $query
+     * @param string $query
+     *
      * @return array
+     *
      * @since  Method available since Release 3.2.3
      */
     protected function readFilterFiles($query)
@@ -1078,7 +1098,7 @@ class PHPUnit_Util_Configuration
         $files = array();
 
         foreach ($this->xpath->query($query) as $file) {
-            $filePath = (string) $file->nodeValue;
+            $filePath = (string) $file->textContent;
             if ($filePath) {
                 $files[] = $this->toAbsolutePath($filePath);
             }
@@ -1088,9 +1108,11 @@ class PHPUnit_Util_Configuration
     }
 
     /**
-     * @param  string $path
-     * @param  bool   $useIncludePath
+     * @param string $path
+     * @param bool   $useIncludePath
+     *
      * @return string
+     *
      * @since  Method available since Release 3.5.0
      */
     protected function toAbsolutePath($path, $useIncludePath = false)

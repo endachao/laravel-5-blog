@@ -44,9 +44,9 @@ class CachingStreamTest extends \PHPUnit_Framework_TestCase
     {
         $baseStream = Psr7\stream_for(implode('', range('a', 'z')));
         $cached = new CachingStream($baseStream);
-        $cached->seek(1, SEEK_END);
-        $this->assertEquals(24, $baseStream->tell());
-        $this->assertEquals('y', $cached->read(1));
+        $cached->seek(-1, SEEK_END);
+        $this->assertEquals(25, $baseStream->tell());
+        $this->assertEquals('z', $cached->read(1));
         $this->assertEquals(26, $cached->getSize());
     }
 
@@ -55,8 +55,8 @@ class CachingStreamTest extends \PHPUnit_Framework_TestCase
         $baseStream = Psr7\stream_for(implode('', range('a', 'z')));
         $cached = new CachingStream($baseStream);
         $cached->seek(0, SEEK_END);
-        $this->assertEquals(25, $baseStream->tell());
-        $this->assertEquals('z', $cached->read(1));
+        $this->assertEquals(26, $baseStream->tell());
+        $this->assertEquals('', $cached->read(1));
         $this->assertEquals(26, $cached->getSize());
     }
 
@@ -67,8 +67,8 @@ class CachingStreamTest extends \PHPUnit_Framework_TestCase
             'getSize' => function () { return null; }
         ]);
         $cached = new CachingStream($decorated);
-        $cached->seek(1, SEEK_END);
-        $this->assertEquals('ng', $cached->read(2));
+        $cached->seek(-1, SEEK_END);
+        $this->assertEquals('g', $cached->read(1));
     }
 
     public function testRewindUsesSeek()

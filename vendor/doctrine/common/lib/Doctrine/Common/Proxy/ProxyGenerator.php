@@ -37,7 +37,7 @@ class ProxyGenerator
      * Used to match very simple id methods that don't need
      * to be decorated since the identifier is known.
      */
-    const PATTERN_MATCH_ID_METHOD = '((public\s)?(function\s{1,}%s\s?\(\)\s{1,})\s{0,}{\s{0,}return\s{0,}\$this->%s;\s{0,}})i';
+    const PATTERN_MATCH_ID_METHOD = '((public\s+)?(function\s+%s\s*\(\)\s*)\s*{\s*return\s*\$this->%s;\s*})i';
 
     /**
      * The namespace that contains all proxy classes.
@@ -302,6 +302,7 @@ class <proxyShortClassName> extends \<className> implements \<baseProxyInterface
         $tmpFileName = $fileName . '.' . uniqid('', true);
 
         file_put_contents($tmpFileName, $proxyCode);
+        chmod($tmpFileName, 0664);
         rename($tmpFileName, $fileName);
     }
 

@@ -1,6 +1,6 @@
-## laravel-5-blog
+## laravel-5.1-blog
 
-Blog system development based on laravel  5.0.*
+Blog system development based on laravel  5.1.*
 
 # Demo
 
@@ -17,7 +17,6 @@ Blog system development based on laravel  5.0.*
 # 学习交流
 
 1. 可以加入 QQ 群 `365969825`
-2. 可以进论坛提问 [http://laravel.io](http://laravel.io)
 
 ### 更新日志
 
@@ -25,6 +24,9 @@ Blog system development based on laravel  5.0.*
 2. 2015.8.8 修改后台评论列表按钮问题［样式］
 3. 2015.8.8 新增回复评论邮件通知功能［功能］
 4. 2015.9.4 修改评论为DISQUS
+5. 2015.11.12 更新版本为5.1
+
+#### 2015.11.12 正式启动博客2.0计划，将对此博客进行重写，优化，请关注更新日志
 
 
 ###Usage
@@ -45,6 +47,8 @@ Blog system development based on laravel  5.0.*
 	cd laravel-5-blog/
 	composer dump-autoload	
 	```
+
+1. 修改 `.env.example` 为 `.env` 
 
 1. 修改数据库配置`.env`,在数据库中创建一个`库`,把配置信息填写到配置文件中
 
@@ -83,9 +87,6 @@ Blog system development based on laravel  5.0.*
 1. 那么现在访问`http://yourhost/backend` 应该会跳转到后台登录页，默认账户：`admin@admin.com`,`123456`
 
 
-###开发进度
----
-目前基本上开发完成，后期都是代码优化系列，您可以点击 `watch` ，订阅最新推送，可以点击 `start` 来支持我
 
 
 ### 安装评论

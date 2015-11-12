@@ -52,8 +52,7 @@ class CachingStream implements StreamInterface
             if ($size === null) {
                 $size = $this->cacheEntireStream();
             }
-            // Because 0 is the first byte, we seek to size - 1.
-            $byte = $size - 1 - $offset;
+            $byte = $size + $offset;
         } else {
             throw new \InvalidArgumentException('Invalid whence');
         }

@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*",
+		"laravel/framework": "5.1.*",
         "illuminate/html": "~5.0",
         "edvinaskrucas/notification": "dev-features/laravel-5",
         "overtrue/laravel-lang": "dev-master",

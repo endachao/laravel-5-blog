@@ -14,11 +14,11 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=5.5.9",
+        "ext-mbstring": "*",
         "ext-openssl": "*",
-        "illuminate/contracts": "5.0.*",
-        "illuminate/support": "5.0.*",
-        "symfony/security-core": "2.6.*"
+        "illuminate/contracts": "5.1.*",
+        "illuminate/support": "5.1.*"
     },
     "autoload": {
         "psr-4": {
@@ -27,8 +27,11 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "5.0-dev"
+            "dev-master": "5.1-dev"
         }
+    },
+    "suggest": {
+        "paragonie/random_compat": "Provides a compatible interface like PHP7's random_bytes() in PHP 5 projects (~1.1)."
     },
     "minimum-stability": "dev"
 }

@@ -2,7 +2,7 @@
 
 namespace Doctrine\Common\Cache;
 
-use Predis\Client;
+use Predis\ClientInterface;
 
 /**
  * Predis cache provider.
@@ -12,16 +12,16 @@ use Predis\Client;
 class PredisCache extends CacheProvider
 {
     /**
-     * @var Client
+     * @var ClientInterface
      */
     private $client;
 
     /**
-     * @param Client $client
+     * @param ClientInterface $client
      *
      * @return void
      */
-    public function __construct(Client $client)
+    public function __construct(ClientInterface $client)
     {
         $this->client = $client;
     }
@@ -36,7 +36,7 @@ class PredisCache extends CacheProvider
             return false;
         }
 
-        return $result;
+        return unserialize($result);
     }
 
     /**
@@ -46,8 +46,9 @@ class PredisCache extends CacheProvider
     {
         $fetchedItems = call_user_func_array(array($this->client, 'mget'), $keys);
 
-        return array_filter(array_combine($keys, $fetchedItems));
+        return array_map('unserialize', array_filter(array_combine($keys, $fetchedItems)));
     }
+
     /**
      * {@inheritdoc}
      */
@@ -61,6 +62,7 @@ class PredisCache extends CacheProvider
      */
     protected function doSave($id, $data, $lifeTime = 0)
     {
+        $data = serialize($data);
         if ($lifeTime > 0) {
             $response = $this->client->setex($id, $lifeTime, $data);
         } else {
@@ -75,7 +77,7 @@ class PredisCache extends CacheProvider
      */
     protected function doDelete($id)
     {
-        return $this->client->del($id) > 0;
+        return $this->client->del($id) >= 0;
     }
 
     /**
@@ -96,8 +98,8 @@ class PredisCache extends CacheProvider
         $info = $this->client->info();
 
         return array(
-            Cache::STATS_HITS              => false,
-            Cache::STATS_MISSES            => false,
+            Cache::STATS_HITS              => $info['Stats']['keyspace_hits'],
+            Cache::STATS_MISSES            => $info['Stats']['keyspace_misses'],
             Cache::STATS_UPTIME            => $info['Server']['uptime_in_seconds'],
             Cache::STATS_MEMORY_USAGE      => $info['Memory']['used_memory'],
             Cache::STATS_MEMORY_AVAILABLE  => false

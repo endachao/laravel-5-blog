@@ -1,9 +1,9 @@
 <?php
 
 /*
- * This file is part of Psy Shell
+ * This file is part of Psy Shell.
  *
- * (c) 2012-2014 Justin Hileman
+ * (c) 2012-2015 Justin Hileman
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,6 @@
 
 namespace Psy;
 
-use PhpParser\Lexer;
 use PhpParser\NodeTraverser;
 use PhpParser\Parser;
 use PhpParser\PrettyPrinter\Standard as Printer;
@@ -53,7 +52,12 @@ class CodeCleaner
      */
     public function __construct(Parser $parser = null, Printer $printer = null, NodeTraverser $traverser = null)
     {
-        $this->parser    = $parser    ?: new Parser(new Lexer());
+        if ($parser === null) {
+            $parserFactory = new ParserFactory();
+            $parser        = $parserFactory->createParser();
+        }
+
+        $this->parser    = $parser;
         $this->printer   = $printer   ?: new Printer();
         $this->traverser = $traverser ?: new NodeTraverser();
 
@@ -101,7 +105,7 @@ class CodeCleaner
      */
     public function clean(array $codeLines, $requireSemicolons = false)
     {
-        $stmts = $this->parse("<?php " . implode(PHP_EOL, $codeLines) . PHP_EOL, $requireSemicolons);
+        $stmts = $this->parse('<?php ' . implode(PHP_EOL, $codeLines) . PHP_EOL, $requireSemicolons);
         if ($stmts === false) {
             return false;
         }
@@ -149,6 +153,10 @@ class CodeCleaner
         try {
             return $this->parser->parse($code);
         } catch (\PhpParser\Error $e) {
+            if ($this->parseErrorIsUnclosedString($e, $code)) {
+                return false;
+            }
+
             if (!$this->parseErrorIsEOF($e)) {
                 throw ParseErrorException::fromParseError($e);
             }
@@ -170,6 +178,33 @@ class CodeCleaner
     {
         $msg = $e->getRawMessage();
 
-        return ($msg === "Unexpected token EOF") || (strpos($msg, "Syntax error, unexpected EOF") !== false);
+        return ($msg === 'Unexpected token EOF') || (strpos($msg, 'Syntax error, unexpected EOF') !== false);
+    }
+
+    /**
+     * A special test for unclosed single-quoted strings.
+     *
+     * Unlike (all?) other unclosed statements, single quoted strings have
+     * their own special beautiful snowflake syntax error just for
+     * themselves.
+     *
+     * @param \PhpParser\Error $e
+     * @param string           $code
+     *
+     * @return bool
+     */
+    private function parseErrorIsUnclosedString(\PhpParser\Error $e, $code)
+    {
+        if ($e->getRawMessage() !== 'Syntax error, unexpected T_ENCAPSED_AND_WHITESPACE') {
+            return false;
+        }
+
+        try {
+            $this->parser->parse($code . "';");
+        } catch (\Exception $e) {
+            return false;
+        }
+
+        return true;
     }
 }

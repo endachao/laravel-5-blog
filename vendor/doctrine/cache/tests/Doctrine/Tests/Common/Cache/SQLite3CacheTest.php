@@ -6,12 +6,13 @@ use Doctrine\Common\Cache\Cache;
 use Doctrine\Common\Cache\SQLite3Cache;
 use SQLite3;
 
+/**
+ * @requires extension sqlite3
+ */
 class SQLite3Test extends CacheTest
 {
-    /**
-     * @var SQLite3
-     */
-    private $file, $sqlite;
+    private $file;
+    private $sqlite;
 
     protected function setUp()
     {
@@ -41,6 +42,9 @@ class SQLite3Test extends CacheTest
         $this->assertEquals($data, $this->_getCacheDriver()->fetch($id));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     protected function _getCacheDriver()
     {
         return new SQLite3Cache($this->sqlite, 'test_table');
