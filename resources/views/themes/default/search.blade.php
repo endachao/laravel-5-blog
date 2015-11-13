@@ -58,7 +58,7 @@
     </div>
     <div class="pagination text-align">
         <nav>
-           {!! $articleList['page']->render($page) !!}
+           {!! $articleList['page']->appends(['keyword' => $keyword])->render($page) !!}
         </nav>
     </div>
     <!-- /pagination -->
