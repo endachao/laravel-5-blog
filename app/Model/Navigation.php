@@ -11,47 +11,19 @@ class Navigation extends Model
     public $child;
 
     protected $fillable = [
-        'parent_id',
         'sequence',
         'name',
         'url'
     ];
 
-    static $navigation = [
-        0 => '顶级导航'
-    ];
+    static $navigation = [];
 
-    public static function getNavigationAll()
+    public static function getNavigationAll($limit = 5)
     {
-        return self::orderBy('sequence', 'asc')->get();
+        return self::orderBy('sequence', 'asc')->limit($limit)->get();
     }
 
-    /**
-     * 方便以后扩展
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
-     */
-    public static function getTreeNavigationAll()
-    {
-        return tree(self::getNavigationAll());
-    }
 
-    /**
-     * 获取所有导航
-     * @return array
-     */
-    public static function getNavigationArray()
-    {
-        if (empty(self::$navigation)) {
-            $model = self::getTreeNavigationAll();
-
-            if (!empty($model)) {
-                foreach ($model as $nav) {
-                    self::$navigation[$nav->id] = $nav->html . $nav->name;
-                }
-            }
-        }
-        return self::$navigation;
-    }
 
     /**
      * 获得导航名称
@@ -67,46 +39,5 @@ class Navigation extends Model
             }
         }
         return isset(self::$navigation[$id]) ? self::$navigation[$id] : '';
-    }
-
-    /**
-     * 获取子导航
-     * @param $id
-     * @return mixed
-     */
-    public static function getChildNav($id)
-    {
-        return self::where('parent_id', $id)->get();
-    }
-
-
-    /**
-     * 是否包含子级
-     * @param $id
-     * @return bool
-     */
-    public static function isChildNav($id)
-    {
-        $child = self::where('parent_id', '=', $id)->first();
-        return !empty($child) ? true : false;
-    }
-
-    public static function getNavList()
-    {
-        $model = self::getNavigationAll();
-        $data = [];
-        if (!empty($model)) {
-            foreach ($model as $key => $nav) {
-                if($nav->parent_id == 0){
-                    $data[$key] = $nav;
-                    foreach ($model as $navigation) {
-                        if ($navigation->parent_id == $nav->id) {
-                            $data[$key]->child[] = $navigation;
-                        }
-                    }
-                }
-            }
-        }
-        return $data;
     }
 }

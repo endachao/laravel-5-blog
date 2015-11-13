@@ -12,6 +12,10 @@
                 <a href="{{ url(route('backend.nav.index')) }}">导航设置</a>
             </li>
 
+            <li>
+                <a href="{{ url(route('backend.links.index')) }}">友链管理</a>
+            </li>
+
         </ul>
     </div>
 </div>

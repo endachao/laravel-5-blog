@@ -20,13 +20,6 @@
             {!! Form::model($nav, ['route' => ['backend.nav.update', $nav->id], 'method' => 'put','class'=>'form-horizontal']) !!}
 
             <div class="form-group">
-                <label for="inputEmail3" class="col-sm-2 control-label">上级导航</label>
-                <div class="col-sm-3">
-                    {{ App\Model\Navigation::getNavNameByNavId($nav->parent_id) }}
-                    {!! Form::hidden('parent_id',$nav->parent_id) !!}
-                </div>
-            </div>
-            <div class="form-group">
                 <label for="inputPassword3" class="col-sm-2 control-label">排序</label>
                 <div class="col-sm-3">
                     {!! Form::text('sequence', $nav->sequence, ['class' => 'form-control','placeholder'=>'sequence']) !!}

@@ -17,5 +17,5 @@ return array(
     $vendorDir . '/laravel/framework/src/Illuminate/Foundation/helpers.php',
     $vendorDir . '/laravel/framework/src/Illuminate/Support/helpers.php',
     $vendorDir . '/mews/captcha/src/helpers.php',
-    $baseDir . '/app/helpers/functions.php',
+    $baseDir . '/helpers/functions.php',
 );

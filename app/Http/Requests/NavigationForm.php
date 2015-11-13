@@ -14,7 +14,6 @@ class NavigationForm extends BackendForm
     {
 
         return [
-            'parent_id' => 'required|integer',
             'sequence' => 'required|integer',
             'name' => 'required',
             'url' => 'required|url',

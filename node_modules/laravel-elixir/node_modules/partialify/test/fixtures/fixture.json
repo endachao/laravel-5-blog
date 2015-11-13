@@ -1,0 +1,6 @@
+{
+  "name": "partialify",
+  "version": "1.0.0",
+  "description": "require()-able HTML, CSS, JSON and (potentially) more",
+  "main": "index.js"
+}

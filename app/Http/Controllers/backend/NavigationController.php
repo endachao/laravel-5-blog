@@ -23,9 +23,9 @@ class NavigationController extends Controller
      */
     public function index()
     {
-        //
+
         return backendView('index', [
-            'list' => Navigation::getTreeNavigationAll(),
+            'list' => Navigation::getNavigationAll(),
         ]);
     }
 
@@ -34,14 +34,10 @@ class NavigationController extends Controller
      *
      * @return Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
-        $parentId = $request->input('parentId', 0);
-
-        return backendView('create', [
-            'parent_id' => $parentId
-        ]);
+        return backendView('create');
     }
 
     /**
@@ -52,14 +48,13 @@ class NavigationController extends Controller
     public function store(NavigationForm $request)
     {
 
-        //
         try {
             if (Navigation::create($request->all())) {
                 Notification::success('添加成功');
                 return redirect()->route('backend.nav.index');
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withInput();
+            return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
     }
 
@@ -97,16 +92,12 @@ class NavigationController extends Controller
      */
     public function update(NavigationForm $request, $id)
     {
-        //
 
         try {
-            $data = $request->all();
-            unset($data['_method']);
-            unset($data['_token']);
-            if (Navigation::where('id', $id)->update($data)) {
+            if (Navigation::find($id)->update($request->all())) {
                 Notification::success('修改成功');
-                return redirect()->route('backend.nav.index');
             }
+            return redirect()->route('backend.nav.index');
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(array('error' => $e->getMessage()))->withInput();
         }
@@ -121,17 +112,14 @@ class NavigationController extends Controller
      */
     public function destroy($id)
     {
-        //
-        if (Navigation::isChildNav($id)) {
-            Notification::error('该导航包含子导航，请先删除');
-        } else {
-            try {
-                Navigation::destroy($id);
-                Notification::success('删除成功');
-            } catch (\Exception $e) {
-                Notification::error($e->getMessage());
-            }
+
+        try {
+            Navigation::destroy($id);
+            Notification::success('删除成功');
+        } catch (\Exception $e) {
+            Notification::error($e->getMessage());
         }
+
 
         return redirect()->route('backend.nav.index');
     }

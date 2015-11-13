@@ -204,7 +204,7 @@ class Article extends Model
         $page = Input::get('page', 1);
         $cacheName = $page . '_' . md5($keyword);
 
-        if ($model = empty(Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->get(self::REDIS_SEARCH_ARTICLE_CACHE . $cacheName))) {
+        if (empty($model = Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->get(self::REDIS_SEARCH_ARTICLE_CACHE . $cacheName))) {
             $model = self::select('id')->where('title', 'like', "%$keyword%")->orderBy('id', 'desc')->simplePaginate(10);
             Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->put(self::REDIS_SEARCH_ARTICLE_CACHE . $cacheName, $model, self::$cacheMinutes);
         }

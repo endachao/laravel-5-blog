@@ -1,0 +1,128 @@
+.home .site-header {
+    background: #ffffff;
+    color: #fff
+}
+
+
+.home .banner .collection-head {
+    padding: 4rem 0;
+    color: #fff;
+    background: 0 0;
+    box-shadow: none;
+    -webkit-box-shadow: none
+}
+
+.home .site-header {
+    border-bottom: none
+}
+
+.home .site-header h1 a {
+    color: #777
+}
+
+.home .site-header .site-header-nav-item {
+    color: #777
+}
+
+.home .site-header .site-header-nav-item:hover {
+    color: #f4645f
+}
+.banner{
+    background-image:  url('../../images/header.jpg');
+}
+
+
+a:hover{
+    color: #f4645f;
+    text-decoration: none;
+}
+
+.widget .tag-cloud a {
+    border: 1px solid #ebebeb;
+    padding: 2px 7px;
+    color: #959595;
+    line-height: 1.2em;
+    display: inline-block;
+    margin: 0 7px 7px 0;
+    -webkit-transition: all 0.2s ease;
+    -o-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+
+.widget .tag-cloud a:hover {
+    color: #ffffff;
+    background: #f4645f;
+    border: 1px solid #f4645f;
+    text-decoration: none;
+}
+
+.tag-cloud{
+    padding: 1px 10px;
+}
+
+.pager {
+    padding-left: 0;
+    margin: 20px 0;
+    text-align: center;
+    list-style: none;
+    font-size: 14px;
+}
+
+.pager li {
+    display: inline;
+}
+
+.pager li>a, .pager li>span {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+
+.pager .previous>a, .pager .previous>span {
+    float: left;
+}
+
+
+.demo_search {
+    display: inline-block;
+    padding: 6px 10px 15px;
+    margin-left: 1.25rem;
+    height:27px;
+}
+
+
+.demo_search .demo_sinput {
+    float:left;
+    height:19px;
+    line-height:19px;
+    padding:3px 5px;
+    border:#ebebeb 1px solid;
+    background:white;
+    color:#888;
+    font-size:12px;
+
+    width:200px;
+	display:none;
+}
+
+
+
+
+.icon_search{
+	background:url(../../images/search.png) no-repeat 1% 50%;
+	width:28px;
+	height:28px;
+	display:block;
+	cursor:pointer;
+}
+
+.img-circle {
+    border-radius: 50%;
+}
+#author img {
+    width: 80px;
+    height: 80px;
+    top: 2em;
+}

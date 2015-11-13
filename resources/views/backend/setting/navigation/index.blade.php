@@ -21,18 +21,10 @@
                         @foreach($list as $k=> $v)
                         <tr>
                             <th scope="row">{{ $v->id }}</th>
-                            <td>{{ $v->html }}{{ $v->name }}</td>
+                            <td>{{ $v->name }}</td>
                             <td>{{ $v->url }}</td>
                             <td>{{ $v->created_at }}</td>
                             <td class="text-right">
-
-
-                                @if($v->parent_id == 0)
-                                    <a href="{{ url(route('backend.nav.create',['parentId'=>$v->id])) }} " style="margin-right: 10px;" class="btn btn-info"  >
-                                        添加导航
-                                    </a>
-                                @endif
-
                                 {!! Form::open([
                                     'route' => array('backend.nav.destroy', $v->id),
                                     'method' => 'delete',

@@ -15,6 +15,7 @@ return [
         'tags'=>CONTENT.'tags.',
         'system'=>SYSTEM.'system.',
         'navigation'=>SYSTEM.'navigation.',
+        'links'=>SYSTEM.'links.',
         'user'=>USER,
         'comment'=>CONTENT.'comment.'
     ],

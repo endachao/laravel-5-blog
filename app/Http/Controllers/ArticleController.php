@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Components\EndaPage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -9,47 +10,43 @@ use Illuminate\Http\Request;
 use App\Model\ArticleStatus;
 use App\Model\Article;
 
-class ArticleController extends Controller {
+class ArticleController extends Controller
+{
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
-	public function index()
-	{
-		//
-        $article = Article::getNewsArticle();
-        $hotArticle = Article::getHotArticle(3);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        //
+        $article = Article::getNewsArticle(8);
         viewInit();
-        return homeView('index',array(
-            'article'=>$article,
-            'hotArticle'=>$hotArticle
+        $page = new EndaPage($article['page']);
+        return homeView('index', array(
+            'articleList' => $article,
+            'page' => $page
         ));
-	}
+    }
 
 
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
+    /**
+     * Display the specified resource.
+     *
+     * @param  int $id
+     * @return Response
+     */
+    public function show($id)
+    {
         $article = Article::getArticleModelByArticleId($id);
-        $tags = Tag::getTagModelByTagIds($article->tags);
-        $authorArticle = Article::getArticleModelByUserId($article->user_id);
 
         ArticleStatus::updateViewNumber($id);
         $data = array(
-            'article'=>$article,
-            'tags'=>$tags,
-            'authorArticle'=>$authorArticle,
+            'article' => $article,
         );
         viewInit();
-        return homeView('article',$data);
-	}
+        return homeView('article', $data);
+    }
 
 }

@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Components\EndaPage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -14,16 +15,17 @@ class SearchController extends Controller
     public function getKeyword(Request $request)
     {
         $keyword = $request->input('keyword');
-        if(empty($keyword)){
+        if (empty($keyword)) {
             return redirect()->route('article.index');
         }
         $article = Article::getArticleListByKeyword($keyword);
 
-
+        $page = new EndaPage($article['page']);
         viewInit();
         return homeView('search', [
-            'article' => $article,
-            'keyword' => $keyword
+            'articleList' => $article,
+            'keyword' => $keyword,
+            'page' => $page
         ]);
 
     }
@@ -32,11 +34,12 @@ class SearchController extends Controller
     {
 
         $article = Article::getArticleListByTagId($id);
-
+        $page = new EndaPage($article['page']);
         viewInit();
         return homeView('searchTag', [
-            'article' => $article,
-            'tagName'=> Tag::getTagNameByTagId($id)
+            'articleList' => $article,
+            'tagName' => Tag::getTagNameByTagId($id),
+            'page' => $page
         ]);
     }
 
