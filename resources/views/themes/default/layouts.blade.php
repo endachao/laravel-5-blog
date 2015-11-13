@@ -73,7 +73,7 @@
                 <a href="javascript:window.scrollTo(0,0)" >TOP</a>
             </li>
         </ul>
-        <a href="#" target="_blank" aria-label="view source code">
+        <a href="https://github.com/yccphp/laravel-5-blog" target="_blank" aria-label="view source code">
             <span class="mega-octicon octicon-mark-github" title="GitHub"></span>
         </a>
 
