@@ -5,5 +5,5 @@
  */
 
 return [
-    'disqus_shortname' => 'phpyc'   // 修改为你的id
+    'disqus_shortname' => 'you disqus id'   // 修改为你的id
 ];
