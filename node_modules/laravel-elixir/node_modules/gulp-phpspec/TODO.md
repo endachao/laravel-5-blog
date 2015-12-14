@@ -1,3 +1,0 @@
-### TODOs
-| Filename | line # | TODO
-|:------|:------:|:------
