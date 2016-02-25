@@ -178,7 +178,7 @@ class Article extends Model
     public static function getHotArticle($limit = 3)
     {
         $cacheName = $limit;
-        if (empty($model = Cache::get(self::REDIS_HOT_ARTICLE_CACHE.$cacheName))) {
+        if (empty($model = Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->get(self::REDIS_HOT_ARTICLE_CACHE.$cacheName))) {
             $select = [
                 'article.id',
                 'article.pic',
@@ -187,7 +187,7 @@ class Article extends Model
                 'article_status.view_number',
             ];
             $model = self::select($select)->leftJoin('article_status', 'article.id', '=', 'article_status.art_id')->orderBy('article_status.view_number', 'desc')->limit($limit)->get();
-            Cache::add(self::REDIS_HOT_ARTICLE_CACHE.$cacheName, $model, self::$cacheMinutes);
+            Cache::tags(self::REDIS_ARTICLE_PAGE_TAG)->add(self::REDIS_HOT_ARTICLE_CACHE.$cacheName, $model, self::$cacheMinutes);
         }
 
         return $model;

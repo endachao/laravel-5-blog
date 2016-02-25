@@ -26,20 +26,10 @@ Blog system development based on laravel  5.1.*
 4. 2015.9.4 修改评论为DISQUS
 5. 2015.11.12 更新版本为5.1
 6. 2015.11.13 新的主题 完成
-
-### 2.0 开发日志
-
-1. 修改框架版本为 5.1 	［已完成］
-2. 新的主题				［已完成］
-4. 友情链接管理			［已完成］
-5. 新增搜索关键字统计		［计划中］
-6. 新增文章版权申明		［计划中］
-7. 代码优化				［计划中］
+7. 2015.12.09 友情链接管理
 
 
-### 升级为 2.0
 
-从 github 更新后，执行一下 `composer dump-autoload`,然后执行 `php artisan migrate` 
 
 ###Usage
 ---
@@ -55,25 +45,24 @@ Blog system development based on laravel  5.1.*
 	> 如果没有安装过composer请先安装：<br>
  	http://www.phpcomposer.com/
 	```
-	// 因为我提交的时候,为了避免大家重新下载各种包，我直接提交了 vendor ，所以执行 composer dump-autoload 就行
 	cd laravel-5-blog/
-	composer dump-autoload	
+	composer install
 	```
 
 1. 修改 `.env.example` 为 `.env` 
 
 1. 修改数据库配置`.env`,在数据库中创建一个`库`,把配置信息填写到配置文件中
 
-1. 修改`storage/` 目录权限为可写,*nix下 执行：
+1. 修改`storage/` 的目录权限,*nix下 执行：
 
     ```
-    sudo chmod -R 755 storage/
+    sudo chmod -R 777 storage/
     ```
 
 1. 修改`public/uploads` 目录权限为可写,*nix下 执行：
 
     ```
-    sudo chmod -R 755 public/uploads/
+    sudo chmod -R 777 public/uploads/
 
     ```
 
@@ -108,8 +97,6 @@ Blog system development based on laravel  5.1.*
 1. 先注册账户 https://disqus.com/ 得到你的站点 id
 2. 修改配置文件 `config/disqus.php` 里面的 `disqus_shortname` 配置项为你刚得到的 id
 3. 安装完成
-4. 如果你是在 9.4 号之前下载安装的，需要执行一下 `php artisan migrate` 清理一下数据库，新安装的不用理会
-
 
 
 ###缓存
