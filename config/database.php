@@ -112,7 +112,7 @@ return [
 
 	'redis' => [
 
-		'cluster' => true,
+		'cluster' => false,
 
 		'default' => [
 			'host'     => '127.0.0.1',
