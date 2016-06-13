@@ -188,9 +188,10 @@ if (!function_exists('uploadFile')) {
 }
 
 if (!function_exists('tree')) {
+    //重新写分类树
     function tree($model, $parentId = 0, $level = 0, $html = '-')
     {
-        $data = array();
+        static $list = array();
         foreach ($model as $k => $v) {
             if ($v->parent_id == $parentId) {
                 if ($level != 0) {
@@ -198,11 +199,12 @@ if (!function_exists('tree')) {
                     $v->html .= '|';
                 }
                 $v->html .= str_repeat($html, $level);
-                $data[] = $v;
-                $data = array_merge($data, tree($model, $v->id, $level + 1));
+                $list[] = $v;
+                tree($model, $v->id, $level + 1);
             }
         }
-        return $data;
+
+        return $list;
     }
 }
 
