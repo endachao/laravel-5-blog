@@ -4,7 +4,7 @@ Blog system development based on laravel  5.1.*
 
 # Demo
 
-演示地址：[http://www.phpyc.com/](http://www.phpyc.com/)
+演示地址：暂无
 
 # Warning
 
